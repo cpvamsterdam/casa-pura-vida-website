@@ -1,7 +1,17 @@
 const { getStore } = require('@netlify/blobs');
 
-// Single shared store for all admin/auth/booking data.
+// Netlify is supposed to auto-configure Blobs access for Functions, but this
+// sometimes fails in production with "MissingBlobsEnvironmentError" (a known,
+// currently-active Netlify platform issue). As a reliable fallback, we support
+// explicitly supplying the site ID and a Personal Access Token via environment
+// variables. If both are set, we use them; otherwise we fall back to relying
+// on Netlify's automatic configuration.
 function store() {
+  const siteID = process.env.BLOBS_SITE_ID;
+  const token = process.env.BLOBS_TOKEN;
+  if (siteID && token) {
+    return getStore({ name: 'casa-pura-vida-admin', siteID, token });
+  }
   return getStore('casa-pura-vida-admin');
 }
 
