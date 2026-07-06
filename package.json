@@ -1,0 +1,9 @@
+{
+  "name": "casa-pura-vida-booking-admin",
+  "version": "1.0.0",
+  "description": "Password + email-OTP protected booking admin for Casa Pura Vida Amsterdam",
+  "private": true,
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
