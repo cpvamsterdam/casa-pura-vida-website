@@ -98,24 +98,34 @@
   </div>
   <div class="cal-grid" id="calGrid"></div>
 
-  <div class="section-title">Base pricing</div>
+  <div class="section-title">Base pricing (EUR)</div>
   <div class="two-col">
     <div>
-      <label for="basePriceInput">Base price / night (₪, up to 6 guests)</label>
+      <label for="basePriceInput">Base price / night (€, up to 6 guests, regular dates)</label>
       <input type="number" id="basePriceInput">
     </div>
     <div>
-      <label for="extraGuestInput">Extra guest / night (₪)</label>
+      <label for="extraGuestInput">Extra guest / night (€, beyond 6, up to 12)</label>
       <input type="number" id="extraGuestInput">
     </div>
   </div>
+  <div class="two-col">
+    <div>
+      <label for="minNightsInput">Minimum nights (year-round)</label>
+      <input type="number" id="minNightsInput" min="1">
+    </div>
+    <div>
+      <label for="vatRateInput">VAT rate (%, e.g. 21 for 21%)</label>
+      <input type="number" id="vatRateInput" min="0" step="0.1">
+    </div>
+  </div>
 
-  <div class="section-title">Seasonal price overrides</div>
+  <div class="section-title">Holiday dates (higher rate)</div>
   <div id="seasonList"></div>
   <div class="price-row">
     <div><label>Start date</label><input type="date" id="seasonStart"></div>
     <div><label>End date</label><input type="date" id="seasonEnd"></div>
-    <div><label>Price/night (₪)</label><input type="number" id="seasonPrice"></div>
+    <div><label>Price/night (€)</label><input type="number" id="seasonPrice"></div>
     <button class="btn-secondary" id="addSeasonBtn" style="height:44px;">Add</button>
   </div>
 
@@ -218,8 +228,10 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
 async function loadDashboard() {
   const res = await fetch(`${API}/calendar`);
   bookingData = await res.json();
-  document.getElementById('basePriceInput').value = bookingData.basePriceILS;
-  document.getElementById('extraGuestInput').value = bookingData.extraGuestPriceILS;
+  document.getElementById('basePriceInput').value = bookingData.basePriceEUR;
+  document.getElementById('extraGuestInput').value = bookingData.extraGuestPriceEUR;
+  document.getElementById('minNightsInput').value = bookingData.minNights;
+  document.getElementById('vatRateInput').value = Math.round(bookingData.vatRate * 1000) / 10;
   renderSeasons();
   renderCalendar();
 }
@@ -227,13 +239,13 @@ async function loadDashboard() {
 function renderSeasons() {
   const list = document.getElementById('seasonList');
   list.innerHTML = '';
-  bookingData.seasonalPrices.forEach((s, i) => {
+  (bookingData.holidayDates || []).forEach((s, i) => {
     const div = document.createElement('div');
     div.className = 'season-item';
-    div.innerHTML = `<span>${s.start} → ${s.end}: ₪${s.pricePerNightILS}/night</span>`;
+    div.innerHTML = `<span>${s.start} → ${s.end}: €${s.priceEUR}/night</span>`;
     const btn = document.createElement('button');
     btn.textContent = 'Remove';
-    btn.addEventListener('click', () => { bookingData.seasonalPrices.splice(i, 1); renderSeasons(); });
+    btn.addEventListener('click', () => { bookingData.holidayDates.splice(i, 1); renderSeasons(); });
     div.appendChild(btn);
     list.appendChild(div);
   });
@@ -244,7 +256,7 @@ document.getElementById('addSeasonBtn').addEventListener('click', () => {
   const end = document.getElementById('seasonEnd').value;
   const price = parseFloat(document.getElementById('seasonPrice').value);
   if (!start || !end || !price) return toast('Fill in start, end, and price first.');
-  bookingData.seasonalPrices.push({ start, end, pricePerNightILS: price });
+  bookingData.holidayDates.push({ start, end, priceEUR: price });
   document.getElementById('seasonStart').value = '';
   document.getElementById('seasonEnd').value = '';
   document.getElementById('seasonPrice').value = '';
@@ -288,8 +300,10 @@ document.getElementById('calPrev').addEventListener('click', () => { calViewDate
 document.getElementById('calNext').addEventListener('click', () => { calViewDate.setMonth(calViewDate.getMonth() + 1); renderCalendar(); });
 
 document.getElementById('saveBtn').addEventListener('click', async () => {
-  bookingData.basePriceILS = parseFloat(document.getElementById('basePriceInput').value) || bookingData.basePriceILS;
-  bookingData.extraGuestPriceILS = parseFloat(document.getElementById('extraGuestInput').value) || bookingData.extraGuestPriceILS;
+  bookingData.basePriceEUR = parseFloat(document.getElementById('basePriceInput').value) || bookingData.basePriceEUR;
+  bookingData.extraGuestPriceEUR = parseFloat(document.getElementById('extraGuestInput').value) || bookingData.extraGuestPriceEUR;
+  bookingData.minNights = parseInt(document.getElementById('minNightsInput').value, 10) || bookingData.minNights;
+  bookingData.vatRate = (parseFloat(document.getElementById('vatRateInput').value) || (bookingData.vatRate * 100)) / 100;
   const res = await fetch(`${API}/calendar`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(bookingData),
