@@ -192,24 +192,37 @@
   .cal-title{font-weight:600; font-size:15px;}
   .cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; text-align:center;}
   .cal-grid .dow{font-size:11.5px; color:var(--ink-soft); font-weight:600; padding-bottom:6px;}
-  .cal-grid .day{aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; border-radius:8px; font-size:13.5px; background:var(--off-white);}
-  .cal-grid .day.avail{background:#E4F1E8; color:#2A6B3E; font-weight:600;}
-  .cal-grid .day.booked{background:#F3E3E3; color:#9B4646; text-decoration:line-through; opacity:.7;}
-  .cal-grid .day.empty{background:transparent;}
-  .cal-legend{display:flex; gap:18px; margin-top:14px; font-size:12.5px; color:var(--ink-soft);}
+  .cal-grid .day{aspect-ratio:1/1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:10px; font-size:13.5px; background:var(--off-white); cursor:pointer; border:1.5px solid transparent; position:relative;}
+  .cal-grid .day .d-num{font-weight:600;}
+  .cal-grid .day .d-price{font-size:9.5px; color:var(--ink-soft); margin-top:1px;}
+  .cal-grid .day.avail:hover{border-color:var(--canal);}
+  .cal-grid .day.holiday{background:#F7EDDC;}
+  .cal-grid .day.holiday .d-price{color:var(--brass); font-weight:700;}
+  .cal-grid .day.booked{background:#F3E3E3; color:#9B4646; text-decoration:line-through; opacity:.65; cursor:not-allowed;}
+  .cal-grid .day.past{opacity:.35; cursor:not-allowed;}
+  .cal-grid .day.empty{background:transparent; cursor:default;}
+  .cal-grid .day.in-range{background:var(--canal); color:#fff;}
+  .cal-grid .day.in-range .d-price{color:rgba(255,255,255,.85);}
+  .cal-grid .day.range-edge{background:var(--canal-deep); color:#fff; border-color:var(--canal-deep);}
+  .cal-grid .day.range-edge .d-price{color:rgba(255,255,255,.85);}
+  .cal-legend{display:flex; gap:16px; margin-top:14px; font-size:12px; color:var(--ink-soft); flex-wrap:wrap;}
   .cal-legend span{display:inline-flex; align-items:center; gap:6px;}
-  .dot{width:9px; height:9px; border-radius:50%; display:inline-block;}
-  .dot.avail{background:#4E9D68;} .dot.booked{background:#C46767;}
-  .price-box{margin-top:16px; padding:14px 16px; background:var(--canal-tint); border-radius:12px;}
-  .price-box-main{font-size:16px; font-weight:700; color:var(--canal-deep); margin-bottom:8px;}
+  .dot{width:9px; height:9px; border-radius:3px; display:inline-block;}
+  .dot.avail{background:var(--off-white); border:1px solid var(--line);} .dot.holiday{background:#F7EDDC; border:1px solid var(--brass);} .dot.booked{background:#C46767;} .dot.selected{background:var(--canal);}
+  .price-box{margin-top:16px; padding:16px 18px; background:var(--canal-tint); border-radius:12px;}
+  .price-box-main{font-size:15px; font-weight:700; color:var(--canal-deep); margin-bottom:4px;}
   .price-box-main #priceValue{font-size:19px;}
+  .price-lines{font-size:12.5px; color:var(--ink-soft); margin-top:8px; border-top:1px solid rgba(47,107,115,.15); padding-top:8px;}
+  .price-lines div{display:flex; justify-content:space-between; margin-bottom:3px;}
+  .price-lines .total-line{font-weight:700; color:var(--ink); font-size:13.5px; margin-top:6px;}
   .price-box select{padding:7px 10px; border-radius:8px; border:1px solid var(--line); font-family:inherit; font-size:13px; background:#fff;}
   .price-note{font-size:11.5px; color:var(--ink-soft); margin-top:8px;}
 
   form.inquiry{display:grid; gap:14px;}
   form.inquiry label{font-size:13.5px; font-weight:600; display:block; margin-bottom:6px;}
-  form.inquiry input, form.inquiry textarea{width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14.5px; background:#fff;}
+  form.inquiry input, form.inquiry textarea, form.inquiry select{width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14.5px; background:#fff;}
   form.inquiry .row2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  form.inquiry .phone-row{display:grid; grid-template-columns:110px 1fr; gap:8px;}
   form.inquiry textarea{min-height:90px; resize:vertical;}
   .form-note{font-size:12.5px; color:var(--ink-soft); margin-top:4px;}
   .form-status{font-size:14px; margin-top:10px; font-weight:600;}
@@ -552,35 +565,28 @@
     <div class="section-inner booking" style="padding:56px;">
       <div class="eyebrow" data-i18n="bookEyebrow">Availability & booking</div>
       <h2 data-i18n="bookTitle" style="margin-bottom:8px;">Check dates, send a request</h2>
-      <p class="lead-text" data-i18n="bookLede" style="margin-bottom:32px;">Fill in your details and we'll reply within a business day with confirmation and final pricing.</p>
+      <p class="lead-text" data-i18n="bookLede" style="margin-bottom:32px;">Click your check-in and check-out dates below - the price updates instantly.</p>
       <div class="booking-grid">
         <div>
           <div class="calendar">
             <div class="cal-head">
-              <button id="calPrev" aria-label="Previous month">‹</button>
+              <button id="calPrev" aria-label="Previous month" type="button">‹</button>
               <div class="cal-title" id="calTitle"></div>
-              <button id="calNext" aria-label="Next month">›</button>
+              <button id="calNext" aria-label="Next month" type="button">›</button>
             </div>
             <div class="cal-grid" id="calGrid" aria-live="polite"></div>
             <div class="cal-legend">
               <span><i class="dot avail"></i><span data-i18n="legendAvail">Available</span></span>
+              <span><i class="dot holiday"></i><span data-i18n="legendHoliday">Holiday rate</span></span>
               <span><i class="dot booked"></i><span data-i18n="legendBooked">Booked</span></span>
+              <span><i class="dot selected"></i><span data-i18n="legendSelected">Selected</span></span>
             </div>
             <div class="price-box" id="priceBox">
-              <div class="price-box-main">
-                <span data-i18n="priceFrom">From</span>
-                <span id="priceValue">&nbsp;</span>
-                <span data-i18n="priceNight">/ night</span>
-              </div>
-              <select id="currencySelect" aria-label="Currency">
-                <option value="EUR">EUR €</option>
-                <option value="ILS">ILS ₪</option>
-                <option value="USD">USD $</option>
-              </select>
-              <div class="price-note" data-i18n="priceNote">Estimate only - final amount is charged in ILS by bank transfer.</div>
+              <div class="price-box-main" id="priceMainText" data-i18n="priceSelectPrompt">Select your check-in and check-out dates above</div>
+              <div class="price-lines" id="priceLines"></div>
             </div>
           </div>
-          <p class="form-note" style="margin-top:12px;" data-i18n="calNote">* This calendar is a live demo inside the chat. On the published site, replace it with a real booking engine (Smoobu / Lodgify) to prevent double-bookings against Airbnb and Booking.com.</p>
+          <p class="form-note" style="margin-top:12px;" data-i18n="calNote">* Minimum stay: 3 nights, year-round. Prices shown include VAT.</p>
         </div>
         <div>
           <form class="inquiry" id="inquiryForm">
@@ -588,11 +594,73 @@
               <div><label for="fName" data-i18n="fName">Full name</label><input id="fName" name="name" required></div>
               <div><label for="fEmail" data-i18n="fEmail">Email</label><input id="fEmail" name="email" type="email" required></div>
             </div>
-            <div class="row2">
-              <div><label for="fIn" data-i18n="fIn">Check-in</label><input id="fIn" name="checkin" type="date" required></div>
-              <div><label for="fOut" data-i18n="fOut">Check-out</label><input id="fOut" name="checkout" type="date" required></div>
+            <div>
+              <label for="fPhoneNumber" data-i18n="fPhone">Phone</label>
+              <div class="phone-row">
+                <select id="fPhoneCode" name="phoneCode" required aria-label="Country code">
+              <option value="+972">+972 Israel</option>
+              <option value="+31">+31 Netherlands</option>
+              <option value="+1">+1 USA/Canada</option>
+              <option value="+44">+44 UK</option>
+              <option value="+49">+49 Germany</option>
+              <option value="+33">+33 France</option>
+              <option value="+34">+34 Spain</option>
+              <option value="+39">+39 Italy</option>
+              <option value="+351">+351 Portugal</option>
+              <option value="+41">+41 Switzerland</option>
+              <option value="+43">+43 Austria</option>
+              <option value="+32">+32 Belgium</option>
+              <option value="+45">+45 Denmark</option>
+              <option value="+46">+46 Sweden</option>
+              <option value="+47">+47 Norway</option>
+              <option value="+358">+358 Finland</option>
+              <option value="+353">+353 Ireland</option>
+              <option value="+48">+48 Poland</option>
+              <option value="+420">+420 Czechia</option>
+              <option value="+36">+36 Hungary</option>
+              <option value="+30">+30 Greece</option>
+              <option value="+90">+90 Turkey</option>
+              <option value="+7">+7 Russia</option>
+              <option value="+380">+380 Ukraine</option>
+              <option value="+40">+40 Romania</option>
+              <option value="+359">+359 Bulgaria</option>
+              <option value="+385">+385 Croatia</option>
+              <option value="+386">+386 Slovenia</option>
+              <option value="+421">+421 Slovakia</option>
+              <option value="+370">+370 Lithuania</option>
+              <option value="+371">+371 Latvia</option>
+              <option value="+372">+372 Estonia</option>
+              <option value="+352">+352 Luxembourg</option>
+              <option value="+354">+354 Iceland</option>
+              <option value="+61">+61 Australia</option>
+              <option value="+64">+64 New Zealand</option>
+              <option value="+81">+81 Japan</option>
+              <option value="+82">+82 South Korea</option>
+              <option value="+86">+86 China</option>
+              <option value="+91">+91 India</option>
+              <option value="+65">+65 Singapore</option>
+              <option value="+852">+852 Hong Kong</option>
+              <option value="+971">+971 UAE</option>
+              <option value="+966">+966 Saudi Arabia</option>
+              <option value="+20">+20 Egypt</option>
+              <option value="+27">+27 South Africa</option>
+              <option value="+55">+55 Brazil</option>
+              <option value="+52">+52 Mexico</option>
+              <option value="+54">+54 Argentina</option>
+              <option value="+56">+56 Chile</option>
+              <option value="+57">+57 Colombia</option>
+              <option value="+51">+51 Peru</option>
+              <option value="+598">+598 Uruguay</option>
+              <option value="+593">+593 Ecuador</option>
+                </select>
+                <input id="fPhoneNumber" name="phoneNumber" type="tel" required placeholder="000000000">
+              </div>
             </div>
-            <div><label for="fGuests" data-i18n="fGuests">Guests</label><input id="fGuests" name="guests" type="number" min="1" max="12" value="2"></div>
+            <div class="row2">
+              <div><label for="fIn" data-i18n="fIn">Check-in</label><input id="fIn" name="checkin" type="date" required readonly></div>
+              <div><label for="fOut" data-i18n="fOut">Check-out</label><input id="fOut" name="checkout" type="date" required readonly></div>
+            </div>
+            <div><label for="fGuests" data-i18n="fGuests">Number of guests over age 2</label><input id="fGuests" name="guests" type="number" min="1" max="12" value="2" required></div>
             <div><label for="fMsg" data-i18n="fMsg">Message (optional)</label><textarea id="fMsg" name="message"></textarea></div>
             <button type="submit" class="btn btn-primary" data-i18n="fSubmit">Send booking request</button>
             <div class="form-status" id="formStatus" role="status"></div>
@@ -858,14 +926,14 @@ const translations = {
     cat5t:'Bathrooms', cat5i1:'Plush towels and bathrobes in every bathroom', cat5i2:'Toiletries including shampoo, conditioner and body soap', cat5i3:'Hair dryer',
     cat6t:'Bedrooms', cat6i1:'Master bedroom, King+ bed (210×200 cm), goose-down duvet and pillows, alternatives available on request', cat6i2:'Room 2, double bed, 160 cm wide', cat6i3:'Room 3, double bed, 140 cm wide', cat6i4:'Room 4, double bed, 140 cm wide', cat6i5:'Orthopaedic mattresses available on request', cat6i6:'Baby crib available on request',
     cat7t:'Getting around', cat7i1:'10 minutes from the airport', cat7i2:'10-20 minutes from every central point in the city; average one-way taxi fare €15-20', cat7i3:"The neighbourhood feels almost rural, walk along the lakes and canals past the area's distinctive houses, or cycle into the forest and the neighbouring village of Badhoevedorp", cat7i4:'Two supermarkets nearby, side by side: Albert Heijn and Lidl', cat7i5:'A 4-minute bike ride or 15-minute walk to the tram stop for lines 1 and 2, reaching every major location in Amsterdam',
-    bookEyebrow:'Availability & booking', bookTitle:'Check dates, send a request', bookLede:"Fill in your details and we'll reply within a business day with confirmation and final pricing.", priceFrom:'From', priceNight:'/ night', priceNote:'Estimate only - final amount is charged in ILS by bank transfer.',
-    legendAvail:'Available', legendBooked:'Booked', calNote:'* This calendar is a live demo inside the chat. On the published site, replace it with a real booking engine (Smoobu / Lodgify) to prevent double-bookings against Airbnb and Booking.com.',
-    fName:'Full name', fEmail:'Email', fIn:'Check-in', fOut:'Check-out', fGuests:'Guests', fMsg:'Message (optional)', fSubmit:'Send booking request',
+    bookEyebrow:'Availability & booking', bookTitle:'Check dates, send a request', bookLede:"Click your check-in and check-out dates below - the price updates instantly.", priceSelectPrompt:'Select your check-in and check-out dates above', minNightsWarning:'Minimum stay is {n} nights', nightsLabel:'nights', lineNights:'Nights', lineExtraGuests:'Extra guests', lineSubtotal:'Subtotal', lineVat:'VAT', lineTotal:'Total (incl. VAT)',
+    legendAvail:'Available', legendHoliday:'Holiday rate', legendBooked:'Booked', legendSelected:'Selected', calNote:'* Minimum stay: 3 nights, year-round. Prices shown include VAT.',
+    fName:'Full name', fEmail:'Email', fPhone:'Phone', fIn:'Check-in', fOut:'Check-out', fGuests:'Number of guests over age 2', fMsg:'Message (optional)', fSubmit:'Send booking request',
     locEyebrow:'Location', locTitle:'Sloten, Amsterdam, quiet, green, on the water', locBody:'The house sits in Sloten, on the western edge of Amsterdam, 10 minutes from the airport and 10-20 minutes from every central point in the city, yet surrounded by lakes, canals and forest. The exact address is provided at the time of booking, or in advance through our booking line.',
     a11yEyebrow:'Accessibility', a11yTitle:'Accessibility statement', a11yBody:'This site was built to be accessible to all users, in line with Israeli Standard 5568 (AA level) and the Equal Rights for Persons with Disabilities Law. It includes full keyboard navigation, alt text for images, adequate colour contrast, and support for assistive technology.',
     a11y1:'Full keyboard navigation, including a skip-to-content link', a11y2:'Screen reader support with ARIA labelling on interactive elements', a11y3:"Respects the user's reduced-motion preference", a11yContact:'Found an accessibility issue? Email us, info@casapuravidanl.com',
     footTag:'A private house on the water in Sloten, Amsterdam, with space for groups, families and couples.', footNavT:'Navigate', footContactT:'Contact', footLegal:'© 2026 Casa Pura Vida, Amsterdam. All rights reserved.', footPolicies:'Privacy Policy, Terms &amp; Cancellation Policy',
-    formSent:"Thank you! Your request has been sent, we'll reply soon.", formErr:'Please fill in all required fields.', a11yWidgetTitle:'Accessibility', a11yTextInc:'Larger text', a11yContrast:'High contrast', a11yUnderline:'Underline links', a11yMotion:'Reduce motion', a11yReset:'Reset'},
+    formSent:"Thank you! Your request has been sent, we'll reply soon.", formErr:'Please fill in all required fields.', formSendError:'Something went wrong sending your request - please try again or contact us directly.', a11yWidgetTitle:'Accessibility', a11yTextInc:'Larger text', a11yContrast:'High contrast', a11yUnderline:'Underline links', a11yMotion:'Reduce motion', a11yReset:'Reset'},
   es:{dir:'ltr', skip:'Ir al contenido principal', nav1:'La casa', nav2:'Galería', nav3:'Equipamiento', nav4:'Reservas', nav5:'Ubicación',
     heroEyebrow:'Casa de Vacaciones Frente al Canal<br><span class="he-line2">Ámsterdam, Países Bajos<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'Diseñada para Grupos, Familias y Parejas',
     ctaCheck:'Ver disponibilidad', ctaMore:'Descubrir la casa', photoPlaceholder:'Espacio para la foto principal, envía tus fotos y el video tour y se colocarán aquí',
@@ -882,14 +950,14 @@ const translations = {
     cat5t:'Baños', cat5i1:'Toallas y albornoces mullidos en cada baño', cat5i2:'Artículos de aseo, incluyendo champú, acondicionador y jabón corporal', cat5i3:'Secador de pelo',
     cat6t:'Dormitorios', cat6i1:'Dormitorio principal, cama King+ (210×200 cm), edredón y almohadas de plumón, con alternativas disponibles bajo petición', cat6i2:'Habitación 2, cama de matrimonio de 160 cm', cat6i3:'Habitación 3, cama de matrimonio de 140 cm', cat6i4:'Habitación 4, cama de matrimonio de 140 cm', cat6i5:'Colchones ortopédicos disponibles bajo petición', cat6i6:'Cuna para bebé disponible bajo petición',
     cat7t:'Cómo moverse', cat7i1:'A 10 minutos del aeropuerto', cat7i2:'10-20 minutos de cualquier punto central de la ciudad; tarifa media de taxi de ida: 15-20 €', cat7i3:'El barrio es rural, se puede pasear junto a los lagos y canales entre las casas características de la zona, o pedalear hacia el bosque y el pueblo vecino de Badhoevedorp', cat7i4:'Dos supermercados cercanos, uno junto al otro: Albert Heijn y Lidl', cat7i5:'A 4 minutos en bicicleta o 15 minutos a pie de la parada de tranvía de las líneas 1 y 2, que llegan a todos los puntos clave de Ámsterdam',
-    bookEyebrow:'Disponibilidad y reserva', bookTitle:'Consulta fechas, envía una solicitud', bookLede:'Completa tus datos y te responderemos en un día hábil con la confirmación y el precio final.', priceFrom:'Desde', priceNight:'/ noche', priceNote:'Solo estimado - el importe final se cobra en ILS por transferencia bancaria.',
-    legendAvail:'Disponible', legendBooked:'Reservado', calNote:'* Este calendario es una demostración en vivo dentro del chat. En el sitio publicado, reemplázalo por un motor de reservas real (Smoobu / Lodgify) para evitar reservas duplicadas con Airbnb y Booking.com.',
-    fName:'Nombre completo', fEmail:'Correo electrónico', fIn:'Entrada', fOut:'Salida', fGuests:'Huéspedes', fMsg:'Mensaje (opcional)', fSubmit:'Enviar solicitud de reserva',
+    bookEyebrow:'Disponibilidad y reserva', bookTitle:'Consulta fechas, envía una solicitud', bookLede:'Haz clic en tus fechas de entrada y salida abajo - el precio se actualiza al instante.', priceSelectPrompt:'Selecciona tus fechas de entrada y salida arriba', minNightsWarning:'La estancia mínima es de {n} noches', nightsLabel:'noches', lineNights:'Noches', lineExtraGuests:'Huéspedes adicionales', lineSubtotal:'Subtotal', lineVat:'IVA', lineTotal:'Total (IVA incl.)',
+    legendAvail:'Disponible', legendHoliday:'Tarifa festiva', legendBooked:'Reservado', legendSelected:'Seleccionado', calNote:'* Estancia mínima: 3 noches, todo el año. Los precios incluyen IVA.',
+    fName:'Nombre completo', fEmail:'Correo electrónico', fPhone:'Teléfono', fIn:'Entrada', fOut:'Salida', fGuests:'Número de huéspedes mayores de 2 años', fMsg:'Mensaje (opcional)', fSubmit:'Enviar solicitud de reserva',
     locEyebrow:'Ubicación', locTitle:'Sloten, Ámsterdam, tranquilo, verde, sobre el agua', locBody:'La casa está en Sloten, en el extremo occidental de Ámsterdam, a 10 minutos del aeropuerto y 10-20 minutos de cualquier punto central de la ciudad, rodeada de lagos, canales y bosque. La dirección exacta se facilita en el momento de la reserva, o con antelación a través de nuestra línea de reservas.',
     a11yEyebrow:'Accesibilidad', a11yTitle:'Declaración de accesibilidad', a11yBody:'Este sitio fue diseñado para ser accesible para todos los usuarios, conforme a la norma israelí 5568 (nivel AA) y a la ley de igualdad de derechos para personas con discapacidad. Incluye navegación completa por teclado, texto alternativo en imágenes, contraste de color adecuado y compatibilidad con tecnologías de asistencia.',
     a11y1:'Navegación completa por teclado, incluyendo un enlace de salto al contenido', a11y2:'Compatibilidad con lectores de pantalla mediante etiquetas ARIA', a11y3:'Respeta la preferencia de movimiento reducido del usuario', a11yContact:'¿Encontraste un problema de accesibilidad? Escríbenos, info@casapuravidanl.com',
     footTag:'Una casa privada sobre el agua en Sloten, Ámsterdam, con espacio para grupos, familias y parejas.', footNavT:'Navegación', footContactT:'Contacto', footLegal:'© 2026 Casa Pura Vida, Ámsterdam. Todos los derechos reservados.', footPolicies:'Privacidad, Términos y Política de Cancelación',
-    formSent:'¡Gracias! Tu solicitud ha sido enviada, te responderemos pronto.', formErr:'Por favor completa todos los campos obligatorios.', a11yWidgetTitle:'Accesibilidad', a11yTextInc:'Texto más grande', a11yContrast:'Alto contraste', a11yUnderline:'Subrayar enlaces', a11yMotion:'Reducir movimiento', a11yReset:'Restablecer'},
+    formSent:'¡Gracias! Tu solicitud ha sido enviada, te responderemos pronto.', formErr:'Por favor completa todos los campos obligatorios.', formSendError:'Ocurrió un error al enviar tu solicitud - inténtalo de nuevo o contáctanos directamente.', a11yWidgetTitle:'Accesibilidad', a11yTextInc:'Texto más grande', a11yContrast:'Alto contraste', a11yUnderline:'Subrayar enlaces', a11yMotion:'Reducir movimiento', a11yReset:'Restablecer'},
   he:{dir:'rtl', skip:'דלגו לתוכן הראשי', nav1:'הבית', nav2:'גלריה', nav3:'מתקנים', nav4:'הזמנות', nav5:'מיקום',
     heroEyebrow:'בית נופש על מי התעלה<br><span class="he-line2">אמסטרדם, הולנד<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'מתאים לקבוצות, משפחות וזוגות',
     ctaCheck:'בדקו זמינות', ctaMore:'גלו את הבית', photoPlaceholder:'מקום לתמונת גג, שלחו תמונות וסרטון סיור והם ייכנסו לכאן',
@@ -906,14 +974,14 @@ const translations = {
     cat5t:'חדרי רחצה', cat5i1:'מגבות מפנקות וחלוקי רחצה בכל חדר רחצה', cat5i2:'ערכות טיפוח, לרבות שמפו, מרכך וסבון גוף', cat5i3:'מייבש שיער',
     cat6t:'חדרי שינה', cat6i1:'חדר שינה מאסטר, מיטת קינג סייז פלוס (200×210), שמיכת פוך וכריות פוך אווזים, ניתן לבקש חלופות', cat6i2:'חדר מספר 2, מיטה זוגית ברוחב 1.60', cat6i3:'חדר מספר 3, מיטה זוגית ברוחב 1.40', cat6i4:'חדר מספר 4, מיטה זוגית ברוחב 1.40', cat6i5:'מזרנים אורתופדיים זמינים לפי בקשה', cat6i6:'עריסת תינוק זמינה לפי בקשה',
     cat7t:'תחבורה והתניידות', cat7i1:'10 דקות נסיעה משדה התעופה', cat7i2:'10-20 דקות נסיעה מכל הנקודות המרכזיות בעיר; מחיר ממוצע לכיוון למונית: 15-20 יורו', cat7i3:'האזור הוא כפרי, אפשר לצאת להליכה בין האגמים והתעלות עם הבתים הייחודיים לאזור, או לרכוב על אופניים אל תוך היער ולכפר ההולנדי הסמוך Badhoevedorp', cat7i4:'2 סופרמרקטים זמינים וצמודים זה לזה: Albert Heijn ו-Lidl', cat7i5:'4 דקות רכיבה על אופניים או הליכה של 15 דקות מתחנת הטראם של קווים 1+2, המגיעים לכל הנקודות המרכזיות באמסטרדם',
-    bookEyebrow:'זמינות והזמנה', bookTitle:'בדקו תאריכים, שלחו בקשה', bookLede:'מלאו את הפרטים ונחזור אליכם תוך יום עסקים עם אישור ומחיר סופי.', priceFrom:'החל מ-', priceNight:'/ לילה', priceNote:'הערכה בלבד - הסכום הסופי יגבה בשקלים בהעברה בנקאית.',
-    legendAvail:'פנוי', legendBooked:'תפוס', calNote:'* לוח זה הוא הדגמה חיה בתוך הצ׳אט. באתר הפעיל יש להחליף אותו במערכת הזמנות אמיתית (Smoobu / Lodgify) כדי למנוע הזמנות כפולות מול Airbnb ובוקינג.',
-    fName:'שם מלא', fEmail:'אימייל', fIn:'הגעה', fOut:'עזיבה', fGuests:'מספר אורחים', fMsg:'הודעה (לא חובה)', fSubmit:'שלחו בקשת הזמנה',
+    bookEyebrow:'זמינות והזמנה', bookTitle:'בדקו תאריכים, שלחו בקשה', bookLede:'לחצו על תאריכי ההגעה והעזיבה למטה - המחיר מתעדכן מיידית.', priceSelectPrompt:'בחרו תאריכי הגעה ועזיבה למעלה', minNightsWarning:'מינימום הזמנה הוא {n} לילות', nightsLabel:'לילות', lineNights:'לילות', lineExtraGuests:'אורחים נוספים', lineSubtotal:'סכום ביניים', lineVat:'מע"מ', lineTotal:'סה"כ (כולל מע"מ)',
+    legendAvail:'פנוי', legendHoliday:'תעריף חג', legendBooked:'תפוס', legendSelected:'נבחר', calNote:'* מינימום הזמנה: 3 לילות, כל השנה. המחירים כוללים מע"מ.',
+    fName:'שם מלא', fEmail:'אימייל', fPhone:'טלפון', fIn:'הגעה', fOut:'עזיבה', fGuests:'כמות אורחים מעל גיל שנתיים', fMsg:'הודעה (לא חובה)', fSubmit:'שלחו בקשת הזמנה',
     locEyebrow:'מיקום', locTitle:'שכונת Sloten, אמסטרדם, שקטה, ירוקה, על המים', locBody:'הבית ממוקם בשכונת Sloten, בקצה המערבי של אמסטרדם, 10 דקות משדה התעופה ו-10-20 דקות מכל נקודה מרכזית בעיר, כשהוא מוקף באגמים, תעלות ויער. הכתובת המדויקת תימסר במעמד ההזמנה, או מראש דרך מוקד ההזמנות.',
     a11yEyebrow:'נגישות', a11yTitle:'הצהרת נגישות', a11yBody:'אתר זה נבנה מתוך מחויבות להנגשה עבור כלל המשתמשים, בהתאם לתקן הישראלי ת"י 5568 ברמה AA ולחוק שוויון זכויות לאנשים עם מוגבלות. האתר כולל ניווט מקלדת מלא, תיאורי טקסט חלופי לתמונות, ניגודיות צבעים נאותה, ותמיכה בטכנולוגיות מסייעות.',
     a11y1:'ניווט מלא באמצעות מקלדת, כולל קישור דילוג לתוכן', a11y2:'תמיכה בקורא מסך ותיוג ARIA לרכיבים אינטראקטיביים', a11y3:'כיבוד הגדרת "הפחתת תנועה" של המשתמש', a11yContact:'נתקלתם בבעיית נגישות? כתבו לנו, info@casapuravidanl.com',
     footTag:'בית פרטי על המים בשכונת Sloten, אמסטרדם, מרחב לקבוצות, משפחות וזוגות.', footNavT:'ניווט', footContactT:'יצירת קשר', footLegal:'© 2026 Casa Pura Vida, אמסטרדם. כל הזכויות שמורות.', footPolicies:'מדיניות פרטיות, תנאי שימוש וביטולים',
-    formSent:'תודה! הבקשה נשלחה, נחזור אליכם בהקדם.', formErr:'נא למלא את כל השדות הנדרשים.', a11yWidgetTitle:'נגישות', a11yTextInc:'הגדלת טקסט', a11yContrast:'ניגודיות גבוהה', a11yUnderline:'קו תחתון לקישורים', a11yMotion:'הפחתת אנימציות', a11yReset:'איפוס'}
+    formSent:'תודה! הבקשה נשלחה, נחזור אליכם בהקדם.', formErr:'נא למלא את כל השדות הנדרשים.', formSendError:'קרתה תקלה בשליחת הבקשה - נסו שוב או צרו קשר ישירות.', a11yWidgetTitle:'נגישות', a11yTextInc:'הגדלת טקסט', a11yContrast:'ניגודיות גבוהה', a11yUnderline:'קו תחתון לקישורים', a11yMotion:'הפחתת אנימציות', a11yReset:'איפוס'}
 };
 
 function getLangFromURL(){
@@ -974,8 +1042,10 @@ menuToggle.addEventListener('click', ()=>{
 // so the site never breaks because of it.
 const FALLBACK_BLOCKED_DATES = ['2026-07-10','2026-07-11','2026-07-12','2026-07-18','2026-07-19','2026-07-25','2026-08-02','2026-08-03'];
 let BLOCKED_DATES = FALLBACK_BLOCKED_DATES;
-let bookingLiveData = { basePriceILS: 2600, extraGuestPriceILS: 200, seasonalPrices: [] };
+let bookingLiveData = { basePriceEUR: 800, holidayPriceEUR: 900, extraGuestPriceEUR: 50, minNights: 3, vatRate: 0.21, holidayDates: [] };
 let calCursor = new Date(); calCursor.setDate(1);
+let selectedCheckin = null;
+let selectedCheckout = null;
 
 async function loadLiveBookingData(){
   try {
@@ -988,7 +1058,6 @@ async function loadLiveBookingData(){
     // Admin backend not deployed yet, or a network hiccup - silently keep using the fallback.
   }
   renderCalendar();
-  renderPriceDisplay();
 }
 
 const monthNames = {
@@ -997,6 +1066,33 @@ const monthNames = {
   he:['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר']
 };
 const dowNames = { en:['S','M','T','W','T','F','S'], es:['D','L','M','M','J','V','S'], he:['א','ב','ג','ד','ה','ו','ש'] };
+
+function formatDateISO(d){
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function isHolidayDate(dateStr){
+  return bookingLiveData.holidayDates.find(h => dateStr >= h.start && dateStr < h.end);
+}
+function getNightPrice(dateStr){
+  const h = isHolidayDate(dateStr);
+  return h ? h.priceEUR : bookingLiveData.basePriceEUR;
+}
+function isPastDate(dateStr){
+  const today = new Date(); today.setHours(0,0,0,0);
+  return new Date(dateStr) < today;
+}
+function hasBlockedBetween(start, end){
+  let cursor = new Date(start);
+  const endDate = new Date(end);
+  while(cursor < endDate){
+    if(BLOCKED_DATES.includes(formatDateISO(cursor))) return true;
+    cursor.setDate(cursor.getDate()+1);
+  }
+  return false;
+}
+function nightsBetween(start, end){
+  return Math.round((new Date(end) - new Date(start)) / 86400000);
+}
 
 function renderCalendar(){
   const lang = window.__currentLang || 'en';
@@ -1013,30 +1109,146 @@ function renderCalendar(){
     const dateStr = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const el = document.createElement('div');
     const isBlocked = BLOCKED_DATES.includes(dateStr);
-    el.className = 'day ' + (isBlocked ? 'booked':'avail');
-    el.textContent = d;
-    el.setAttribute('aria-label', `${d} ${monthNames[lang][m]}, ${isBlocked ? translations[lang].legendBooked : translations[lang].legendAvail}`);
+    const isPast = isPastDate(dateStr);
+    const holiday = isHolidayDate(dateStr);
+    let cls = 'day';
+    if(isBlocked) cls += ' booked';
+    else if(isPast) cls += ' past';
+    else {
+      cls += ' avail';
+      if(holiday) cls += ' holiday';
+    }
+    if(selectedCheckin && !selectedCheckout && dateStr === selectedCheckin) cls += ' range-edge';
+    if(selectedCheckin && selectedCheckout){
+      if(dateStr === selectedCheckin || dateStr === selectedCheckout) cls += ' range-edge';
+      else if(dateStr > selectedCheckin && dateStr < selectedCheckout) cls += ' in-range';
+    }
+    el.className = cls;
+    const clickable = !isBlocked && !isPast;
+    const priceLabel = clickable ? `€${getNightPrice(dateStr)}` : '';
+    el.innerHTML = `<span class="d-num">${d}</span>` + (priceLabel ? `<span class="d-price">${priceLabel}</span>` : '');
+    const lbl = translations[lang];
+    el.setAttribute('aria-label', `${d} ${monthNames[lang][m]}, ${isBlocked ? lbl.legendBooked : (holiday ? lbl.legendHoliday : lbl.legendAvail)}`);
+    if(clickable) el.addEventListener('click', ()=> onDateClick(dateStr));
     grid.appendChild(el);
   }
 }
+
+function onDateClick(dateStr){
+  if(!selectedCheckin || selectedCheckout){
+    selectedCheckin = dateStr;
+    selectedCheckout = null;
+  } else if(dateStr <= selectedCheckin || hasBlockedBetween(selectedCheckin, dateStr)){
+    selectedCheckin = dateStr;
+    selectedCheckout = null;
+  } else {
+    selectedCheckout = dateStr;
+  }
+  renderCalendar();
+  updatePriceBox();
+}
+
+function updatePriceBox(){
+  const lang = window.__currentLang || 'en';
+  const t = translations[lang];
+  const mainText = document.getElementById('priceMainText');
+  const lines = document.getElementById('priceLines');
+  const fIn = document.getElementById('fIn');
+  const fOut = document.getElementById('fOut');
+
+  if(!selectedCheckin || !selectedCheckout){
+    mainText.textContent = t.priceSelectPrompt;
+    lines.innerHTML = '';
+    fIn.value = ''; fOut.value = '';
+    window.__estimatedTotal = '';
+    return;
+  }
+
+  const nights = nightsBetween(selectedCheckin, selectedCheckout);
+  fIn.value = selectedCheckin;
+  fOut.value = selectedCheckout;
+
+  if(nights < bookingLiveData.minNights){
+    mainText.textContent = t.minNightsWarning.replace('{n}', bookingLiveData.minNights);
+    lines.innerHTML = '';
+    window.__estimatedTotal = '';
+    return;
+  }
+
+  const guests = parseInt(document.getElementById('fGuests').value, 10) || 2;
+  let nightsTotal = 0;
+  let cursor = new Date(selectedCheckin);
+  for(let i=0;i<nights;i++){
+    nightsTotal += getNightPrice(formatDateISO(cursor));
+    cursor.setDate(cursor.getDate()+1);
+  }
+  const extraGuests = Math.max(0, guests - 6);
+  const extraGuestTotal = extraGuests * bookingLiveData.extraGuestPriceEUR * nights;
+  const subtotal = nightsTotal + extraGuestTotal;
+  const vat = subtotal * bookingLiveData.vatRate;
+  const total = subtotal + vat;
+
+  mainText.innerHTML = `€${total.toFixed(0)} <span style="font-weight:500; font-size:12.5px;">(${nights} ${t.nightsLabel})</span>`;
+
+  let linesHtml = `<div><span>${t.lineNights} (${nights})</span><span>€${nightsTotal.toFixed(0)}</span></div>`;
+  if(extraGuestTotal > 0){
+    linesHtml += `<div><span>${t.lineExtraGuests} (${extraGuests} × €${bookingLiveData.extraGuestPriceEUR} × ${nights})</span><span>€${extraGuestTotal.toFixed(0)}</span></div>`;
+  }
+  linesHtml += `<div><span>${t.lineSubtotal}</span><span>€${subtotal.toFixed(0)}</span></div>`;
+  linesHtml += `<div><span>${t.lineVat} (${Math.round(bookingLiveData.vatRate*100)}%)</span><span>€${vat.toFixed(2)}</span></div>`;
+  linesHtml += `<div class="total-line"><span>${t.lineTotal}</span><span>€${total.toFixed(2)}</span></div>`;
+  lines.innerHTML = linesHtml;
+
+  window.__estimatedTotal = `€${total.toFixed(2)} (incl. VAT, ${nights} nights, ${guests} guests)`;
+}
+
 document.getElementById('calPrev').addEventListener('click', ()=>{ calCursor.setMonth(calCursor.getMonth()-1); renderCalendar(); });
 document.getElementById('calNext').addEventListener('click', ()=>{ calCursor.setMonth(calCursor.getMonth()+1); renderCalendar(); });
+document.getElementById('fGuests').addEventListener('input', updatePriceBox);
+window.addEventListener('langchange', ()=>{ renderCalendar(); updatePriceBox(); });
 
 const form = document.getElementById('inquiryForm');
 const statusEl = document.getElementById('formStatus');
 form.addEventListener('submit', async (e)=>{
   e.preventDefault();
   const lang = window.__currentLang || 'en';
-  const data = Object.fromEntries(new FormData(form).entries());
-  if(!data.name || !data.email || !data.checkin || !data.checkout){
-    statusEl.textContent = translations[lang].formErr; statusEl.className = 'form-status err'; return;
+  const t = translations[lang];
+  const fd = Object.fromEntries(new FormData(form).entries());
+  if(!fd.name || !fd.email || !fd.phoneNumber || !fd.checkin || !fd.checkout || !fd.guests){
+    statusEl.textContent = t.formErr; statusEl.className = 'form-status err'; return;
   }
+  const nights = nightsBetween(fd.checkin, fd.checkout);
+  if(nights < bookingLiveData.minNights){
+    statusEl.textContent = t.minNightsWarning.replace('{n}', bookingLiveData.minNights);
+    statusEl.className = 'form-status err';
+    return;
+  }
+  const payload = {
+    name: fd.name, email: fd.email,
+    phone: fd.phoneCode + ' ' + fd.phoneNumber,
+    checkin: fd.checkin, checkout: fd.checkout,
+    guests: fd.guests, message: fd.message || '',
+    estimatedTotal: window.__estimatedTotal || '',
+  };
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
   try{
-    const key = 'inquiry:' + Date.now();
-    await window.storage.set(key, JSON.stringify({...data, submittedAt:new Date().toISOString()}), true);
-    statusEl.textContent = translations[lang].formSent; statusEl.className = 'form-status ok'; form.reset();
+    const res = await fetch('/.netlify/functions/submit-inquiry', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload),
+    });
+    if(res.ok){
+      statusEl.textContent = t.formSent; statusEl.className = 'form-status ok';
+      form.reset();
+      selectedCheckin = null; selectedCheckout = null;
+      renderCalendar(); updatePriceBox();
+    } else {
+      statusEl.textContent = t.formSendError; statusEl.className = 'form-status err';
+    }
   }catch(err){
-    statusEl.textContent = translations[lang].formSent; statusEl.className = 'form-status ok'; form.reset();
+    statusEl.textContent = t.formSendError; statusEl.className = 'form-status err';
+  } finally {
+    submitBtn.disabled = false;
   }
 });
 
@@ -1204,43 +1416,8 @@ form.addEventListener('submit', async (e)=>{
   window.addEventListener('langchange', syncPolicyLang);
 })();
 
-let exchangeRates = { EUR: 0.25, ILS: 1, USD: 0.27 }; // rough fallback if the live rate fetch fails
-let ratesLoaded = false;
-
-async function loadExchangeRates(){
-  try {
-    const res = await fetch('https://open.er-api.com/v6/latest/ILS');
-    if(!res.ok) throw new Error('bad response');
-    const data = await res.json();
-    if(data && data.rates && data.rates.EUR && data.rates.USD){
-      exchangeRates = { EUR: data.rates.EUR, ILS: 1, USD: data.rates.USD };
-      ratesLoaded = true;
-    }
-  } catch(e) {
-    // Live rate unavailable - the approximate fallback rates above are still shown,
-    // clearly labelled as an estimate either way.
-  }
-  renderPriceDisplay();
-}
-
-function renderPriceDisplay(){
-  const select = document.getElementById('currencySelect');
-  if(!select) return;
-  const currency = select.value || 'EUR';
-  const priceILS = bookingLiveData.basePriceILS || 2600;
-  const converted = priceILS * (exchangeRates[currency] || 1);
-  const symbols = { EUR: '€', ILS: '₪', USD: '$' };
-  const rounded = currency === 'ILS' ? Math.round(converted) : Math.round(converted * 10) / 10;
-  document.getElementById('priceValue').textContent = `${symbols[currency]}${rounded}`;
-}
-
-document.addEventListener('change', (e) => {
-  if(e.target && e.target.id === 'currencySelect') renderPriceDisplay();
-});
-
 applyLang(getLangFromURL(), false);
 loadLiveBookingData();
-loadExchangeRates();
 </script>
 
 </body>
