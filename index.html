@@ -197,15 +197,16 @@
 
   .booking{background:var(--canal-tint); border-radius:28px;}
   .booking-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px;}
-  .calendar{background:#fff; border-radius:18px; padding:24px; border:1px solid var(--line);}
+  .booking-padded{padding:56px;}
+  .calendar{background:#fff; border-radius:18px; padding:24px; border:1px solid var(--line); min-width:0;}
   .cal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
   .cal-head button{border:1px solid var(--line); background:#fff; border-radius:8px; width:34px; height:34px; cursor:pointer; font-size:16px;}
   .cal-title{font-weight:600; font-size:15px;}
-  .cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; text-align:center;}
-  .cal-grid .dow{font-size:11.5px; color:var(--ink-soft); font-weight:600; padding-bottom:6px;}
-  .cal-grid .day{aspect-ratio:1/1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:10px; font-size:13.5px; background:var(--off-white); cursor:pointer; border:1.5px solid transparent; position:relative;}
+  .cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; text-align:center; min-width:0;}
+  .cal-grid .dow{font-size:11.5px; color:var(--ink-soft); font-weight:600; padding-bottom:6px; min-width:0;}
+  .cal-grid .day{aspect-ratio:1/1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:10px; font-size:13.5px; background:var(--off-white); cursor:pointer; border:1.5px solid transparent; position:relative; min-width:0; overflow:hidden;}
   .cal-grid .day .d-num{font-weight:600;}
-  .cal-grid .day .d-price{font-size:9.5px; color:var(--ink-soft); margin-top:1px;}
+  .cal-grid .day .d-price{font-size:9.5px; color:var(--ink-soft); margin-top:1px; white-space:nowrap;}
   .cal-grid .day.avail:hover{border-color:var(--canal);}
   .cal-grid .day.holiday{background:#F7EDDC;}
   .cal-grid .day.holiday .d-price{color:var(--brass); font-weight:700;}
@@ -279,6 +280,7 @@
     nav.main a{justify-content:flex-start; width:100%;}
     .menu-toggle{display:block;}
     .split, .booking-grid{grid-template-columns:1fr;}
+    .booking-padded{padding:28px 20px;}
     .amen-grid{grid-template-columns:1fr;}
     .spec-strip{grid-template-columns:repeat(2,1fr);}
     .carousel-btn{width:36px; height:36px; font-size:16px;}
@@ -505,7 +507,7 @@
         <div class="amen-card">
           <span class="ic"><img src="assets/photos/00-terrace.jpg" alt="" loading="lazy"></span>
           <h3 data-i18n="cat1t">Outdoor & recreation</h3>
-          <ul><li data-i18n="cat1i1">2 double kayaks, free to use</li><li data-i18n="cat1i2">10 bicycles, including kids' bikes, free to use</li></ul>
+          <ul><li data-i18n="cat1i1">2 double kayaks, free to use</li><li data-i18n="cat1i2">10 bicycles, including kids' bikes, free to use</li><li data-i18n="cat1i3">Front terrace</li><li data-i18n="cat1i4">Canalfront view balcony, over the water</li></ul>
         </div>
         <div class="amen-card">
           <span class="ic"><img src="assets/photos/03.jpg" alt="" loading="lazy"></span>
@@ -582,7 +584,7 @@
   </section>
 
   <section id="booking">
-    <div class="section-inner booking" style="padding:56px;">
+    <div class="section-inner booking booking-padded">
       <div class="eyebrow" data-i18n="bookEyebrow">Availability & booking</div>
       <h2 data-i18n="bookTitle" style="margin-bottom:8px;">Check dates, send a request</h2>
       <p class="lead-text" data-i18n="bookLede" style="margin-bottom:32px;">Click your check-in and check-out dates below - the price updates instantly.</p>
@@ -944,7 +946,7 @@ const translations = {
     storyF1:'Sleeps up to 12 guests across 4 bedrooms', storyF2:'Free parking for your car', storyF3:"2 double kayaks + 10 bicycles free to use, including kids' bikes", storyF4:'10 minutes from the airport, 10-20 minutes from central Amsterdam', storyPh:'Interior photo placeholder',
     galEyebrow:'Gallery', galTitle:'Every hour looks different on the water', galNote:'More photos coming soon.', galFullBtn:'Full gallery', galFilterAll:'All', galFilterLiving:'Living room', galFilterKitchen:'Kitchen', galFilterTerrace:'Terraces &amp; garden', galFilterBedroom:'Bedrooms &amp; baths', galFilterVideo:'Video tour',
     amenEyebrow:'Full house specification', amenTitle:'Everything the house includes',
-    cat1t:'Outdoor & recreation', cat1i1:'2 double kayaks, free to use', cat1i2:"10 bicycles, including kids' bikes, free to use",
+    cat1t:'Outdoor & recreation', cat1i1:'2 double kayaks, free to use', cat1i2:"10 bicycles, including kids' bikes, free to use", cat1i3:'Front terrace', cat1i4:'Canalfront view balcony, over the water',
     cat2t:'Living room', cat2i1:'Bluetooth sound system', cat2i2:'Large screen with Kodi, with channels from around the world', cat2i3:'Heated floors on both levels', cat2i4:'Strong, fast Wi-Fi throughout the house', cat2i5:"Arcade machine and kids' games", cat2i6:'Piano and electronic drums', cat2i7:'Wood-burning fireplace', cat2i8:'Guest toilet on the upper level',
     cat3t:'Kitchen', cat3i1:'2 fridges with ice and water dispenser', cat3i2:'Nespresso machine with capsules and ground coffee, plus a tea set, treats and wine waiting on arrival', cat3i3:'Toaster, oven and microwave', cat3i4:'Full range of cookware, bakeware and serving pieces', cat3i5:'Dishwasher', cat3i6:'Combined induction and gas cooktop', cat3i7:'Cooking set with a variety of oils and spices',
     cat4t:'Bedroom floor', cat4i1:'Fully equipped laundry room: washer, dryer, detergent, softener, iron and cleaning supplies', cat4i2:'Wall-to-wall plush carpet throughout the floor', cat4i3:'4 bedrooms and 2 guest toilets', cat4i4:'2 bathrooms, with sauna and jet options in the showers', cat4i5:'Creative corner with writing and drawing supplies',
@@ -968,7 +970,7 @@ const translations = {
     storyF1:'Capacidad para 12 huéspedes en 4 dormitorios', storyF2:'Aparcamiento gratuito para tu coche', storyF3:'2 kayaks dobles + 10 bicicletas de uso libre, incluidas bicicletas infantiles', storyF4:'A 10 minutos del aeropuerto, 10-20 minutos del centro de Ámsterdam', storyPh:'Foto interior, espacio reservado',
     galEyebrow:'Galería', galTitle:'Cada hora se ve distinta sobre el agua', galNote:'Pronto más fotos.', galFullBtn:'Galería completa', galFilterAll:'Todo', galFilterLiving:'Salón', galFilterKitchen:'Cocina', galFilterTerrace:'Terrazas y jardín', galFilterBedroom:'Dormitorios y baños', galFilterVideo:'Video tour',
     amenEyebrow:'Especificación completa de la casa', amenTitle:'Todo lo que incluye la casa',
-    cat1t:'Aire libre y recreación', cat1i1:'2 kayaks dobles, de uso libre', cat1i2:'10 bicicletas, incluidas bicicletas infantiles, de uso libre',
+    cat1t:'Aire libre y recreación', cat1i1:'2 kayaks dobles, de uso libre', cat1i2:'10 bicicletas, incluidas bicicletas infantiles, de uso libre', cat1i3:'Terraza delantera', cat1i4:'Balcón con vistas al canal, sobre el agua',
     cat2t:'Sala de estar', cat2i1:'Sistema de sonido con Bluetooth', cat2i2:'Pantalla grande con Kodi, con canales de todo el mundo', cat2i3:'Suelo radiante en ambas plantas', cat2i4:'Wi-Fi potente y rápido en toda la casa', cat2i5:'Máquina arcade y juegos infantiles', cat2i6:'Piano y batería electrónica', cat2i7:'Chimenea de leña', cat2i8:'Aseo de invitados en la planta superior',
     cat3t:'Cocina', cat3i1:'2 frigoríficos con dispensador de hielo y agua', cat3i2:'Cafetera Nespresso con cápsulas y café molido, además de un set de té, dulces y vino esperando a tu llegada', cat3i3:'Tostadora, horno y microondas', cat3i4:'Amplia variedad de utensilios de cocina, repostería y servicio', cat3i5:'Lavavajillas', cat3i6:'Placa combinada de inducción y gas', cat3i7:'Set de cocina con variedad de aceites y especias',
     cat4t:'Planta de dormitorios', cat4i1:'Lavandería totalmente equipada: lavadora, secadora, detergente, suavizante, plancha y productos de limpieza', cat4i2:'Moqueta mullida de pared a pared en toda la planta', cat4i3:'4 dormitorios y 2 aseos de invitados', cat4i4:'2 baños, con opción de sauna e hidromasaje en las duchas', cat4i5:'Rincón creativo con material de escritura y dibujo',
@@ -992,7 +994,7 @@ const translations = {
     storyF1:'שינה עד 12 אורחים ב-4 חדרי שינה', storyF2:'חניה חופשית לרכב', storyF3:'2 קיאקים זוגיים + 10 זוגות אופניים לשימוש חופשי, כולל אופניים לילדים', storyF4:'10 דקות משדה התעופה, 10-20 דקות ממרכז אמסטרדם', storyPh:'תמונת פנים, מקום שמור',
     galEyebrow:'גלריה', galTitle:'כל שעה ביום נראית אחרת על המים', galNote:'בקרוב עוד תמונות.', galFullBtn:'גלריה מלאה', galFilterAll:'הכל', galFilterLiving:'סלון', galFilterKitchen:'מטבח', galFilterTerrace:'מרפסות וגינה', galFilterBedroom:'חדרי שינה ורחצה', galFilterVideo:'סיור בוידאו',
     amenEyebrow:'מפרט הבית המלא', amenTitle:'כל מה שכלול בבית',
-    cat1t:'פעילות חוץ ופנאי', cat1i1:'2 קיאקים זוגיים, לשימוש חופשי', cat1i2:'10 זוגות אופניים, כולל אופניים לילדים, לשימוש חופשי',
+    cat1t:'פעילות חוץ ופנאי', cat1i1:'2 קיאקים זוגיים, לשימוש חופשי', cat1i2:'10 זוגות אופניים, כולל אופניים לילדים, לשימוש חופשי', cat1i3:'מרפסת קדמית', cat1i4:'מרפסת על המים עם נוף לתעלה',
     cat2t:'סלון', cat2i1:'מערכת סאונד עם חיבור Bluetooth', cat2i2:'מסך ענק עם Kodi, הכולל ערוצים מכל רחבי העולם', cat2i3:'ריצפה מחוממת בשני המפלסים', cat2i4:'Wi-Fi חזק ומהיר בכל הבית', cat2i5:'מכונת משחקים ארקייד ומשחקי ילדים', cat2i6:'פסנתר ותופים אלקטרוניים', cat2i7:'אח מבוערת', cat2i8:'שירותי אורחים במפלס העליון',
     cat3t:'מטבח', cat3i1:'2 מקררים עם מערכת קרח ובר מים', cat3i2:'מכונת קפה נספרסו עם קפסולות וקפה מגורען, וגם ערכת תה, פינוקים מתוקים ויין שממתינים בהגעה', cat3i3:'טוסטר, תנור ומיקרוגל', cat3i4:'מבחר כלי בישול, אפייה והגשה', cat3i5:'מדיח כלים', cat3i6:'כיריים אינדוקציה משולבים גז', cat3i7:'ערכת בישול הכוללת שמנים ותבלינים מגוונים',
     cat4t:'קומת השינה', cat4i1:'חדר כביסה מאובזר: מכונת כביסה, מייבש, אבקת כביסה, מרכך, מגהץ וחומרי ניקוי', cat4i2:'שטיחים מפנקים מקיר לקיר בכל הקומה', cat4i3:'4 חדרי שינה ו-2 חדרי שירותים', cat4i4:'2 חדרי רחצה, המקלחות כוללות אופציה לסאונה וג׳טים', cat4i5:'פינת מחשב ויצירה הכוללת ציוד כתיבה וציור',
@@ -1092,6 +1094,12 @@ const mainNav = document.getElementById('main-nav');
 menuToggle.addEventListener('click', ()=>{
   const open = mainNav.classList.toggle('open');
   menuToggle.setAttribute('aria-expanded', open);
+});
+mainNav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    mainNav.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  });
 });
 
 // Live data from the admin panel (blocked dates + pricing). Falls back to this
