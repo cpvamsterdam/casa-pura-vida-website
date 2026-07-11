@@ -275,9 +275,10 @@
     .header-right{order:3; flex-basis:100%; justify-content:center; margin-top:10px;}
     .lang-social-stack{flex-direction:row; align-items:center; gap:12px;}
     .header-social{display:flex;}
-    nav.main{position:fixed; inset-inline:0; top:64px; background:#fff; flex-direction:column; align-items:stretch; padding:20px 24px; border-bottom:1px solid var(--line); display:none;}
-    nav.main.open{display:flex;}
-    nav.main a{justify-content:flex-start; width:100%;}
+    nav.main{position:fixed; inset-inline-end:0; top:64px; bottom:0; width:min(78vw,300px); background:var(--canal); flex-direction:column; align-items:stretch; padding:24px 20px; box-shadow:-8px 0 28px rgba(20,30,30,.18); visibility:hidden; opacity:0; transform:scale(.97); transition:opacity .16s ease, transform .16s ease, visibility 0s linear .16s; z-index:900;}
+    nav.main.open{visibility:visible; opacity:1; transform:scale(1); transition:opacity .16s ease, transform .16s ease, visibility 0s linear 0s;}
+    nav.main a{justify-content:flex-start; width:100%; background:#fff; color:var(--canal-deep); border-color:#fff;}
+    nav.main a:hover{background:var(--canal-tint);}
     .menu-toggle{display:block;}
     .split, .booking-grid{grid-template-columns:1fr;}
     .booking-padded{padding:28px 20px;}
@@ -1514,6 +1515,43 @@ form.addEventListener('submit', async (e)=>{
   document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
   window.addEventListener('langchange', syncPolicyLang);
 })();
+
+
+const IMG_ALT_HE = {
+  "Bathroom": "חדר רחצה",
+  "Bedroom": "חדר שינה",
+  "Casa Pura Vida, from the water": "קאסה פורה וידה, מהמים",
+  "Coffee corner": "פינת קפה",
+  "Dining": "פינת אוכל",
+  "Entrance": "כניסה",
+  "Fireplace": "אח",
+  "Front door": "דלת כניסה",
+  "Front garden": "גינה קדמית",
+  "Games corner": "פינת משחקים",
+  "Garden entrance": "כניסה לגינה",
+  "Hallway": "מסדרון",
+  "Kitchen": "מטבח",
+  "Kitchen, dining": "מטבח, פינת אוכל",
+  "Living room with hanging chair, canal view": "סלון עם כיסא תלוי, נוף לתעלה",
+  "Living room": "סלון",
+  "Master bathroom": "חדר רחצה בחדר השינה הראשי",
+  "Master bedroom": "חדר השינה הראשי",
+  "Master shower": "מקלחת בחדר השינה הראשי",
+  "Shower": "מקלחת",
+  "Staircase": "גרם מדרגות",
+  "Staircase, canal view": "גרם מדרגות, נוף לתעלה",
+  "Terrace, canal view": "מרפסת, נוף לתעלה"
+};
+const IMG_ALT_EN = Object.fromEntries(Object.entries(IMG_ALT_HE).map(([en,he]) => [he,en]));
+function translateImageAlts(lang){
+  document.querySelectorAll('img[alt]').forEach(img => {
+    const current = img.getAttribute('alt');
+    if(!current) return;
+    if(lang === 'he' && IMG_ALT_HE[current]) img.setAttribute('alt', IMG_ALT_HE[current]);
+    else if(lang !== 'he' && IMG_ALT_EN[current]) img.setAttribute('alt', IMG_ALT_EN[current]);
+  });
+}
+window.addEventListener('langchange', (e) => translateImageAlts(window.__currentLang || 'en'));
 
 applyLang(getLangFromURL(), false);
 loadLiveBookingData();
