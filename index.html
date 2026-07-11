@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Casa Pura Vida Amsterdam</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --white:#ffffff; --off-white:#FAFAF9; --ink:#1A1D1F; --ink-soft:#54595E;
@@ -16,6 +16,7 @@
   html{scroll-behavior:auto;}
   @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:.001ms !important; transition-duration:.001ms !important;} }
   body{margin:0; font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; color:var(--ink); background:var(--white); line-height:1.55; -webkit-font-smoothing:antialiased;}
+  p, li{text-wrap:pretty;}
   img{max-width:100%; display:block;}
   a{color:inherit;}
   .skip-link{position:absolute; right:-9999px; top:0; background:var(--canal); color:#fff; padding:12px 20px; z-index:1000; border-radius:0 0 8px 8px; font-weight:600;}
@@ -30,8 +31,9 @@
   .brand{display:flex; align-items:center; gap:9px; font-weight:700; font-size:16.5px; letter-spacing:.3px; text-decoration:none; direction:ltr; flex-wrap:nowrap; min-width:0;}
   .brand .mark{width:26px; height:26px; flex:none;}
   .brand-text-wrap{display:flex; flex-direction:column; align-items:center; line-height:1.2;}
-  .brand-text{white-space:nowrap;}
+  .brand-text{display:inline-block; white-space:nowrap; font-family:'Montserrat','Inter',sans-serif; font-weight:500; letter-spacing:1.5px; font-size:14px; line-height:2; padding:2px 0; background:linear-gradient(95deg,var(--canal) 0%, var(--canal-deep) 38%, var(--brass) 72%, var(--brass) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:var(--canal-deep);}
   .brand small{font-weight:600; font-size:10px; color:var(--canal); letter-spacing:1px; white-space:nowrap; text-align:center;}
+  .brand small.brand-city{font-weight:800; color:#0A0A0A;}
   .brand-country{display:flex; align-items:center; justify-content:center; gap:4px; margin-top:1px;}
   .brand-country .ams-flag{flex:none; animation:none;}
   nav.main{display:flex; gap:7px; flex-wrap:nowrap; align-items:center;}
@@ -64,6 +66,7 @@
   html.a11y-underline-links a{text-decoration:underline !important;}
   html.a11y-reduce-motion *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
 
+  .lang-social-stack{display:flex; flex-direction:column; align-items:center; gap:5px;}
   .lang-dropdown{position:relative;}
   .lang-dropdown-btn{display:flex; align-items:center; gap:6px; background:var(--off-white); border:1px solid var(--line); border-radius:100px; padding:8px 14px; font-size:13px; font-weight:700; color:var(--ink); cursor:pointer; font-family:inherit;}
   .lang-dropdown-btn .chev{transition:transform .15s ease; flex:none;}
@@ -80,17 +83,25 @@
 
   .menu-toggle{display:none; border:none; background:none; font-size:22px; cursor:pointer; padding:6px;}
 
-  .hero{position:relative; padding:80px 24px 60px; text-align:center; overflow:hidden; background:linear-gradient(180deg,var(--off-white) 0%, var(--white) 65%);}
-  .hero-eyebrow{font-size:clamp(15px,2.1vw,20px); letter-spacing:.3px; color:var(--canal); font-weight:700; line-height:1.5;}
-  .hero-eyebrow .he-line2{display:inline-flex; align-items:center; gap:7px; font-size:1.2em; margin-top:2px;}
+  .hero{position:relative; padding:28px 24px; overflow:hidden; background:linear-gradient(120deg,var(--canal-tint) 0%, #FFF4E4 45%, #FBE4D8 100%);}
+  .hero-split{display:grid; grid-template-columns:1fr; gap:22px; align-items:center; text-align:center;}
+  @media (min-width:900px){
+    .hero-split{grid-template-columns:0.9fr 1.1fr; gap:36px;}
+  }
+  .hero-eyebrow{font-family:'Montserrat','Inter',sans-serif; font-size:clamp(11px,1.4vw,13px); letter-spacing:1.5px; text-transform:uppercase; color:var(--canal); font-weight:700; line-height:1.35; margin-bottom:0;}
+  .hero-eyebrow .he-line2{display:inline-flex; align-items:center; gap:7px; font-size:1.05em; margin-top:0;}
   .ams-flag{flex:none; transform-origin:0% 50%; animation:flagWave 2.8s ease-in-out infinite;}
   @keyframes flagWave{ 0%,100%{transform:rotate(0deg);} 50%{transform:rotate(-8deg);} }
   @media (prefers-reduced-motion: reduce){ .ams-flag{animation:none;} }
-  .brand-name{font-size:clamp(42px,7vw,84px); font-weight:700; letter-spacing:-1px; line-height:1.02; margin:18px 0 22px; direction:ltr; color:var(--ink);}
-  .hero p.lede{font-size:clamp(16px,1.9vw,20px); color:var(--ink-soft); max-width:52ch; margin:0 auto 30px; font-weight:400;}
+  .hero-text{min-width:0;}
+  .brand-name{display:inline-block; white-space:nowrap; font-family:'Montserrat','Inter',sans-serif; font-size:clamp(20px,3.2vw,34px); font-weight:500; letter-spacing:2px; line-height:1.8; padding:2px 0 4px; margin:0; direction:ltr; background:linear-gradient(95deg,var(--canal) 0%, var(--canal-deep) 38%, var(--brass) 72%, var(--brass) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:var(--canal-deep);}
+  .hero p.lede{font-family:'Montserrat','Inter',sans-serif; font-size:clamp(12px,1.4vw,15px); color:#0A0A0A; font-weight:300; letter-spacing:1.5px; text-transform:uppercase; max-width:52ch; margin:0 0 14px;}
+  @keyframes ctaPulse{0%,100%{box-shadow:0 0 0 0 rgba(47,107,115,.35);} 50%{box-shadow:0 0 0 10px rgba(47,107,115,0);}}
+  .cta-row .btn-primary, #fullGalleryBtn{animation:ctaPulse 2.6s ease-in-out infinite;}
+  html.a11y-reduce-motion .cta-row .btn-primary, html.a11y-reduce-motion #fullGalleryBtn{animation:none;}
   .cta-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
 
-  .hero-gallery{max-width:calc(var(--max) * 0.65); margin:0 auto;}
+  .hero-gallery{width:100%; margin:0 auto;}
   .carousel{position:relative; margin-top:16px;}
   .carousel-track-wrap{overflow:hidden; border-radius:18px;}
   .carousel-track{display:flex; transition:transform .45s cubic-bezier(.65,0,.35,1);}
@@ -109,10 +120,10 @@
   .carousel-dots{display:flex; gap:6px; justify-content:center; margin-top:14px; flex-wrap:wrap;}
   .carousel-dots button{width:8px; height:8px; border-radius:50%; border:none; background:var(--line); cursor:pointer; padding:0;}
   .carousel-dots button[aria-current="true"]{background:var(--canal); width:20px; border-radius:5px; transition:width .2s ease;}
-  .lightbox{position:fixed; inset:0; z-index:1000; display:none;}
+  .lightbox{position:fixed; inset:0; z-index:1000; display:none; overflow-y:auto; -webkit-overflow-scrolling:touch;}
   .lightbox.open{display:block;}
-  .lightbox-backdrop{position:absolute; inset:0; background:rgba(20,30,30,.65); backdrop-filter:blur(3px);}
-  .lightbox-panel{position:relative; max-width:900px; margin:5vh auto; background:#fff; border-radius:24px; padding:28px; max-height:90vh; overflow-y:auto; z-index:1;}
+  .lightbox-backdrop{position:fixed; inset:0; background:rgba(20,30,30,.65); backdrop-filter:blur(3px);}
+  .lightbox-panel{position:relative; max-width:900px; margin:max(5vh, env(safe-area-inset-top) + 16px) auto 5vh; background:#fff; border-radius:24px; padding:28px; z-index:1;}
   .lightbox-close{position:absolute; top:16px; inset-inline-end:16px; width:36px; height:36px; border-radius:50%; border:1px solid var(--line); background:#fff; font-size:20px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;}
   .lightbox-filters{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:4px 48px 22px;}
   .filter-pill{padding:8px 16px; border-radius:100px; border:1px solid var(--line); background:#fff; font-size:13.5px; font-weight:600; color:var(--ink); cursor:pointer; font-family:inherit;}
@@ -154,25 +165,24 @@
   @keyframes drift{from{background-position-x:0;} to{background-position-x:160px;}}
   .placeholder-note{position:absolute; inset-inline:0; top:14px; text-align:center; font-size:12px; color:rgba(255,255,255,.85); letter-spacing:.5px;}
 
-  .spec-strip{max-width:var(--max); margin:40px auto 0; display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden;}
-  .spec-item{background:#fff; padding:22px 18px; text-align:center;}
-  .spec-item .ico{font-size:24px; margin-bottom:8px;}
-  .spec-item .txt{font-size:13.5px; font-weight:600; color:var(--ink); line-height:1.35;}
-  .spec-item .ico svg{width:26px; height:26px; color:var(--canal);}
-  .amen-card .ic svg{width:30px; height:30px; color:var(--canal);}
+  .spec-strip{max-width:calc(var(--max) * 0.82); margin:40px auto 0; display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden;}
+  .spec-item{background:#fff; padding:24px 18px; text-align:center;}
+  .spec-item .ico{font-size:24px; margin-bottom:10px;}
+  .spec-item .txt{font-size:13.5px; font-weight:400; color:#0A0A0A; line-height:1.4;}
+  .spec-item .ico svg{width:34px; height:34px; color:var(--canal);}
 
   section{padding:80px 24px;}
   .section-inner{max-width:var(--max); margin:0 auto;}
   .section-inner.narrow{max-width:760px;}
-  .eyebrow{font-size:12.5px; letter-spacing:2px; text-transform:uppercase; color:var(--canal); font-weight:700; margin-bottom:14px;}
+  .eyebrow{font-size:14.5px; letter-spacing:2px; text-transform:uppercase; color:var(--canal); font-weight:700; margin-bottom:14px;}
   h2{font-size:clamp(26px,3.4vw,40px); font-weight:300; margin:0 0 18px; letter-spacing:-.3px;}
-  .lead-text{color:var(--ink-soft); font-size:16.5px; max-width:64ch;}
+  .lead-text{color:#2B2F31; font-size:16.5px; max-width:64ch; text-wrap:pretty;}
 
   .split{display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;}
   .split .ph{aspect-ratio:4/5; border-radius:16px; background:linear-gradient(155deg,#E9DFC9,#C9A66B 60%,#a67f45); position:relative; overflow:hidden;}
   .ph .tag{position:absolute; bottom:16px; inset-inline:16px; background:rgba(255,255,255,.9); border-radius:10px; padding:8px 12px; font-size:12.5px; font-weight:600;}
   .feature-list{list-style:none; padding:0; margin:24px 0 0; display:grid; gap:12px;}
-  .feature-list li{display:flex; gap:12px; font-size:15px; color:var(--ink-soft);}
+  .feature-list li{display:flex; gap:12px; font-size:15px; color:#2B2F31;}
   .feature-list li::before{content:"-"; color:var(--brass); font-weight:700; flex:none;}
 
 
@@ -180,7 +190,8 @@
 
   .amen-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-top:36px;}
   .amen-card{padding:28px; border:1px solid var(--line); border-radius:16px; background:var(--white);}
-  .amen-card .ic{font-size:30px; margin-bottom:14px; display:block;}
+  .amen-card .ic{width:52px; height:52px; margin-bottom:14px; display:block; border-radius:50%; overflow:hidden; flex:none;}
+  .amen-card .ic img{width:100%; height:100%; object-fit:cover; display:block;}
   .amen-card h3{font-size:18px; margin:0 0 12px; font-weight:600;}
   .amen-card ul{margin:0; padding-inline-start:18px; color:var(--ink-soft); font-size:14.5px; display:grid; gap:6px;}
 
@@ -215,6 +226,10 @@
   .price-lines{font-size:12.5px; color:var(--ink-soft); margin-top:8px; border-top:1px solid rgba(47,107,115,.15); padding-top:8px;}
   .price-lines div{display:flex; justify-content:space-between; margin-bottom:3px;}
   .price-lines .total-line{font-weight:700; color:var(--ink); font-size:13.5px; margin-top:6px;}
+  .booking-locked{background:var(--off-white); border:1px dashed var(--line); border-radius:14px; padding:28px 22px; text-align:center; min-height:200px; display:flex; align-items:center; justify-content:center;}
+  .stay-summary{background:var(--canal-tint); border-radius:12px; padding:14px 16px; margin-bottom:10px; font-size:13.5px; color:var(--canal-deep); font-weight:600;}
+  .stay-summary div{display:flex; justify-content:space-between; margin-bottom:3px;}
+  .stay-summary .grand-total{font-size:15px; margin-top:4px; border-top:1px solid rgba(47,107,115,.2); padding-top:6px;}
   .price-box select{padding:7px 10px; border-radius:8px; border:1px solid var(--line); font-family:inherit; font-size:13px; background:#fff;}
   .price-note{font-size:11.5px; color:var(--ink-soft); margin-top:8px;}
 
@@ -253,10 +268,16 @@
   .share-links a{background:rgba(255,255,255,.1); padding:6px 12px; border-radius:100px; font-size:12.5px; font-weight:600;}
 
   @media (max-width:880px){
-    nav.main{position:fixed; inset-inline:0; top:64px; background:#fff; flex-direction:column; padding:20px 24px; border-bottom:1px solid var(--line); display:none;}
+    .nav-wrap{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;}
+    .brand{order:1; font-size:14.5px; gap:7px;}
+    .menu-toggle{order:2;}
+    .header-right{order:3; flex-basis:100%; justify-content:center; margin-top:10px;}
+    .lang-social-stack{flex-direction:row; align-items:center; gap:12px;}
+    .header-social{display:flex;}
+    nav.main{position:fixed; inset-inline:0; top:64px; background:#fff; flex-direction:column; align-items:stretch; padding:20px 24px; border-bottom:1px solid var(--line); display:none;}
     nav.main.open{display:flex;}
+    nav.main a{justify-content:flex-start; width:100%;}
     .menu-toggle{display:block;}
-    .brand{font-size:14.5px; gap:7px;}
     .split, .booking-grid{grid-template-columns:1fr;}
     .amen-grid{grid-template-columns:1fr;}
     .spec-strip{grid-template-columns:repeat(2,1fr);}
@@ -277,7 +298,7 @@
         <path d="M5 13l1-6h12l1 6" stroke="#B8935A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M9 7V4h4v3" stroke="#B8935A" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
-      <span class="brand-text-wrap"><span class="brand-text">Casa Pura Vida</span><small>AMSTERDAM</small><small class="brand-country"><svg class="ams-flag" width="14" height="9.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg>The Netherlands</small></span>
+      <span class="brand-text-wrap"><span class="brand-text">Casa Pura Vida</span><small class="brand-city">AMSTERDAM</small><small class="brand-country"><svg class="ams-flag" width="14" height="9.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg>The Netherlands</small></span>
     </a>
     <nav class="main" id="main-nav">
       <a href="#gallery"><svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="15" rx="2"/><circle cx="8.5" cy="9.5" r="1.4"/><path d="M21 15l-5-4-4 3-3-2-6 5"/></svg><span data-i18n="nav2">Gallery</span></a>
@@ -287,7 +308,7 @@
       <a href="#location"><svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.3"/></svg><span data-i18n="nav5">Location</span></a>
     </nav>
     <div class="header-right" style="display:flex; align-items:center; gap:10px;">
-      <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
+      <div class="lang-social-stack">
         <div class="lang-dropdown" id="langDropdown">
           <button class="lang-dropdown-btn" id="langDropdownBtn" aria-haspopup="true" aria-expanded="false">
             <span id="langDropdownLabel">EN</span>
@@ -300,33 +321,31 @@
           </div>
         </div>
         <div class="header-social">
-          <a href="https://wa.me/message/QZBXKQJ6BSIRN1" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.4-.1-.1-.5-1.3-.7-1.8-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.4.5.2 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"/></svg></a>
-          <a href="https://www.instagram.com/casapuravida" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-2.7 0-3 0-4.1.1-1.1.1-1.8.2-2.4.5-.7.3-1.2.6-1.8 1.2-.6.6-.9 1.1-1.2 1.8-.2.6-.4 1.3-.5 2.4C2 9.1 2 9.4 2 12s0 2.9.1 4c.1 1.1.2 1.8.5 2.4.3.7.6 1.2 1.2 1.8.6.6 1.1.9 1.8 1.2.6.2 1.3.4 2.4.5C9.1 22 9.4 22 12 22s2.9 0 4-.1c1.1-.1 1.8-.2 2.4-.5.7-.3 1.2-.6 1.8-1.2.6-.6.9-1.1 1.2-1.8.2-.6.4-1.3.5-2.4.1-1.1.1-1.4.1-4s0-2.9-.1-4c-.1-1.1-.2-1.8-.5-2.4-.3-.7-.6-1.2-1.2-1.8-.6-.6-1.1-.9-1.8-1.2-.6-.2-1.3-.4-2.4-.5C14.9 2 14.6 2 12 2Zm0 1.8c2.6 0 2.9 0 3.9.1 1 .1 1.5.2 1.8.4.5.2.8.4 1.2.7.3.3.5.6.7 1.2.1.3.3.8.4 1.8.1 1 .1 1.3.1 3.9s0 2.9-.1 3.9c-.1 1-.2 1.5-.4 1.8-.2.5-.4.8-.7 1.2-.3.3-.6.5-1.2.7-.3.1-.8.3-1.8.4-1 .1-1.3.1-3.9.1s-2.9 0-3.9-.1c-1-.1-1.5-.2-1.8-.4-.5-.2-.8-.4-1.2-.7-.3-.3-.5-.6-.7-1.2-.1-.3-.3-.8-.4-1.8-.1-1-.1-1.3-.1-3.9s0-2.9.1-3.9c.1-1 .2-1.5.4-1.8.2-.5.4-.8.7-1.2.3-.3.6-.5 1.2-.7.3-.1.8-.3 1.8-.4 1-.1 1.3-.1 3.9-.1Zm0 3.2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg></a>
-          <a href="https://www.facebook.com/casapuravidanl" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.5l.4-3H13.5V8.5c0-.9.2-1.5 1.5-1.5h1.6V4.3C16.3 4.2 15.3 4 14.2 4c-2.3 0-3.9 1.4-3.9 4v2.5H7.8v3h2.5V21h3.2Z"/></svg></a>
-          <a href="https://www.tiktok.com/@casapuravida" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2h2.1c.1 1 .5 1.9 1.2 2.6.7.7 1.6 1.1 2.7 1.2v2.2c-1.4 0-2.7-.4-3.9-1.2v6.6c0 3-2.4 5.4-5.4 5.4S5.3 16.4 5.3 13.4c0-2.9 2.3-5.3 5.2-5.4v2.3c-1.6.1-2.9 1.4-2.9 3.1a3.1 3.1 0 1 0 6.2 0V2Z"/></svg></a>
+          <a href="https://wa.me/message/QZBXKQJ6BSIRN1" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.4-.1-.1-.5-1.3-.7-1.8-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.4.5.2 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"/></svg></a>
+          <a href="https://www.instagram.com/casapuravida" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><defs><linearGradient id="igGradHeader" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFDC80"/><stop offset="25%" stop-color="#FCAF45"/><stop offset="50%" stop-color="#E1306C"/><stop offset="75%" stop-color="#C13584"/><stop offset="100%" stop-color="#833AB4"/></linearGradient></defs><path fill="url(#igGradHeader)" d="M12 2c-2.7 0-3 0-4.1.1-1.1.1-1.8.2-2.4.5-.7.3-1.2.6-1.8 1.2-.6.6-.9 1.1-1.2 1.8-.2.6-.4 1.3-.5 2.4C2 9.1 2 9.4 2 12s0 2.9.1 4c.1 1.1.2 1.8.5 2.4.3.7.6 1.2 1.2 1.8.6.6 1.1.9 1.8 1.2.6.2 1.3.4 2.4.5C9.1 22 9.4 22 12 22s2.9 0 4-.1c1.1-.1 1.8-.2 2.4-.5.7-.3 1.2-.6 1.8-1.2.6-.6.9-1.1 1.2-1.8.2-.6.4-1.3.5-2.4.1-1.1.1-1.4.1-4s0-2.9-.1-4c-.1-1.1-.2-1.8-.5-2.4-.3-.7-.6-1.2-1.2-1.8-.6-.6-1.1-.9-1.8-1.2-.6-.2-1.3-.4-2.4-.5C14.9 2 14.6 2 12 2Zm0 1.8c2.6 0 2.9 0 3.9.1 1 .1 1.5.2 1.8.4.5.2.8.4 1.2.7.3.3.5.6.7 1.2.1.3.3.8.4 1.8.1 1 .1 1.3.1 3.9s0 2.9-.1 3.9c-.1 1-.2 1.5-.4 1.8-.2.5-.4.8-.7 1.2-.3.3-.6.5-1.2.7-.3.1-.8.3-1.8.4-1 .1-1.3.1-3.9.1s-2.9 0-3.9-.1c-1-.1-1.5-.2-1.8-.4-.5-.2-.8-.4-1.2-.7-.3-.3-.5-.6-.7-1.2-.1-.3-.3-.8-.4-1.8-.1-1-.1-1.3-.1-3.9s0-2.9.1-3.9c.1-1 .2-1.5.4-1.8.2-.5.4-.8.7-1.2.3-.3.6-.5 1.2-.7.3-.1.8-.3 1.8-.4 1-.1 1.3-.1 3.9-.1Zm0 3.2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg></a>
+          <a href="https://www.facebook.com/casapuravidanl" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="#1877F2"><path d="M13.5 21v-7.5h2.5l.4-3H13.5V8.5c0-.9.2-1.5 1.5-1.5h1.6V4.3C16.3 4.2 15.3 4 14.2 4c-2.3 0-3.9 1.4-3.9 4v2.5H7.8v3h2.5V21h3.2Z"/></svg></a>
+          <a href="https://www.tiktok.com/@casapuravida" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="#000000"><path d="M14 2h2.1c.1 1 .5 1.9 1.2 2.6.7.7 1.6 1.1 2.7 1.2v2.2c-1.4 0-2.7-.4-3.9-1.2v6.6c0 3-2.4 5.4-5.4 5.4S5.3 16.4 5.3 13.4c0-2.9 2.3-5.3 5.2-5.4v2.3c-1.6.1-2.9 1.4-2.9 3.1a3.1 3.1 0 1 0 6.2 0V2Z"/></svg></a>
         </div>
       </div>
-      <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">☰</button>
     </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">☰</button>
   </div>
 </header>
 
 <main id="main">
 
-  <section class="hero">
-    <div class="section-inner">
-      <div class="hero-eyebrow" data-i18n="heroEyebrow">CanalFront Vacation House<br><span class="he-line2">Amsterdam, The Netherlands<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span></div>
-      <h1 class="brand-name">CASA PURA VIDA</h1>
-      <p class="lede" data-i18n="heroLede">Designed for Groups, Families &amp; Couples</p>
-      <div class="cta-row">
-        <a href="#booking" class="btn btn-primary" data-i18n="ctaCheck">Check availability</a>
-        <a href="#story" class="btn btn-ghost" data-i18n="ctaMore">Explore the house</a>
+  <section class="hero" id="gallery">
+    <div class="section-inner hero-split">
+      <div class="hero-text">
+        <div class="hero-eyebrow" data-i18n="heroEyebrow">CanalFront Vacation House<br><span class="he-line2">Amsterdam, The Netherlands<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span></div>
+        <h1 class="brand-name">CASA PURA VIDA</h1>
+        <p class="lede" data-i18n="heroLede">Designed for Groups, Families &amp; Couples</p>
+        <div class="cta-row">
+          <a href="#booking" class="btn btn-primary" data-i18n="ctaCheck">Check availability</a>
+          <a href="#story" class="btn btn-ghost" data-i18n="ctaMore">Explore the house</a>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <section id="gallery" style="padding-top:20px;">
-    <div class="section-inner">
+      <div class="hero-visual">
       <div class="hero-gallery">
         <div class="carousel" id="galleryCarousel">
         <div class="carousel-track-wrap">
@@ -370,8 +389,12 @@
       </div>
 
       <button id="fullGalleryBtn" class="btn btn-primary" style="margin-top:18px; display:flex; margin-inline:auto;" data-i18n="galFullBtn">Full gallery</button>
+      </div>
+    </div>
+    </div>
+  </section>
 
-      <div class="lightbox" id="fullGalleryModal" aria-hidden="true">
+  <div class="lightbox" id="fullGalleryModal" aria-hidden="true">
         <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
         <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Full gallery">
           <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
@@ -423,9 +446,6 @@
           </div>
         </div>
       </div>
-      </div>
-    </div>
-  </section>
 
   <section style="padding-top:0;">
     <div class="section-inner">
@@ -483,12 +503,12 @@
       <h2 data-i18n="amenTitle">Everything the house includes</h2>
       <div class="amen-grid">
         <div class="amen-card">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 15.5c4-4.2 15-4.2 19 0"/><path d="M8 12l8-8M6 14l8-8"/><path d="M5 20c1.2-1 2.4-1 3.5 0s2.3 1 3.5 0 2.3-1 3.5 0 2.3 1 3.5 0"/></svg></span>
+          <span class="ic"><img src="assets/photos/00-terrace.jpg" alt="" loading="lazy"></span>
           <h3 data-i18n="cat1t">Outdoor & recreation</h3>
           <ul><li data-i18n="cat1i1">2 double kayaks, free to use</li><li data-i18n="cat1i2">10 bicycles, including kids' bikes, free to use</li></ul>
         </div>
         <div class="amen-card">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12V8.5A1.5 1.5 0 0 1 6.5 7h11A1.5 1.5 0 0 1 19 8.5V12"/><path d="M4 12h16a1 1 0 0 1 1 1v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a1 1 0 0 1 1-1Z"/><path d="M5 18v2M19 18v2"/></svg></span>
+          <span class="ic"><img src="assets/photos/03.jpg" alt="" loading="lazy"></span>
           <h3 data-i18n="cat2t">Living room</h3>
           <ul>
             <li data-i18n="cat2i1">Bluetooth sound system</li>
@@ -502,7 +522,7 @@
           </ul>
         </div>
         <div class="amen-card">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v7a2 2 0 0 0 4 0V3"/><path d="M9 10v11"/><path d="M16 3c-1.4 0-2.5 1.6-2.5 4s1.1 4 2.5 4 2.5-1.6 2.5-4-1.1-4-2.5-4Z"/><path d="M16 11v10"/></svg></span>
+          <span class="ic"><img src="assets/photos/06.jpg" alt="" loading="lazy"></span>
           <h3 data-i18n="cat3t">Kitchen</h3>
           <ul>
             <li data-i18n="cat3i1">2 fridges with ice and water dispenser</li>
@@ -515,7 +535,7 @@
           </ul>
         </div>
         <div class="amen-card">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5"/><path d="M3 18v2M21 18v2"/><path d="M5 11V8a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3"/><path d="M12 11V9.5a1.5 1.5 0 0 1 1.5-1.5H18a2 2 0 0 1 2 2v1"/></svg></span>
+          <span class="ic"><img src="assets/photos/19.jpg" alt="" loading="lazy"></span>
           <h3 data-i18n="cat4t">Bedroom floor</h3>
           <ul>
             <li data-i18n="cat4i1">Fully equipped laundry room: washer, dryer, detergent, softener, iron and cleaning supplies</li>
@@ -526,7 +546,7 @@
           </ul>
         </div>
         <div class="amen-card">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3Z"/><path d="M4 12V6.5A1.5 1.5 0 0 1 5.5 5c1 0 1.5.8 1.5 1.7"/><path d="M3 19v1.5M19 19v1.5"/><path d="M8.5 3.5c.9.6.9 1.7 0 2.3"/></svg></span>
+          <span class="ic"><img src="assets/photos/22.jpg" alt="" loading="lazy"></span>
           <h3 data-i18n="cat5t">Bathrooms</h3>
           <ul>
             <li data-i18n="cat5i1">Plush towels and bathrobes in every bathroom</li>
@@ -535,7 +555,7 @@
           </ul>
         </div>
         <div class="amen-card">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="9" rx="1.5"/><path d="M4 14h16"/><path d="M6 10V7.5A1.5 1.5 0 0 1 7.5 6h9A1.5 1.5 0 0 1 18 7.5V10"/></svg></span>
+          <span class="ic"><img src="assets/photos/20.jpg" alt="" loading="lazy"></span>
           <h3 data-i18n="cat6t">Bedrooms</h3>
           <ul>
             <li data-i18n="cat6i1">Master bedroom, King+ bed (210×200 cm), goose-down duvet and pillows, alternatives available on request</li>
@@ -547,7 +567,7 @@
           </ul>
         </div>
         <div class="amen-card" style="grid-column:1/-1;">
-          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="6" rx="2"/><path d="M5 11l1.4-4.2A2 2 0 0 1 8.3 5.4h7.4a2 2 0 0 1 1.9 1.4L19 11"/><circle cx="7.5" cy="17.5" r="1.3"/><circle cx="16.5" cy="17.5" r="1.3"/></svg></span>
+          <span class="ic"><img src="assets/photos/32.jpg" alt="" loading="lazy"></span>
           <h3 data-i18n="cat7t">Getting around</h3>
           <ul>
             <li data-i18n="cat7i1">10 minutes from the airport</li>
@@ -581,23 +601,34 @@
               <span><i class="dot booked"></i><span data-i18n="legendBooked">Booked</span></span>
               <span><i class="dot selected"></i><span data-i18n="legendSelected">Selected</span></span>
             </div>
+            <div style="margin-top:14px;">
+              <label for="fGuests" data-i18n="fGuests">Number of guests over age 2</label>
+              <input id="fGuests" type="number" min="1" max="12" value="2">
+            </div>
             <div class="price-box" id="priceBox">
               <div class="price-box-main" id="priceMainText" data-i18n="priceSelectPrompt">Select your check-in and check-out dates above</div>
               <div class="price-lines" id="priceLines"></div>
             </div>
+            <button type="button" class="btn btn-primary" id="continueBtn" style="width:100%; margin-top:14px; display:none;" data-i18n="fContinue">Continue to booking</button>
           </div>
           <p class="form-note" style="margin-top:12px;" data-i18n="calNote">* Minimum stay: 3 nights, year-round. Prices shown include VAT.</p>
         </div>
         <div>
-          <form class="inquiry" id="inquiryForm">
-            <div class="row2">
-              <div><label for="fName" data-i18n="fName">Full name</label><input id="fName" name="name" required></div>
-              <div><label for="fEmail" data-i18n="fEmail">Email</label><input id="fEmail" name="email" type="email" required></div>
-            </div>
-            <div>
-              <label for="fPhoneNumber" data-i18n="fPhone">Phone</label>
-              <div class="phone-row">
-                <select id="fPhoneCode" name="phoneCode" required aria-label="Country code">
+          <div class="booking-locked" id="bookingLocked">
+            <p class="form-note" data-i18n="lockedPrompt" style="font-size:14.5px;">Select your dates and guest count, and confirm the price - your details form will appear here.</p>
+          </div>
+          <div id="bookingUnlocked" style="display:none;">
+            <div class="stay-summary" id="staySummary"></div>
+            <button type="button" class="btn-secondary" id="editDatesBtn" style="margin-bottom:16px;" data-i18n="editDates">&larr; Edit dates</button>
+            <form class="inquiry" id="inquiryForm">
+              <div class="row2">
+                <div><label for="fName" data-i18n="fName">Full name</label><input id="fName" name="name" required></div>
+                <div><label for="fEmail" data-i18n="fEmail">Email</label><input id="fEmail" name="email" type="email" required></div>
+              </div>
+              <div>
+                <label for="fPhoneNumber" data-i18n="fPhone">Phone</label>
+                <div class="phone-row">
+                  <select id="fPhoneCode" name="phoneCode" required aria-label="Country code">
               <option value="+972">+972 Israel</option>
               <option value="+31">+31 Netherlands</option>
               <option value="+1">+1 USA/Canada</option>
@@ -652,19 +683,18 @@
               <option value="+51">+51 Peru</option>
               <option value="+598">+598 Uruguay</option>
               <option value="+593">+593 Ecuador</option>
-                </select>
-                <input id="fPhoneNumber" name="phoneNumber" type="tel" required placeholder="000000000">
+                  </select>
+                  <input id="fPhoneNumber" name="phoneNumber" type="tel" required placeholder="000000000">
+                </div>
               </div>
-            </div>
-            <div class="row2">
-              <div><label for="fIn" data-i18n="fIn">Check-in</label><input id="fIn" name="checkin" type="date" required readonly></div>
-              <div><label for="fOut" data-i18n="fOut">Check-out</label><input id="fOut" name="checkout" type="date" required readonly></div>
-            </div>
-            <div><label for="fGuests" data-i18n="fGuests">Number of guests over age 2</label><input id="fGuests" name="guests" type="number" min="1" max="12" value="2" required></div>
-            <div><label for="fMsg" data-i18n="fMsg">Message (optional)</label><textarea id="fMsg" name="message"></textarea></div>
-            <button type="submit" class="btn btn-primary" data-i18n="fSubmit">Send booking request</button>
-            <div class="form-status" id="formStatus" role="status"></div>
-          </form>
+              <input type="hidden" id="fIn" name="checkin">
+              <input type="hidden" id="fOut" name="checkout">
+              <input type="hidden" id="fGuestsHidden" name="guests">
+              <div><label for="fMsg" data-i18n="fMsg">Message / special requests (optional)</label><textarea id="fMsg" name="message"></textarea></div>
+              <button type="submit" class="btn btn-primary" data-i18n="fSubmit">Send booking request</button>
+              <div class="form-status" id="formStatus" role="status"></div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -685,7 +715,7 @@
     <div class="section-inner narrow">
       <div class="eyebrow" data-i18n="a11yEyebrow">Accessibility</div>
       <h2 data-i18n="a11yTitle" style="font-size:26px;">Accessibility statement</h2>
-      <p class="lead-text" data-i18n="a11yBody">This site was built to be accessible to all users, in line with Israeli Standard 5568 (AA level) and the Equal Rights for Persons with Disabilities Law. It includes full keyboard navigation, alt text for images, adequate colour contrast, and support for assistive technology.</p>
+      <p class="lead-text" data-i18n="a11yBody">This site was built to be accessible to all users, in line with WCAG 2.1 (AA level) international accessibility guidelines. It includes full keyboard navigation, alt text for images, adequate colour contrast, and support for assistive technology.</p>
       <ul>
         <li data-i18n="a11y1">Full keyboard navigation, including a skip-to-content link</li>
         <li data-i18n="a11y2">Screen reader support with ARIA labelling on interactive elements</li>
@@ -702,16 +732,11 @@
     <div>
       <h4>Casa Pura Vida, Amsterdam</h4>
       <p style="opacity:.85; max-width:38ch; font-size:14.5px;" data-i18n="footTag">A private house on the water in Sloten, Amsterdam, with space for groups, families and couples.</p>
-      <div class="share-links">
-        <a href="?lang=en">EN link</a>
-        <a href="?lang=es">ES link</a>
-        <a href="?lang=he">HE link</a>
-      </div>
       <div class="social-row">
-          <a href="https://wa.me/message/QZBXKQJ6BSIRN1" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.4-.1-.1-.5-1.3-.7-1.8-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.4.5.2 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"/></svg></a>
-          <a href="https://www.instagram.com/casapuravida" target="_blank" rel="noopener" aria-label="Instagram" class="social-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-2.7 0-3 0-4.1.1-1.1.1-1.8.2-2.4.5-.7.3-1.2.6-1.8 1.2-.6.6-.9 1.1-1.2 1.8-.2.6-.4 1.3-.5 2.4C2 9.1 2 9.4 2 12s0 2.9.1 4c.1 1.1.2 1.8.5 2.4.3.7.6 1.2 1.2 1.8.6.6 1.1.9 1.8 1.2.6.2 1.3.4 2.4.5C9.1 22 9.4 22 12 22s2.9 0 4-.1c1.1-.1 1.8-.2 2.4-.5.7-.3 1.2-.6 1.8-1.2.6-.6.9-1.1 1.2-1.8.2-.6.4-1.3.5-2.4.1-1.1.1-1.4.1-4s0-2.9-.1-4c-.1-1.1-.2-1.8-.5-2.4-.3-.7-.6-1.2-1.2-1.8-.6-.6-1.1-.9-1.8-1.2-.6-.2-1.3-.4-2.4-.5C14.9 2 14.6 2 12 2Zm0 1.8c2.6 0 2.9 0 3.9.1 1 .1 1.5.2 1.8.4.5.2.8.4 1.2.7.3.3.5.6.7 1.2.1.3.3.8.4 1.8.1 1 .1 1.3.1 3.9s0 2.9-.1 3.9c-.1 1-.2 1.5-.4 1.8-.2.5-.4.8-.7 1.2-.3.3-.6.5-1.2.7-.3.1-.8.3-1.8.4-1 .1-1.3.1-3.9.1s-2.9 0-3.9-.1c-1-.1-1.5-.2-1.8-.4-.5-.2-.8-.4-1.2-.7-.3-.3-.5-.6-.7-1.2-.1-.3-.3-.8-.4-1.8-.1-1-.1-1.3-.1-3.9s0-2.9.1-3.9c.1-1 .2-1.5.4-1.8.2-.5.4-.8.7-1.2.3-.3.6-.5 1.2-.7.3-.1.8-.3 1.8-.4 1-.1 1.3-.1 3.9-.1Zm0 3.2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg></a>
-          <a href="https://www.facebook.com/casapuravidanl" target="_blank" rel="noopener" aria-label="Facebook" class="social-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.5l.4-3H13.5V8.5c0-.9.2-1.5 1.5-1.5h1.6V4.3C16.3 4.2 15.3 4 14.2 4c-2.3 0-3.9 1.4-3.9 4v2.5H7.8v3h2.5V21h3.2Z"/></svg></a>
-          <a href="https://www.tiktok.com/@casapuravida" target="_blank" rel="noopener" aria-label="TikTok" class="social-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 2h2.1c.1 1 .5 1.9 1.2 2.6.7.7 1.6 1.1 2.7 1.2v2.2c-1.4 0-2.7-.4-3.9-1.2v6.6c0 3-2.4 5.4-5.4 5.4S5.3 16.4 5.3 13.4c0-2.9 2.3-5.3 5.2-5.4v2.3c-1.6.1-2.9 1.4-2.9 3.1a3.1 3.1 0 1 0 6.2 0V2Z"/></svg></a>
+          <a href="https://wa.me/message/QZBXKQJ6BSIRN1" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-btn"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.4-.1-.1-.5-1.3-.7-1.8-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.4.5.2 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"/></svg></a>
+          <a href="https://www.instagram.com/casapuravida" target="_blank" rel="noopener" aria-label="Instagram" class="social-btn"><svg viewBox="0 0 24 24"><defs><linearGradient id="igGradFooter" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFDC80"/><stop offset="25%" stop-color="#FCAF45"/><stop offset="50%" stop-color="#E1306C"/><stop offset="75%" stop-color="#C13584"/><stop offset="100%" stop-color="#833AB4"/></linearGradient></defs><path fill="url(#igGradFooter)" d="M12 2c-2.7 0-3 0-4.1.1-1.1.1-1.8.2-2.4.5-.7.3-1.2.6-1.8 1.2-.6.6-.9 1.1-1.2 1.8-.2.6-.4 1.3-.5 2.4C2 9.1 2 9.4 2 12s0 2.9.1 4c.1 1.1.2 1.8.5 2.4.3.7.6 1.2 1.2 1.8.6.6 1.1.9 1.8 1.2.6.2 1.3.4 2.4.5C9.1 22 9.4 22 12 22s2.9 0 4-.1c1.1-.1 1.8-.2 2.4-.5.7-.3 1.2-.6 1.8-1.2.6-.6.9-1.1 1.2-1.8.2-.6.4-1.3.5-2.4.1-1.1.1-1.4.1-4s0-2.9-.1-4c-.1-1.1-.2-1.8-.5-2.4-.3-.7-.6-1.2-1.2-1.8-.6-.6-1.1-.9-1.8-1.2-.6-.2-1.3-.4-2.4-.5C14.9 2 14.6 2 12 2Zm0 1.8c2.6 0 2.9 0 3.9.1 1 .1 1.5.2 1.8.4.5.2.8.4 1.2.7.3.3.5.6.7 1.2.1.3.3.8.4 1.8.1 1 .1 1.3.1 3.9s0 2.9-.1 3.9c-.1 1-.2 1.5-.4 1.8-.2.5-.4.8-.7 1.2-.3.3-.6.5-1.2.7-.3.1-.8.3-1.8.4-1 .1-1.3.1-3.9.1s-2.9 0-3.9-.1c-1-.1-1.5-.2-1.8-.4-.5-.2-.8-.4-1.2-.7-.3-.3-.5-.6-.7-1.2-.1-.3-.3-.8-.4-1.8-.1-1-.1-1.3-.1-3.9s0-2.9.1-3.9c.1-1 .2-1.5.4-1.8.2-.5.4-.8.7-1.2.3-.3.6-.5 1.2-.7.3-.1.8-.3 1.8-.4 1-.1 1.3-.1 3.9-.1Zm0 3.2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg></a>
+          <a href="https://www.facebook.com/casapuravidanl" target="_blank" rel="noopener" aria-label="Facebook" class="social-btn"><svg viewBox="0 0 24 24" fill="#1877F2"><path d="M13.5 21v-7.5h2.5l.4-3H13.5V8.5c0-.9.2-1.5 1.5-1.5h1.6V4.3C16.3 4.2 15.3 4 14.2 4c-2.3 0-3.9 1.4-3.9 4v2.5H7.8v3h2.5V21h3.2Z"/></svg></a>
+          <a href="https://www.tiktok.com/@casapuravida" target="_blank" rel="noopener" aria-label="TikTok" class="social-btn"><svg viewBox="0 0 24 24" fill="#000000"><path d="M14 2h2.1c.1 1 .5 1.9 1.2 2.6.7.7 1.6 1.1 2.7 1.2v2.2c-1.4 0-2.7-.4-3.9-1.2v6.6c0 3-2.4 5.4-5.4 5.4S5.3 16.4 5.3 13.4c0-2.9 2.3-5.3 5.2-5.4v2.3c-1.6.1-2.9 1.4-2.9 3.1a3.1 3.1 0 1 0 6.2 0V2Z"/></svg></a>
         </div>
     </div>
     <div class="foot-links">
@@ -911,7 +936,7 @@
 <script>
 const translations = {
   en:{dir:'ltr', skip:'Skip to main content', nav1:'The house', nav2:'Gallery', nav3:'Amenities', nav4:'Booking', nav5:'Location',
-    heroEyebrow:'CanalFront Vacation House<br><span class="he-line2">Amsterdam, The Netherlands<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'Designed for Groups, Families &amp; Couples',
+    heroEyebrow:'CanalFront Vacation House<br><span class="he-line2">Amsterdam, The Netherlands<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'Designed for<br>Groups, Families &amp; Couples',
     ctaCheck:'Check availability', ctaMore:'Explore the house', photoPlaceholder:"Hero photo placeholder, send your photos and video tour and they'll go right here",
     spec1:'Up to 12 guests', spec2:'Free parking', spec3:'A built house,<br>Not a houseboat', spec4:'250 m² house<br>+ 300 m² garden', spec5:"10 bicycles &amp; 2 kayaks, free to use, including kids' bikes", spec6:'Air conditioning, a wood-burning fireplace,<br>and heated floors', spec7:'10 minutes from the airport,<br>10-20 minutes<br>from the city centre', spec8:'A fully equipped kitchen<br>with Nespresso, dishwasher and more',
     storyEyebrow:'Our story', storyTitle:'Space for everyone, right on the canal', videoEyebrow:'Video tour', videoTitle:'See the house for yourself',
@@ -920,17 +945,17 @@ const translations = {
     galEyebrow:'Gallery', galTitle:'Every hour looks different on the water', galNote:'More photos coming soon.', galFullBtn:'Full gallery', galFilterAll:'All', galFilterLiving:'Living room', galFilterKitchen:'Kitchen', galFilterTerrace:'Terraces &amp; garden', galFilterBedroom:'Bedrooms &amp; baths', galFilterVideo:'Video tour',
     amenEyebrow:'Full house specification', amenTitle:'Everything the house includes',
     cat1t:'Outdoor & recreation', cat1i1:'2 double kayaks, free to use', cat1i2:"10 bicycles, including kids' bikes, free to use",
-    cat2t:'Living room', cat2i1:'Bluetooth sound system', cat2i2:'Large screen with Kodi, including Israeli channels', cat2i3:'Heated floors on both levels', cat2i4:'Strong, fast Wi-Fi throughout the house', cat2i5:"Arcade machine and kids' games", cat2i6:'Piano and electronic drums', cat2i7:'Wood-burning fireplace', cat2i8:'Guest toilet on the upper level',
+    cat2t:'Living room', cat2i1:'Bluetooth sound system', cat2i2:'Large screen with Kodi, with channels from around the world', cat2i3:'Heated floors on both levels', cat2i4:'Strong, fast Wi-Fi throughout the house', cat2i5:"Arcade machine and kids' games", cat2i6:'Piano and electronic drums', cat2i7:'Wood-burning fireplace', cat2i8:'Guest toilet on the upper level',
     cat3t:'Kitchen', cat3i1:'2 fridges with ice and water dispenser', cat3i2:'Nespresso machine with capsules and ground coffee, plus a tea set, treats and wine waiting on arrival', cat3i3:'Toaster, oven and microwave', cat3i4:'Full range of cookware, bakeware and serving pieces', cat3i5:'Dishwasher', cat3i6:'Combined induction and gas cooktop', cat3i7:'Cooking set with a variety of oils and spices',
     cat4t:'Bedroom floor', cat4i1:'Fully equipped laundry room: washer, dryer, detergent, softener, iron and cleaning supplies', cat4i2:'Wall-to-wall plush carpet throughout the floor', cat4i3:'4 bedrooms and 2 guest toilets', cat4i4:'2 bathrooms, with sauna and jet options in the showers', cat4i5:'Creative corner with writing and drawing supplies',
     cat5t:'Bathrooms', cat5i1:'Plush towels and bathrobes in every bathroom', cat5i2:'Toiletries including shampoo, conditioner and body soap', cat5i3:'Hair dryer',
     cat6t:'Bedrooms', cat6i1:'Master bedroom, King+ bed (210×200 cm), goose-down duvet and pillows, alternatives available on request', cat6i2:'Room 2, double bed, 160 cm wide', cat6i3:'Room 3, double bed, 140 cm wide', cat6i4:'Room 4, double bed, 140 cm wide', cat6i5:'Orthopaedic mattresses available on request', cat6i6:'Baby crib available on request',
     cat7t:'Getting around', cat7i1:'10 minutes from the airport', cat7i2:'10-20 minutes from every central point in the city; average one-way taxi fare €15-20', cat7i3:"The neighbourhood feels almost rural, walk along the lakes and canals past the area's distinctive houses, or cycle into the forest and the neighbouring village of Badhoevedorp", cat7i4:'Two supermarkets nearby, side by side: Albert Heijn and Lidl', cat7i5:'A 4-minute bike ride or 15-minute walk to the tram stop for lines 1 and 2, reaching every major location in Amsterdam',
-    bookEyebrow:'Availability & booking', bookTitle:'Check dates, send a request', bookLede:"Click your check-in and check-out dates below - the price updates instantly.", priceSelectPrompt:'Select your check-in and check-out dates above', minNightsWarning:'Minimum stay is {n} nights', nightsLabel:'nights', lineNights:'Nights', lineExtraGuests:'Extra guests', lineSubtotal:'Subtotal', lineVat:'VAT', lineTotal:'Total (incl. VAT)',
-    legendAvail:'Available', legendHoliday:'Holiday rate', legendBooked:'Booked', legendSelected:'Selected', calNote:'* Minimum stay: 3 nights, year-round. Prices shown include VAT.',
-    fName:'Full name', fEmail:'Email', fPhone:'Phone', fIn:'Check-in', fOut:'Check-out', fGuests:'Number of guests over age 2', fMsg:'Message (optional)', fSubmit:'Send booking request',
+    bookEyebrow:'Availability & booking', bookTitle:'Check dates, send a request', bookLede:"Click your check-in and check-out dates below - the price updates instantly.", priceSelectPrompt:'Select your check-in and check-out dates above', minNightsWarning:'Minimum stay is {n} nights', nightsLabel:'nights', lineNights:'Nights', lineExtraGuests:'Extra guests', lineSubtotal:'Subtotal', lineVat:'VAT', lineVatIncluded:'included in the price', lineTotal:'Total (incl. VAT)',
+    legendAvail:'Available', legendHoliday:'Holiday rate', legendBooked:'Booked', legendSelected:'Selected', calNote:'* Minimum stay: 3 nights, year-round. Prices shown include VAT and the end-of-stay cleaning fee.',
+    fName:'Full name', fEmail:'Email', fPhone:'Phone', fIn:'Check-in', fOut:'Check-out', fGuests:'Number of guests over age 2', fMsg:'Message / special requests (optional)', fSubmit:'Send booking request', fContinue:'Continue to booking', lockedPrompt:'Select your dates and guest count, and confirm the price - your details form will appear here.', editDates:'&larr; Edit dates',
     locEyebrow:'Location', locTitle:'Sloten, Amsterdam, quiet, green, on the water', locBody:'The house sits in Sloten, on the western edge of Amsterdam, 10 minutes from the airport and 10-20 minutes from every central point in the city, yet surrounded by lakes, canals and forest. The exact address is provided at the time of booking, or in advance through our booking line.',
-    a11yEyebrow:'Accessibility', a11yTitle:'Accessibility statement', a11yBody:'This site was built to be accessible to all users, in line with Israeli Standard 5568 (AA level) and the Equal Rights for Persons with Disabilities Law. It includes full keyboard navigation, alt text for images, adequate colour contrast, and support for assistive technology.',
+    a11yEyebrow:'Accessibility', a11yTitle:'Accessibility statement', a11yBody:'This site was built to be accessible to all users, in line with WCAG 2.1 (AA level) international accessibility guidelines. It includes full keyboard navigation, alt text for images, adequate colour contrast, and support for assistive technology.',
     a11y1:'Full keyboard navigation, including a skip-to-content link', a11y2:'Screen reader support with ARIA labelling on interactive elements', a11y3:"Respects the user's reduced-motion preference", a11yContact:'Found an accessibility issue? Email us, info@casapuravidanl.com',
     footTag:'A private house on the water in Sloten, Amsterdam, with space for groups, families and couples.', footNavT:'Navigate', footContactT:'Contact', footLegal:'© 2026 Casa Pura Vida, Amsterdam. All rights reserved.', footPolicies:'Privacy Policy, Terms &amp; Cancellation Policy',
     formSent:"Thank you! Your request has been sent, we'll reply soon.", formErr:'Please fill in all required fields.', formSendError:'Something went wrong sending your request - please try again or contact us directly.', a11yWidgetTitle:'Accessibility', a11yTextInc:'Larger text', a11yContrast:'High contrast', a11yUnderline:'Underline links', a11yMotion:'Reduce motion', a11yReset:'Reset'},
@@ -950,11 +975,11 @@ const translations = {
     cat5t:'Baños', cat5i1:'Toallas y albornoces mullidos en cada baño', cat5i2:'Artículos de aseo, incluyendo champú, acondicionador y jabón corporal', cat5i3:'Secador de pelo',
     cat6t:'Dormitorios', cat6i1:'Dormitorio principal, cama King+ (210×200 cm), edredón y almohadas de plumón, con alternativas disponibles bajo petición', cat6i2:'Habitación 2, cama de matrimonio de 160 cm', cat6i3:'Habitación 3, cama de matrimonio de 140 cm', cat6i4:'Habitación 4, cama de matrimonio de 140 cm', cat6i5:'Colchones ortopédicos disponibles bajo petición', cat6i6:'Cuna para bebé disponible bajo petición',
     cat7t:'Cómo moverse', cat7i1:'A 10 minutos del aeropuerto', cat7i2:'10-20 minutos de cualquier punto central de la ciudad; tarifa media de taxi de ida: 15-20 €', cat7i3:'El barrio es rural, se puede pasear junto a los lagos y canales entre las casas características de la zona, o pedalear hacia el bosque y el pueblo vecino de Badhoevedorp', cat7i4:'Dos supermercados cercanos, uno junto al otro: Albert Heijn y Lidl', cat7i5:'A 4 minutos en bicicleta o 15 minutos a pie de la parada de tranvía de las líneas 1 y 2, que llegan a todos los puntos clave de Ámsterdam',
-    bookEyebrow:'Disponibilidad y reserva', bookTitle:'Consulta fechas, envía una solicitud', bookLede:'Haz clic en tus fechas de entrada y salida abajo - el precio se actualiza al instante.', priceSelectPrompt:'Selecciona tus fechas de entrada y salida arriba', minNightsWarning:'La estancia mínima es de {n} noches', nightsLabel:'noches', lineNights:'Noches', lineExtraGuests:'Huéspedes adicionales', lineSubtotal:'Subtotal', lineVat:'IVA', lineTotal:'Total (IVA incl.)',
-    legendAvail:'Disponible', legendHoliday:'Tarifa festiva', legendBooked:'Reservado', legendSelected:'Seleccionado', calNote:'* Estancia mínima: 3 noches, todo el año. Los precios incluyen IVA.',
-    fName:'Nombre completo', fEmail:'Correo electrónico', fPhone:'Teléfono', fIn:'Entrada', fOut:'Salida', fGuests:'Número de huéspedes mayores de 2 años', fMsg:'Mensaje (opcional)', fSubmit:'Enviar solicitud de reserva',
+    bookEyebrow:'Disponibilidad y reserva', bookTitle:'Consulta fechas, envía una solicitud', bookLede:'Haz clic en tus fechas de entrada y salida abajo - el precio se actualiza al instante.', priceSelectPrompt:'Selecciona tus fechas de entrada y salida arriba', minNightsWarning:'La estancia mínima es de {n} noches', nightsLabel:'noches', lineNights:'Noches', lineExtraGuests:'Huéspedes adicionales', lineSubtotal:'Subtotal', lineVat:'IVA', lineVatIncluded:'incluido en el precio', lineTotal:'Total (IVA incl.)',
+    legendAvail:'Disponible', legendHoliday:'Tarifa festiva', legendBooked:'Reservado', legendSelected:'Seleccionado', calNote:'* Estancia mínima: 3 noches, todo el año. Los precios incluyen IVA y la tarifa de limpieza final.',
+    fName:'Nombre completo', fEmail:'Correo electrónico', fPhone:'Teléfono', fIn:'Entrada', fOut:'Salida', fGuests:'Número de huéspedes mayores de 2 años', fMsg:'Mensaje / solicitudes especiales (opcional)', fSubmit:'Enviar solicitud de reserva', fContinue:'Continuar con la reserva', lockedPrompt:'Selecciona tus fechas y número de huéspedes, y confirma el precio - el formulario de datos aparecerá aquí.', editDates:'&larr; Editar fechas',
     locEyebrow:'Ubicación', locTitle:'Sloten, Ámsterdam, tranquilo, verde, sobre el agua', locBody:'La casa está en Sloten, en el extremo occidental de Ámsterdam, a 10 minutos del aeropuerto y 10-20 minutos de cualquier punto central de la ciudad, rodeada de lagos, canales y bosque. La dirección exacta se facilita en el momento de la reserva, o con antelación a través de nuestra línea de reservas.',
-    a11yEyebrow:'Accesibilidad', a11yTitle:'Declaración de accesibilidad', a11yBody:'Este sitio fue diseñado para ser accesible para todos los usuarios, conforme a la norma israelí 5568 (nivel AA) y a la ley de igualdad de derechos para personas con discapacidad. Incluye navegación completa por teclado, texto alternativo en imágenes, contraste de color adecuado y compatibilidad con tecnologías de asistencia.',
+    a11yEyebrow:'Accesibilidad', a11yTitle:'Declaración de accesibilidad', a11yBody:'Este sitio fue diseñado para ser accesible para todos los usuarios, conforme a las pautas internacionales de accesibilidad WCAG 2.1 (nivel AA). Incluye navegación completa por teclado, texto alternativo en imágenes, contraste de color adecuado y compatibilidad con tecnologías de asistencia.',
     a11y1:'Navegación completa por teclado, incluyendo un enlace de salto al contenido', a11y2:'Compatibilidad con lectores de pantalla mediante etiquetas ARIA', a11y3:'Respeta la preferencia de movimiento reducido del usuario', a11yContact:'¿Encontraste un problema de accesibilidad? Escríbenos, info@casapuravidanl.com',
     footTag:'Una casa privada sobre el agua en Sloten, Ámsterdam, con espacio para grupos, familias y parejas.', footNavT:'Navegación', footContactT:'Contacto', footLegal:'© 2026 Casa Pura Vida, Ámsterdam. Todos los derechos reservados.', footPolicies:'Privacidad, Términos y Política de Cancelación',
     formSent:'¡Gracias! Tu solicitud ha sido enviada, te responderemos pronto.', formErr:'Por favor completa todos los campos obligatorios.', formSendError:'Ocurrió un error al enviar tu solicitud - inténtalo de nuevo o contáctanos directamente.', a11yWidgetTitle:'Accesibilidad', a11yTextInc:'Texto más grande', a11yContrast:'Alto contraste', a11yUnderline:'Subrayar enlaces', a11yMotion:'Reducir movimiento', a11yReset:'Restablecer'},
@@ -962,7 +987,7 @@ const translations = {
     heroEyebrow:'בית נופש על מי התעלה<br><span class="he-line2">אמסטרדם, הולנד<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'מתאים לקבוצות, משפחות וזוגות',
     ctaCheck:'בדקו זמינות', ctaMore:'גלו את הבית', photoPlaceholder:'מקום לתמונת גג, שלחו תמונות וסרטון סיור והם ייכנסו לכאן',
     spec1:'עד 12 אורחים', spec2:'חניה חופשית', spec3:'הבית בנוי ואינו סירה', spec4:'250 מ"ר בית + 300 מ"ר גינה', spec5:'10 אופניים ו-2 קיאקים, לשימוש חופשי, כולל אופניים לילדים', spec6:'מיזוג אוויר, אח מבוערת<br>ורצפה מחוממת', spec7:'10 דקות משדה התעופה,<br>10-20 דקות ממרכז העיר', spec8:'מטבח מאובזר במלואו, כולל נספרסו, מדיח כלים ועוד',
-    storyEyebrow:'הסיפור שלנו', storyTitle:'מרחב לכולם, ממש על התעלה', videoEyebrow:'סרטון סיור', videoTitle:'תראו את הבית בעצמכם',
+    storyEyebrow:'הסיפור שלנו', storyTitle:'מרחב לכולם,<br>ממש על התעלה', videoEyebrow:'סרטון סיור', videoTitle:'תראו את הבית בעצמכם',
     storyBody:'Casa Pura Vida ממוקם ישירות על תעלות אמסטרדם, בית אמיתי, הבנוי ואינו סירה. עם 250 מ"ר בנוי ו-300 מ"ר גינה, הבית מתאים לקבוצות, משפחות וזוגות שרוצים מרחב אמיתי בלי לוותר על החוויה של המים. הבית פרוס על פני שני מפלסים: קומת הכניסה כוללת את הסלון והמטבח, ואילו הקומה התחתונה היא קומת השינה, ובה ממוקמים כל חדרי השינה וחדרי הרחצה.',
     storyF1:'שינה עד 12 אורחים ב-4 חדרי שינה', storyF2:'חניה חופשית לרכב', storyF3:'2 קיאקים זוגיים + 10 זוגות אופניים לשימוש חופשי, כולל אופניים לילדים', storyF4:'10 דקות משדה התעופה, 10-20 דקות ממרכז אמסטרדם', storyPh:'תמונת פנים, מקום שמור',
     galEyebrow:'גלריה', galTitle:'כל שעה ביום נראית אחרת על המים', galNote:'בקרוב עוד תמונות.', galFullBtn:'גלריה מלאה', galFilterAll:'הכל', galFilterLiving:'סלון', galFilterKitchen:'מטבח', galFilterTerrace:'מרפסות וגינה', galFilterBedroom:'חדרי שינה ורחצה', galFilterVideo:'סיור בוידאו',
@@ -974,11 +999,11 @@ const translations = {
     cat5t:'חדרי רחצה', cat5i1:'מגבות מפנקות וחלוקי רחצה בכל חדר רחצה', cat5i2:'ערכות טיפוח, לרבות שמפו, מרכך וסבון גוף', cat5i3:'מייבש שיער',
     cat6t:'חדרי שינה', cat6i1:'חדר שינה מאסטר, מיטת קינג סייז פלוס (200×210), שמיכת פוך וכריות פוך אווזים, ניתן לבקש חלופות', cat6i2:'חדר מספר 2, מיטה זוגית ברוחב 1.60', cat6i3:'חדר מספר 3, מיטה זוגית ברוחב 1.40', cat6i4:'חדר מספר 4, מיטה זוגית ברוחב 1.40', cat6i5:'מזרנים אורתופדיים זמינים לפי בקשה', cat6i6:'עריסת תינוק זמינה לפי בקשה',
     cat7t:'תחבורה והתניידות', cat7i1:'10 דקות נסיעה משדה התעופה', cat7i2:'10-20 דקות נסיעה מכל הנקודות המרכזיות בעיר; מחיר ממוצע לכיוון למונית: 15-20 יורו', cat7i3:'האזור הוא כפרי, אפשר לצאת להליכה בין האגמים והתעלות עם הבתים הייחודיים לאזור, או לרכוב על אופניים אל תוך היער ולכפר ההולנדי הסמוך Badhoevedorp', cat7i4:'2 סופרמרקטים זמינים וצמודים זה לזה: Albert Heijn ו-Lidl', cat7i5:'4 דקות רכיבה על אופניים או הליכה של 15 דקות מתחנת הטראם של קווים 1+2, המגיעים לכל הנקודות המרכזיות באמסטרדם',
-    bookEyebrow:'זמינות והזמנה', bookTitle:'בדקו תאריכים, שלחו בקשה', bookLede:'לחצו על תאריכי ההגעה והעזיבה למטה - המחיר מתעדכן מיידית.', priceSelectPrompt:'בחרו תאריכי הגעה ועזיבה למעלה', minNightsWarning:'מינימום הזמנה הוא {n} לילות', nightsLabel:'לילות', lineNights:'לילות', lineExtraGuests:'אורחים נוספים', lineSubtotal:'סכום ביניים', lineVat:'מע"מ', lineTotal:'סה"כ (כולל מע"מ)',
-    legendAvail:'פנוי', legendHoliday:'תעריף חג', legendBooked:'תפוס', legendSelected:'נבחר', calNote:'* מינימום הזמנה: 3 לילות, כל השנה. המחירים כוללים מע"מ.',
-    fName:'שם מלא', fEmail:'אימייל', fPhone:'טלפון', fIn:'הגעה', fOut:'עזיבה', fGuests:'כמות אורחים מעל גיל שנתיים', fMsg:'הודעה (לא חובה)', fSubmit:'שלחו בקשת הזמנה',
+    bookEyebrow:'זמינות והזמנה', bookTitle:'בדקו תאריכים, שלחו בקשה', bookLede:'לחצו על תאריכי ההגעה והעזיבה למטה - המחיר מתעדכן מיידית.', priceSelectPrompt:'בחרו תאריכי הגעה ועזיבה למעלה', minNightsWarning:'מינימום הזמנה הוא {n} לילות', nightsLabel:'לילות', lineNights:'לילות', lineExtraGuests:'אורחים נוספים', lineSubtotal:'סכום ביניים', lineVat:'מע"מ', lineVatIncluded:'כלול במחיר', lineTotal:'סה"כ (כולל מע"מ)',
+    legendAvail:'פנוי', legendHoliday:'תעריף חג', legendBooked:'תפוס', legendSelected:'נבחר', calNote:'* מינימום הזמנה: 3 לילות, כל השנה. המחירים כוללים מע"מ ודמי ניקיון בסיום השהות.',
+    fName:'שם מלא', fEmail:'אימייל', fPhone:'טלפון', fIn:'הגעה', fOut:'עזיבה', fGuests:'כמות אורחים מעל גיל שנתיים', fMsg:'הודעה / בקשות מיוחדות (לא חובה)', fSubmit:'שלחו בקשת הזמנה', fContinue:'המשך להזמנה', lockedPrompt:'בחרו תאריכים וכמות אורחים, ואשרו את המחיר.<br>טופס הפרטים יופיע כאן.', editDates:'&larr; עריכת תאריכים',
     locEyebrow:'מיקום', locTitle:'שכונת Sloten, אמסטרדם, שקטה, ירוקה, על המים', locBody:'הבית ממוקם בשכונת Sloten, בקצה המערבי של אמסטרדם, 10 דקות משדה התעופה ו-10-20 דקות מכל נקודה מרכזית בעיר, כשהוא מוקף באגמים, תעלות ויער. הכתובת המדויקת תימסר במעמד ההזמנה, או מראש דרך מוקד ההזמנות.',
-    a11yEyebrow:'נגישות', a11yTitle:'הצהרת נגישות', a11yBody:'אתר זה נבנה מתוך מחויבות להנגשה עבור כלל המשתמשים, בהתאם לתקן הישראלי ת"י 5568 ברמה AA ולחוק שוויון זכויות לאנשים עם מוגבלות. האתר כולל ניווט מקלדת מלא, תיאורי טקסט חלופי לתמונות, ניגודיות צבעים נאותה, ותמיכה בטכנולוגיות מסייעות.',
+    a11yEyebrow:'נגישות', a11yTitle:'הצהרת נגישות', a11yBody:'אתר זה נבנה מתוך מחויבות להנגשה עבור כלל המשתמשים, בהתאם להנחיות הנגישות הבינלאומיות WCAG 2.1 ברמה AA. האתר כולל ניווט מקלדת מלא, תיאורי טקסט חלופי לתמונות, ניגודיות צבעים נאותה, ותמיכה בטכנולוגיות מסייעות.',
     a11y1:'ניווט מלא באמצעות מקלדת, כולל קישור דילוג לתוכן', a11y2:'תמיכה בקורא מסך ותיוג ARIA לרכיבים אינטראקטיביים', a11y3:'כיבוד הגדרת "הפחתת תנועה" של המשתמש', a11yContact:'נתקלתם בבעיית נגישות? כתבו לנו, info@casapuravidanl.com',
     footTag:'בית פרטי על המים בשכונת Sloten, אמסטרדם, מרחב לקבוצות, משפחות וזוגות.', footNavT:'ניווט', footContactT:'יצירת קשר', footLegal:'© 2026 Casa Pura Vida, אמסטרדם. כל הזכויות שמורות.', footPolicies:'מדיניות פרטיות, תנאי שימוש וביטולים',
     formSent:'תודה! הבקשה נשלחה, נחזור אליכם בהקדם.', formErr:'נא למלא את כל השדות הנדרשים.', formSendError:'קרתה תקלה בשליחת הבקשה - נסו שוב או צרו קשר ישירות.', a11yWidgetTitle:'נגישות', a11yTextInc:'הגדלת טקסט', a11yContrast:'ניגודיות גבוהה', a11yUnderline:'קו תחתון לקישורים', a11yMotion:'הפחתת אנימציות', a11yReset:'איפוס'}
@@ -1030,6 +1055,38 @@ document.addEventListener('keydown', (e)=>{
   if(e.key === 'Escape') langDropdown.classList.remove('open');
 });
 
+// Default the phone country code to match the visitor's browser language/region.
+(function setDefaultPhoneCode(){
+  const localeToDialCode = {
+    'he':'+972','he-il':'+972', 'nl':'+31','nl-nl':'+31', 'en-us':'+1','en-ca':'+1',
+    'en-gb':'+44', 'de':'+49','de-de':'+49', 'fr':'+33','fr-fr':'+33', 'es':'+34','es-es':'+34',
+    'it':'+39','it-it':'+39', 'pt':'+351','pt-pt':'+351', 'pt-br':'+55',
+    'de-ch':'+41','fr-ch':'+41','it-ch':'+41', 'de-at':'+43', 'nl-be':'+32','fr-be':'+32',
+    'da':'+45','da-dk':'+45', 'sv':'+46','sv-se':'+46', 'nb':'+47','nb-no':'+47','no':'+47',
+    'fi':'+358','fi-fi':'+358', 'ga':'+353','en-ie':'+353', 'pl':'+48','pl-pl':'+48',
+    'cs':'+420','cs-cz':'+420', 'hu':'+36','hu-hu':'+36', 'el':'+30','el-gr':'+30',
+    'tr':'+90','tr-tr':'+90', 'ru':'+7','ru-ru':'+7', 'uk':'+380','uk-ua':'+380',
+    'ro':'+40','ro-ro':'+40', 'en-au':'+61', 'en-nz':'+64', 'ja':'+81','ja-jp':'+81',
+    'ko':'+82','ko-kr':'+82', 'zh':'+86','zh-cn':'+86', 'hi':'+91','hi-in':'+91','en-in':'+91',
+    'ar-ae':'+971','ar-sa':'+966', 'ar-eg':'+20', 'en-za':'+27',
+    'es-mx':'+52','es-ar':'+54','es-cl':'+56','es-co':'+57','es-pe':'+51','es-uy':'+598','es-ec':'+593',
+  };
+  try{
+    const langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'en'];
+    let dialCode = null;
+    for(const l of langs){
+      const key = l.toLowerCase();
+      if(localeToDialCode[key]){ dialCode = localeToDialCode[key]; break; }
+      const base = key.split('-')[0];
+      if(localeToDialCode[base]){ dialCode = localeToDialCode[base]; break; }
+    }
+    if(dialCode){
+      const select = document.getElementById('fPhoneCode');
+      if(select && [...select.options].some(o => o.value === dialCode)) select.value = dialCode;
+    }
+  }catch(e){ /* fall back to default option, no harm done */ }
+})();
+
 const menuToggle = document.getElementById('menuToggle');
 const mainNav = document.getElementById('main-nav');
 menuToggle.addEventListener('click', ()=>{
@@ -1053,7 +1110,7 @@ async function loadLiveBookingData(){
     if(!res.ok) throw new Error('bad response');
     const data = await res.json();
     if(Array.isArray(data.blockedDates)) BLOCKED_DATES = data.blockedDates;
-    bookingLiveData = data;
+    bookingLiveData = { ...bookingLiveData, ...data };
   } catch(e) {
     // Admin backend not deployed yet, or a network hiccup - silently keep using the fallback.
   }
@@ -1071,7 +1128,7 @@ function formatDateISO(d){
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 function isHolidayDate(dateStr){
-  return bookingLiveData.holidayDates.find(h => dateStr >= h.start && dateStr < h.end);
+  return (bookingLiveData.holidayDates || []).find(h => dateStr >= h.start && dateStr < h.end);
 }
 function getNightPrice(dateStr){
   const h = isHolidayDate(dateStr);
@@ -1148,30 +1205,29 @@ function onDateClick(dateStr){
   updatePriceBox();
 }
 
+let currentQuote = null;
+
 function updatePriceBox(){
   const lang = window.__currentLang || 'en';
   const t = translations[lang];
   const mainText = document.getElementById('priceMainText');
   const lines = document.getElementById('priceLines');
-  const fIn = document.getElementById('fIn');
-  const fOut = document.getElementById('fOut');
+  const continueBtn = document.getElementById('continueBtn');
+
+  currentQuote = null;
+  continueBtn.style.display = 'none';
 
   if(!selectedCheckin || !selectedCheckout){
     mainText.textContent = t.priceSelectPrompt;
     lines.innerHTML = '';
-    fIn.value = ''; fOut.value = '';
-    window.__estimatedTotal = '';
     return;
   }
 
   const nights = nightsBetween(selectedCheckin, selectedCheckout);
-  fIn.value = selectedCheckin;
-  fOut.value = selectedCheckout;
 
   if(nights < bookingLiveData.minNights){
     mainText.textContent = t.minNightsWarning.replace('{n}', bookingLiveData.minNights);
     lines.innerHTML = '';
-    window.__estimatedTotal = '';
     return;
   }
 
@@ -1184,9 +1240,10 @@ function updatePriceBox(){
   }
   const extraGuests = Math.max(0, guests - 6);
   const extraGuestTotal = extraGuests * bookingLiveData.extraGuestPriceEUR * nights;
-  const subtotal = nightsTotal + extraGuestTotal;
-  const vat = subtotal * bookingLiveData.vatRate;
-  const total = subtotal + vat;
+  // Prices shown to guests (per night, extra guest fee) already include VAT.
+  // The total is simply the sum of those VAT-inclusive amounts - VAT is not added on top.
+  const total = nightsTotal + extraGuestTotal;
+  const vat = total - (total / (1 + bookingLiveData.vatRate));
 
   mainText.innerHTML = `€${total.toFixed(0)} <span style="font-weight:500; font-size:12.5px;">(${nights} ${t.nightsLabel})</span>`;
 
@@ -1194,18 +1251,49 @@ function updatePriceBox(){
   if(extraGuestTotal > 0){
     linesHtml += `<div><span>${t.lineExtraGuests} (${extraGuests} × €${bookingLiveData.extraGuestPriceEUR} × ${nights})</span><span>€${extraGuestTotal.toFixed(0)}</span></div>`;
   }
-  linesHtml += `<div><span>${t.lineSubtotal}</span><span>€${subtotal.toFixed(0)}</span></div>`;
-  linesHtml += `<div><span>${t.lineVat} (${Math.round(bookingLiveData.vatRate*100)}%)</span><span>€${vat.toFixed(2)}</span></div>`;
+  linesHtml += `<div><span>${t.lineVat} (${Math.round(bookingLiveData.vatRate*100)}%, ${t.lineVatIncluded})</span><span>€${vat.toFixed(2)}</span></div>`;
   linesHtml += `<div class="total-line"><span>${t.lineTotal}</span><span>€${total.toFixed(2)}</span></div>`;
   lines.innerHTML = linesHtml;
 
-  window.__estimatedTotal = `€${total.toFixed(2)} (incl. VAT, ${nights} nights, ${guests} guests)`;
+  currentQuote = { checkin: selectedCheckin, checkout: selectedCheckout, nights, guests, nightsTotal, extraGuestTotal, vat, total };
+  continueBtn.style.display = 'block';
 }
+
+function renderStaySummary(){
+  const lang = window.__currentLang || 'en';
+  const t = translations[lang];
+  if(!currentQuote) return;
+  const q = currentQuote;
+  document.getElementById('staySummary').innerHTML = `
+    <div><span>${t.fIn}</span><span>${q.checkin}</span></div>
+    <div><span>${t.fOut}</span><span>${q.checkout}</span></div>
+    <div><span>${t.fGuests}</span><span>${q.guests}</span></div>
+    <div class="grand-total"><span>${t.lineTotal}</span><span>€${q.total.toFixed(2)}</span></div>
+    <div style="font-size:11.5px; color:var(--ink-soft); margin-top:6px;">${t.calNote}</div>
+  `;
+}
+
+document.getElementById('continueBtn').addEventListener('click', () => {
+  if(!currentQuote) return;
+  document.getElementById('fIn').value = currentQuote.checkin;
+  document.getElementById('fOut').value = currentQuote.checkout;
+  document.getElementById('fGuestsHidden').value = currentQuote.guests;
+  window.__estimatedTotal = `€${currentQuote.total.toFixed(2)} (incl. VAT, ${currentQuote.nights} nights, ${currentQuote.guests} guests)`;
+  renderStaySummary();
+  document.getElementById('bookingLocked').style.display = 'none';
+  document.getElementById('bookingUnlocked').style.display = 'block';
+  document.getElementById('bookingUnlocked').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+document.getElementById('editDatesBtn').addEventListener('click', () => {
+  document.getElementById('bookingUnlocked').style.display = 'none';
+  document.getElementById('bookingLocked').style.display = 'flex';
+});
 
 document.getElementById('calPrev').addEventListener('click', ()=>{ calCursor.setMonth(calCursor.getMonth()-1); renderCalendar(); });
 document.getElementById('calNext').addEventListener('click', ()=>{ calCursor.setMonth(calCursor.getMonth()+1); renderCalendar(); });
 document.getElementById('fGuests').addEventListener('input', updatePriceBox);
-window.addEventListener('langchange', ()=>{ renderCalendar(); updatePriceBox(); });
+window.addEventListener('langchange', ()=>{ renderCalendar(); updatePriceBox(); if(currentQuote) renderStaySummary(); });
 
 const form = document.getElementById('inquiryForm');
 const statusEl = document.getElementById('formStatus');
@@ -1240,8 +1328,10 @@ form.addEventListener('submit', async (e)=>{
     if(res.ok){
       statusEl.textContent = t.formSent; statusEl.className = 'form-status ok';
       form.reset();
-      selectedCheckin = null; selectedCheckout = null;
+      selectedCheckin = null; selectedCheckout = null; currentQuote = null;
       renderCalendar(); updatePriceBox();
+      document.getElementById('bookingUnlocked').style.display = 'none';
+      document.getElementById('bookingLocked').style.display = 'flex';
     } else {
       statusEl.textContent = t.formSendError; statusEl.className = 'form-status err';
     }
@@ -1296,6 +1386,7 @@ form.addEventListener('submit', async (e)=>{
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    modal.scrollTop = 0;
   }
   function closeModal(){
     modal.classList.remove('open');
