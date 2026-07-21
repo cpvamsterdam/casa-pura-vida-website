@@ -263,6 +263,11 @@
   .form-status.ok{color:#2A6B3E;} .form-status.err{color:#9B4646;}
 
   .map-frame{width:100%; aspect-ratio:16/7; border:1px solid var(--line); border-radius:16px; overflow:hidden; margin-top:28px;}
+  #confettiCanvas{position:fixed; inset:0; z-index:1001; pointer-events:none;}
+  .success-panel{max-width:420px; text-align:center; padding:36px 28px;}
+  .success-icon{font-size:48px; margin-bottom:8px;}
+  .success-panel .block-title{margin-bottom:10px;}
+  .success-panel p{color:var(--ink-soft); font-size:14.5px; line-height:1.6; margin-bottom:20px;}
 
   #worldclocks{background:radial-gradient(ellipse at top, #1E4A50 0%, #0F2B2E 65%, #081A1C 100%);}
   #worldclocks .eyebrow{font-size:12.5px; letter-spacing:2px;}
@@ -1002,6 +1007,17 @@
     </div>
   </div>
 </div>
+<div class="lightbox" id="successModal" aria-hidden="true">
+  <div class="lightbox-backdrop" id="successBackdrop"></div>
+  <canvas id="confettiCanvas"></canvas>
+  <div class="lightbox-panel success-panel" role="dialog" aria-modal="true" aria-label="Request sent">
+    <button class="lightbox-close" id="successClose" aria-label="Close">&times;</button>
+    <div class="success-icon">🎉</div>
+    <h2 class="block-title" data-i18n="successTitle" style="text-align:center;">Your request is on its way!</h2>
+    <p data-i18n="successBody" style="text-align:center;">Thank you! We've received your booking request - start packing! We'll be in touch within 1 business day to confirm.</p>
+    <button class="btn btn-primary" id="successCloseBtn" style="width:100%; margin-top:8px;" data-i18n="successClose">Great, thanks!</button>
+  </div>
+</div>
 <div class="a11y-widget" id="a11yWidget">
   <button class="a11y-tab" id="a11yTabBtn" aria-label="Accessibility options" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5.5" r="2.2"/><path d="M4 9.5c2.5 1 5.3 1.5 8 1.5s5.5-.5 8-1.5"/><path d="M12 11v4"/><path d="M12 15l-3.5 6.5"/><path d="M12 15l3.5 6.5"/><path d="M8.5 12.5 6 19"/><path d="M15.5 12.5 18 19"/></svg></button>
   <div class="a11y-panel" id="a11yPanel">
@@ -1039,7 +1055,7 @@ const translations = {
     a11yEyebrow:'Accessibility', a11yTitle:'Accessibility statement', a11yBody:'This site was built to be accessible to all users, in line with WCAG 2.1 (AA level) international accessibility guidelines. It includes full keyboard navigation, alt text for images, adequate colour contrast, and support for assistive technology.',
     a11y1:'Full keyboard navigation, including a skip-to-content link', a11y2:'Screen reader support with ARIA labelling on interactive elements', a11y3:"Respects the user's reduced-motion preference", a11yContact:'Found an accessibility issue? Email us, info@casapuravidanl.com',
     footTag:'A private house on the water in Sloten, Amsterdam, with space for groups, families and couples.', footNavT:'Navigate', footContactT:'Contact', footLegal:'© 2026 Casa Pura Vida, Amsterdam. All rights reserved.', footPolicies:'Privacy Policy, Terms &amp; Cancellation Policy',
-    formSent:"Thank you! Your request has been sent, we'll reply soon.", formErr:'Please fill in all required fields.', cancelModalTitle:'Cancellation Policy', cancelModalIntro:'A summary of the cancellation terms that apply once a reservation is made. Full terms are confirmed in the signed reservation agreement.', cancelModalDeposit:'A deposit of €900 secures your dates and is fully refunded within 5 business days of checkout, provided no damage or breach of house rules occurred.', cancelTh1:'When you cancel or postpone', cancelTh2:'Charge', cancelRow1:'More than 45 days before arrival', cancelRow1v:'15% of total booking', cancelRow2:'30–45 days before arrival', cancelRow2v:'30% of total booking', cancelRow3:'14–30 days before arrival', cancelRow3v:'70% of total booking', cancelRow4:'Less than 14 days before arrival', cancelRow4v:'100% of total booking', cancelModalOwner:"The owners reserve the right to cancel a confirmed booking with 3 months' notice, for any reason, with a full deposit refund within 5 business days.", cancelModalNote:'Free date changes are offered, at no cost, if Ben Gurion Airport closes to outbound or inbound flights due to a security situation, up until the scheduled flight time.', fAgreeCancel:'I have read and agree to the', fAgreeCancelLink:'cancellation policy', cancelAgreementMissing:'Please confirm you have read the cancellation policy.', formSendError:'Something went wrong sending your request - please try again or contact us directly.', recaptchaMissing:'Please confirm the "I\'m not a robot" checkbox before sending.', a11yWidgetTitle:'Accessibility', a11yTextInc:'Larger text', a11yContrast:'High contrast', a11yUnderline:'Underline links', a11yMotion:'Reduce motion', a11yReset:'Reset'},
+    formSent:"Thank you! Your request has been sent, we'll reply soon.", formErr:'Please fill in all required fields.', cancelModalTitle:'Cancellation Policy', cancelModalIntro:'A summary of the cancellation terms that apply once a reservation is made. Full terms are confirmed in the signed reservation agreement.', cancelModalDeposit:'A deposit of €900 secures your dates and is fully refunded within 5 business days of checkout, provided no damage or breach of house rules occurred.', cancelTh1:'When you cancel or postpone', cancelTh2:'Charge', cancelRow1:'More than 45 days before arrival', cancelRow1v:'15% of total booking', cancelRow2:'30–45 days before arrival', cancelRow2v:'30% of total booking', cancelRow3:'14–30 days before arrival', cancelRow3v:'70% of total booking', cancelRow4:'Less than 14 days before arrival', cancelRow4v:'100% of total booking', cancelModalOwner:"The owners reserve the right to cancel a confirmed booking with 3 months' notice, for any reason, with a full deposit refund within 5 business days.", cancelModalNote:'Free date changes are offered, at no cost, if Ben Gurion Airport closes to outbound or inbound flights due to a security situation, up until the scheduled flight time.', fAgreeCancel:'I have read and agree to the', fAgreeCancelLink:'cancellation policy', cancelAgreementMissing:'Please confirm you have read the cancellation policy.', successTitle:'Your request is on its way!', successBody:"Thank you! We've received your booking request - start packing! We'll be in touch within 1 business day to confirm.", successClose:'Great, thanks!', formSendError:'Something went wrong sending your request - please try again or contact us directly.', recaptchaMissing:'Please confirm the "I\'m not a robot" checkbox before sending.', a11yWidgetTitle:'Accessibility', a11yTextInc:'Larger text', a11yContrast:'High contrast', a11yUnderline:'Underline links', a11yMotion:'Reduce motion', a11yReset:'Reset'},
   es:{dir:'ltr', skip:'Ir al contenido principal', nav1:'La casa', nav2:'Galería', nav3:'Equipamiento', nav4:'Reservas', nav5:'Ubicación',
     heroEyebrow:'Casa de Vacaciones Frente al Canal<br><span class="he-line2">Ámsterdam, Países Bajos<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'Diseñada para Grupos, Familias y Parejas',
     ctaCheck:'Ver disponibilidad', ctaMore:'Descubrir la casa', photoPlaceholder:'Espacio para la foto principal, envía tus fotos y el video tour y se colocarán aquí',
@@ -1063,7 +1079,7 @@ const translations = {
     a11yEyebrow:'Accesibilidad', a11yTitle:'Declaración de accesibilidad', a11yBody:'Este sitio fue diseñado para ser accesible para todos los usuarios, conforme a las pautas internacionales de accesibilidad WCAG 2.1 (nivel AA). Incluye navegación completa por teclado, texto alternativo en imágenes, contraste de color adecuado y compatibilidad con tecnologías de asistencia.',
     a11y1:'Navegación completa por teclado, incluyendo un enlace de salto al contenido', a11y2:'Compatibilidad con lectores de pantalla mediante etiquetas ARIA', a11y3:'Respeta la preferencia de movimiento reducido del usuario', a11yContact:'¿Encontraste un problema de accesibilidad? Escríbenos, info@casapuravidanl.com',
     footTag:'Una casa privada sobre el agua en Sloten, Ámsterdam, con espacio para grupos, familias y parejas.', footNavT:'Navegación', footContactT:'Contacto', footLegal:'© 2026 Casa Pura Vida, Ámsterdam. Todos los derechos reservados.', footPolicies:'Privacidad, Términos y Política de Cancelación',
-    formSent:'¡Gracias! Tu solicitud ha sido enviada, te responderemos pronto.', formErr:'Por favor completa todos los campos obligatorios.', cancelModalTitle:'Política de Cancelación', cancelModalIntro:'Un resumen de las condiciones de cancelación aplicables una vez realizada una reserva. Los términos completos se confirman en el acuerdo de reserva firmado.', cancelModalDeposit:'Un depósito de 900€ asegura tus fechas y se reembolsa en su totalidad dentro de los 5 días hábiles posteriores a la salida, siempre que no haya daños ni incumplimiento de las normas de la casa.', cancelTh1:'Si cancelas o aplazas', cancelTh2:'Cargo', cancelRow1:'Más de 45 días antes de la llegada', cancelRow1v:'15% del total de la reserva', cancelRow2:'Entre 30 y 45 días antes', cancelRow2v:'30% del total de la reserva', cancelRow3:'Entre 14 y 30 días antes', cancelRow3v:'70% del total de la reserva', cancelRow4:'Menos de 14 días antes', cancelRow4v:'100% del total de la reserva', cancelModalOwner:'Los propietarios se reservan el derecho de cancelar una reserva confirmada con 3 meses de aviso previo, por cualquier motivo, con reembolso total del depósito dentro de los 5 días hábiles.', cancelModalNote:'Se ofrecen cambios de fecha gratuitos si el aeropuerto Ben Gurión cierra a vuelos de salida o llegada por una situación de seguridad, hasta la hora programada del vuelo.', fAgreeCancel:'He leído y acepto la', fAgreeCancelLink:'política de cancelación', cancelAgreementMissing:'Por favor confirma que has leído la política de cancelación.', formSendError:'Ocurrió un error al enviar tu solicitud - inténtalo de nuevo o contáctanos directamente.', recaptchaMissing:'Por favor confirma la casilla "No soy un robot" antes de enviar.', a11yWidgetTitle:'Accesibilidad', a11yTextInc:'Texto más grande', a11yContrast:'Alto contraste', a11yUnderline:'Subrayar enlaces', a11yMotion:'Reducir movimiento', a11yReset:'Restablecer'},
+    formSent:'¡Gracias! Tu solicitud ha sido enviada, te responderemos pronto.', formErr:'Por favor completa todos los campos obligatorios.', cancelModalTitle:'Política de Cancelación', cancelModalIntro:'Un resumen de las condiciones de cancelación aplicables una vez realizada una reserva. Los términos completos se confirman en el acuerdo de reserva firmado.', cancelModalDeposit:'Un depósito de 900€ asegura tus fechas y se reembolsa en su totalidad dentro de los 5 días hábiles posteriores a la salida, siempre que no haya daños ni incumplimiento de las normas de la casa.', cancelTh1:'Si cancelas o aplazas', cancelTh2:'Cargo', cancelRow1:'Más de 45 días antes de la llegada', cancelRow1v:'15% del total de la reserva', cancelRow2:'Entre 30 y 45 días antes', cancelRow2v:'30% del total de la reserva', cancelRow3:'Entre 14 y 30 días antes', cancelRow3v:'70% del total de la reserva', cancelRow4:'Menos de 14 días antes', cancelRow4v:'100% del total de la reserva', cancelModalOwner:'Los propietarios se reservan el derecho de cancelar una reserva confirmada con 3 meses de aviso previo, por cualquier motivo, con reembolso total del depósito dentro de los 5 días hábiles.', cancelModalNote:'Se ofrecen cambios de fecha gratuitos si el aeropuerto Ben Gurión cierra a vuelos de salida o llegada por una situación de seguridad, hasta la hora programada del vuelo.', fAgreeCancel:'He leído y acepto la', fAgreeCancelLink:'política de cancelación', cancelAgreementMissing:'Por favor confirma que has leído la política de cancelación.', successTitle:'¡Tu solicitud está en camino!', successBody:'¡Gracias! Hemos recibido tu solicitud de reserva - ¡empieza a hacer las maletas! Nos pondremos en contacto dentro de 1 día hábil para confirmar.', successClose:'¡Genial, gracias!', formSendError:'Ocurrió un error al enviar tu solicitud - inténtalo de nuevo o contáctanos directamente.', recaptchaMissing:'Por favor confirma la casilla "No soy un robot" antes de enviar.', a11yWidgetTitle:'Accesibilidad', a11yTextInc:'Texto más grande', a11yContrast:'Alto contraste', a11yUnderline:'Subrayar enlaces', a11yMotion:'Reducir movimiento', a11yReset:'Restablecer'},
   he:{dir:'rtl', skip:'דלגו לתוכן הראשי', nav1:'הבית', nav2:'גלריה', nav3:'מתקנים', nav4:'הזמנות', nav5:'מיקום',
     heroEyebrow:'בית נופש על מי התעלה<br><span class="he-line2">אמסטרדם, הולנד<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'מתאים לקבוצות, משפחות וזוגות',
     ctaCheck:'בדקו זמינות', ctaMore:'גלו את הבית', photoPlaceholder:'מקום לתמונת גג, שלחו תמונות וסרטון סיור והם ייכנסו לכאן',
@@ -1087,7 +1103,7 @@ const translations = {
     a11yEyebrow:'נגישות', a11yTitle:'הצהרת נגישות', a11yBody:'אתר זה נבנה מתוך מחויבות להנגשה עבור כלל המשתמשים, בהתאם להנחיות הנגישות הבינלאומיות WCAG 2.1 ברמה AA. האתר כולל ניווט מקלדת מלא, תיאורי טקסט חלופי לתמונות, ניגודיות צבעים נאותה, ותמיכה בטכנולוגיות מסייעות.',
     a11y1:'ניווט מלא באמצעות מקלדת, כולל קישור דילוג לתוכן', a11y2:'תמיכה בקורא מסך ותיוג ARIA לרכיבים אינטראקטיביים', a11y3:'כיבוד הגדרת "הפחתת תנועה" של המשתמש', a11yContact:'נתקלתם בבעיית נגישות? כתבו לנו, info@casapuravidanl.com',
     footTag:'בית פרטי על המים בשכונת Sloten, אמסטרדם, מרחב לקבוצות, משפחות וזוגות.', footNavT:'ניווט', footContactT:'יצירת קשר', footLegal:'© 2026 Casa Pura Vida, אמסטרדם. כל הזכויות שמורות.', footPolicies:'מדיניות פרטיות, תנאי שימוש וביטולים',
-    formSent:'תודה! הבקשה נשלחה, נחזור אליכם בהקדם.', formErr:'נא למלא את כל השדות הנדרשים.', cancelModalTitle:'מדיניות ביטולים', cancelModalIntro:'סיכום תנאי הביטול החלים לאחר ביצוע הזמנה. התנאים המלאים מאושרים בהסכם ההזמנה החתום.', cancelModalDeposit:'פיקדון בסך 3,000 ₪ משריין את התאריכים ומוחזר במלואו עד 5 ימי עסקים מתום השהייה, בכפוף שלא נגרם נזק ולא הופרו כללי הבית.', cancelTh1:'מועד הביטול או הדחייה', cancelTh2:'חיוב', cancelRow1:'יותר מ-45 יום לפני ההגעה', cancelRow1v:'15% מסך ההזמנה', cancelRow2:'30–45 יום לפני ההגעה', cancelRow2v:'30% מסך ההזמנה', cancelRow3:'14–30 יום לפני ההגעה', cancelRow3v:'70% מסך ההזמנה', cancelRow4:'פחות מ-14 יום לפני ההגעה', cancelRow4v:'100% מסך ההזמנה', cancelModalOwner:'לבעלי הבית שמורה הזכות לבטל הזמנה מאושרת בהודעה של 3 חודשים מראש, מכל סיבה שהיא, כאשר הפיקדון יוחזר במלואו תוך 5 ימי עסקים.', cancelModalNote:'דחיית תאריכים תתאפשר ללא כל עלות במידה ונתב"ג ייסגר לטיסות יוצאות או נכנסות עקב מצב ביטחוני, ועד לשעת הטיסה המתוכננת.', fAgreeCancel:'קראתי ומסכים עם', fAgreeCancelLink:'מדיניות הביטול', cancelAgreementMissing:'נא לאשר שקראת את מדיניות הביטול.', formSendError:'קרתה תקלה בשליחת הבקשה - נסו שוב או צרו קשר ישירות.', recaptchaMissing:'נא לאשר את תיבת "אני לא רובוט" לפני השליחה.', a11yWidgetTitle:'נגישות', a11yTextInc:'הגדלת טקסט', a11yContrast:'ניגודיות גבוהה', a11yUnderline:'קו תחתון לקישורים', a11yMotion:'הפחתת אנימציות', a11yReset:'איפוס'}
+    formSent:'תודה! הבקשה נשלחה, נחזור אליכם בהקדם.', formErr:'נא למלא את כל השדות הנדרשים.', cancelModalTitle:'מדיניות ביטולים', cancelModalIntro:'סיכום תנאי הביטול החלים לאחר ביצוע הזמנה. התנאים המלאים מאושרים בהסכם ההזמנה החתום.', cancelModalDeposit:'פיקדון בסך 3,000 ₪ משריין את התאריכים ומוחזר במלואו עד 5 ימי עסקים מתום השהייה, בכפוף שלא נגרם נזק ולא הופרו כללי הבית.', cancelTh1:'מועד הביטול או הדחייה', cancelTh2:'חיוב', cancelRow1:'יותר מ-45 יום לפני ההגעה', cancelRow1v:'15% מסך ההזמנה', cancelRow2:'30–45 יום לפני ההגעה', cancelRow2v:'30% מסך ההזמנה', cancelRow3:'14–30 יום לפני ההגעה', cancelRow3v:'70% מסך ההזמנה', cancelRow4:'פחות מ-14 יום לפני ההגעה', cancelRow4v:'100% מסך ההזמנה', cancelModalOwner:'לבעלי הבית שמורה הזכות לבטל הזמנה מאושרת בהודעה של 3 חודשים מראש, מכל סיבה שהיא, כאשר הפיקדון יוחזר במלואו תוך 5 ימי עסקים.', cancelModalNote:'דחיית תאריכים תתאפשר ללא כל עלות במידה ונתב"ג ייסגר לטיסות יוצאות או נכנסות עקב מצב ביטחוני, ועד לשעת הטיסה המתוכננת.', fAgreeCancel:'קראתי ומסכים עם', fAgreeCancelLink:'מדיניות הביטול', cancelAgreementMissing:'נא לאשר שקראת את מדיניות הביטול.', successTitle:'הבקשה שלכם בדרך!', successBody:'תודה! קיבלנו את בקשת ההזמנה שלכם - תתחילו לארוז! נחזור אליכם תוך יום עסקים אחד לאישור.', successClose:'מעולה, תודה!', formSendError:'קרתה תקלה בשליחת הבקשה - נסו שוב או צרו קשר ישירות.', recaptchaMissing:'נא לאשר את תיבת "אני לא רובוט" לפני השליחה.', a11yWidgetTitle:'נגישות', a11yTextInc:'הגדלת טקסט', a11yContrast:'ניגודיות גבוהה', a11yUnderline:'קו תחתון לקישורים', a11yMotion:'הפחתת אנימציות', a11yReset:'איפוס'}
 };
 
 function getLangFromURL(){
@@ -1473,13 +1489,14 @@ form.addEventListener('submit', async (e)=>{
       body: JSON.stringify(payload),
     });
     if(res.ok){
-      statusEl.textContent = t.formSent; statusEl.className = 'form-status ok';
+      statusEl.textContent = ''; statusEl.className = 'form-status';
       form.reset();
       if(typeof grecaptcha !== 'undefined') grecaptcha.reset();
       selectedCheckin = null; selectedCheckout = null; currentQuote = null;
       renderCalendar(); updatePriceBox();
       document.getElementById('bookingUnlocked').style.display = 'none';
       document.getElementById('bookingLocked').style.display = 'flex';
+      openSuccessModal();
     } else {
       statusEl.textContent = t.formSendError; statusEl.className = 'form-status err';
       if(typeof grecaptcha !== 'undefined') grecaptcha.reset();
@@ -1635,7 +1652,7 @@ form.addEventListener('submit', async (e)=>{
 
   function syncPolicyLang(){
     const lang = window.__currentLang || 'en';
-    document.querySelectorAll('.policy-lang-block').forEach(el=>{
+    document.querySelectorAll('#policiesModal .policy-lang-block').forEach(el=>{
       el.style.display = el.dataset.policyLang === lang ? 'block' : 'none';
     });
   }
@@ -1675,6 +1692,78 @@ form.addEventListener('submit', async (e)=>{
   }
   openBtn.addEventListener('click', openModal);
   closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+})();
+
+/* ---------------- success celebration modal with confetti ---------------- */
+function fireConfetti(){
+  const canvas = document.getElementById('confettiCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const colors = ['#2F6B73', '#B8935A', '#E86A6A', '#F2C14E', '#6BBF8F', '#8FD4C7'];
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const count = prefersReducedMotion ? 0 : 90;
+  const particles = [];
+  for(let i=0; i<count; i++){
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: -20 - Math.random() * canvas.height * 0.3,
+      w: 6 + Math.random() * 6,
+      h: 8 + Math.random() * 8,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      vy: 2 + Math.random() * 3,
+      vx: -1.5 + Math.random() * 3,
+      rot: Math.random() * 360,
+      vrot: -8 + Math.random() * 16,
+    });
+  }
+  if(window.__confettiTimer) clearInterval(window.__confettiTimer);
+  let frame = 0;
+  const maxFrames = 220;
+  window.__confettiTimer = setInterval(() => {
+    frame++;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.rot += p.vrot;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+    });
+    if(frame >= maxFrames || count === 0){
+      clearInterval(window.__confettiTimer);
+      window.__confettiTimer = null;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }, 16);
+}
+
+(function(){
+  const modal = document.getElementById('successModal');
+  const closeBtn = document.getElementById('successClose');
+  const closeBtn2 = document.getElementById('successCloseBtn');
+  const backdrop = document.getElementById('successBackdrop');
+  window.openSuccessModal = function(){
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    fireConfetti();
+  };
+  function closeModal(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if(window.__confettiTimer){ clearInterval(window.__confettiTimer); window.__confettiTimer = null; }
+    const canvas = document.getElementById('confettiCanvas');
+    if(canvas) canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
+  }
+  closeBtn.addEventListener('click', closeModal);
+  closeBtn2.addEventListener('click', closeModal);
   backdrop.addEventListener('click', closeModal);
   document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
 })();
