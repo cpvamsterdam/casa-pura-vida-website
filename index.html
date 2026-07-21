@@ -268,6 +268,12 @@
   .success-icon{font-size:48px; margin-bottom:8px;}
   .success-panel .block-title{margin-bottom:10px;}
   .success-panel p{color:var(--ink-soft); font-size:14.5px; line-height:1.6; margin-bottom:20px;}
+  .guest-select-box{margin-top:16px; background:#FBF1E4; border:1.5px solid #E8C9A0; border-radius:14px; padding:16px 18px;}
+  .guest-select-box label{display:block; font-weight:700; font-size:14px; color:#8A5A2B; margin-bottom:8px;}
+  .guest-select-box select{width:100%; padding:12px 14px; border-radius:10px; border:1.5px solid #E8C9A0; background:#fff; font-family:inherit; font-size:15px; font-weight:600; color:var(--ink); cursor:pointer; appearance:none; -webkit-appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238A5A2B' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-inline-end:40px;}
+  html[dir="rtl"] .guest-select-box select{background-position:left 14px center; padding-inline-start:40px; padding-inline-end:14px;}
+  .guest-select-box select:invalid{color:var(--ink-soft);}
+  .guest-select-box select:focus{outline:2px solid #B8935A; outline-offset:1px;}
 
   #worldclocks{background:radial-gradient(ellipse at top, #1E4A50 0%, #0F2B2E 65%, #081A1C 100%);}
   #worldclocks .eyebrow{font-size:12.5px; letter-spacing:2px;}
@@ -654,9 +660,23 @@
               <span><i class="dot booked"></i><span data-i18n="legendBooked">Booked</span></span>
               <span><i class="dot selected"></i><span data-i18n="legendSelected">Selected</span></span>
             </div>
-            <div style="margin-top:14px;">
+            <div class="guest-select-box">
               <label for="fGuests" data-i18n="fGuests">Number of guests over age 2</label>
-              <input id="fGuests" type="number" min="1" max="12" value="2">
+              <select id="fGuests" required>
+                <option value="" disabled selected data-i18n="fGuestsPlaceholder">Select the number of guests</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+              </select>
             </div>
             <div class="price-box" id="priceBox">
               <div class="price-box-main" id="priceMainText" data-i18n="priceSelectPrompt">Select your check-in and check-out dates above</div>
@@ -1048,9 +1068,9 @@ const translations = {
     cat5t:'Bathrooms', cat5i1:'Plush towels and bathrobes in every bathroom', cat5i2:'Toiletries including shampoo, conditioner and body soap', cat5i3:'Hair dryer',
     cat6t:'Bedrooms', cat6i1:'Master bedroom, King+ bed (210×200 cm), goose-down duvet and pillows, alternatives available on request', cat6i2:'Room 2, double bed, 160 cm wide', cat6i3:'Room 3, double bed, 140 cm wide', cat6i4:'Room 4, double bed, 140 cm wide', cat6i5:'Orthopaedic mattresses available on request', cat6i6:'Baby crib available on request',
     cat7t:'Getting around', cat7i1:'10 minutes from the airport', cat7i2:'10-20 minutes from every central point in the city; average one-way taxi fare €15-20', cat7i3:"The neighbourhood feels almost rural, walk along the lakes and canals past the area's distinctive houses, or cycle into the forest and the neighbouring village of Badhoevedorp", cat7i4:'Two supermarkets nearby, side by side: Albert Heijn and Lidl', cat7i5:'A 4-minute bike ride or 15-minute walk to the tram stop for lines 1 and 2, reaching every major location in Amsterdam',
-    bookEyebrow:'Availability & booking', bookTitle:'Check dates, send a request', bookLede:"Click your check-in and check-out dates below - the price updates instantly.", priceSelectPrompt:'Select your check-in and check-out dates above', minNightsWarning:'Minimum stay is {n} nights', maxNightsWarning:'For stays over {n} nights, please contact us directly to book.', nightsLabel:'nights', lineNights:'Nights', lineExtraGuests:'Extra guests', lineLengthDiscount:'Length-of-stay discount', lineSubtotal:'Subtotal', lineVat:'VAT', lineVatIncluded:'included in the price', lineTotal:'Total (incl. VAT)',
+    bookEyebrow:'Availability & booking', bookTitle:'Check dates, send a request', bookLede:"Click your check-in and check-out dates below - the price updates instantly. Special discounts apply for stays of 5 nights or more.", priceSelectPrompt:'Select your check-in and check-out dates above', minNightsWarning:'Minimum stay is {n} nights', maxNightsWarning:'For stays over {n} nights, please contact us directly to book.', nightsLabel:'nights', lineNights:'Nights', lineExtraGuests:'Extra guests', lineLengthDiscount:'Length-of-stay discount', lineSubtotal:'Subtotal', lineVat:'VAT', lineVatIncluded:'included in the price', lineTotal:'Total (incl. VAT)',
     legendAvail:'Available', legendHoliday:'Holiday rate', legendBooked:'Booked', legendSelected:'Selected', calNote:'* Minimum stay: 3 nights, year-round. Prices shown include VAT and the end-of-stay cleaning fee.',
-    fName:'Full name', fEmail:'Email', fPhone:'Phone', fIn:'Check-in', fOut:'Check-out', fGuests:'Number of guests over age 2', fMsg:'Message / special requests (optional)', fSubmit:'Send booking request', fContinue:'Continue to booking', lockedPrompt:'Select your dates and guest count, and confirm the price - your details form will appear here.', editDates:'&larr; Edit dates',
+    fName:'Full name', fEmail:'Email', fPhone:'Phone', fIn:'Check-in', fOut:'Check-out', fGuests:'Number of guests over age 2', fGuestsPlaceholder:'Select the number of guests', guestsRequiredWarning:'Please select the number of guests to see the price.', fMsg:'Message / special requests (optional)', fSubmit:'Send booking request', fContinue:'Continue to booking', lockedPrompt:'Select your dates and guest count, and confirm the price - your details form will appear here.', editDates:'&larr; Edit dates',
     locEyebrow:'Location', locTitle:'Sloten, Amsterdam, quiet, green, on the water', clocksEyebrow:'Wherever you are', clocksTitle:'World clocks', locBody:'The house sits in Sloten, on the western edge of Amsterdam, 10 minutes from the airport and 10-20 minutes from every central point in the city, yet surrounded by lakes, canals and forest. The exact address is provided at the time of booking, or in advance through our booking line.',
     a11yEyebrow:'Accessibility', a11yTitle:'Accessibility statement', a11yBody:'This site was built to be accessible to all users, in line with WCAG 2.1 (AA level) international accessibility guidelines. It includes full keyboard navigation, alt text for images, adequate colour contrast, and support for assistive technology.',
     a11y1:'Full keyboard navigation, including a skip-to-content link', a11y2:'Screen reader support with ARIA labelling on interactive elements', a11y3:"Respects the user's reduced-motion preference", a11yContact:'Found an accessibility issue? Email us, info@casapuravidanl.com',
@@ -1072,9 +1092,9 @@ const translations = {
     cat5t:'Baños', cat5i1:'Toallas y albornoces mullidos en cada baño', cat5i2:'Artículos de aseo, incluyendo champú, acondicionador y jabón corporal', cat5i3:'Secador de pelo',
     cat6t:'Dormitorios', cat6i1:'Dormitorio principal, cama King+ (210×200 cm), edredón y almohadas de plumón, con alternativas disponibles bajo petición', cat6i2:'Habitación 2, cama de matrimonio de 160 cm', cat6i3:'Habitación 3, cama de matrimonio de 140 cm', cat6i4:'Habitación 4, cama de matrimonio de 140 cm', cat6i5:'Colchones ortopédicos disponibles bajo petición', cat6i6:'Cuna para bebé disponible bajo petición',
     cat7t:'Cómo moverse', cat7i1:'A 10 minutos del aeropuerto', cat7i2:'10-20 minutos de cualquier punto central de la ciudad; tarifa media de taxi de ida: 15-20 €', cat7i3:'El barrio es rural, se puede pasear junto a los lagos y canales entre las casas características de la zona, o pedalear hacia el bosque y el pueblo vecino de Badhoevedorp', cat7i4:'Dos supermercados cercanos, uno junto al otro: Albert Heijn y Lidl', cat7i5:'A 4 minutos en bicicleta o 15 minutos a pie de la parada de tranvía de las líneas 1 y 2, que llegan a todos los puntos clave de Ámsterdam',
-    bookEyebrow:'Disponibilidad y reserva', bookTitle:'Consulta fechas, envía una solicitud', bookLede:'Haz clic en tus fechas de entrada y salida abajo - el precio se actualiza al instante.', priceSelectPrompt:'Selecciona tus fechas de entrada y salida arriba', minNightsWarning:'La estancia mínima es de {n} noches', maxNightsWarning:'Para estancias de más de {n} noches, contáctanos directamente para reservar.', nightsLabel:'noches', lineNights:'Noches', lineExtraGuests:'Huéspedes adicionales', lineLengthDiscount:'Descuento por estancia larga', lineSubtotal:'Subtotal', lineVat:'IVA', lineVatIncluded:'incluido en el precio', lineTotal:'Total (IVA incl.)',
+    bookEyebrow:'Disponibilidad y reserva', bookTitle:'Consulta fechas, envía una solicitud', bookLede:'Haz clic en tus fechas de entrada y salida abajo - el precio se actualiza al instante. Se aplican descuentos especiales para estancias de 5 noches o más.', priceSelectPrompt:'Selecciona tus fechas de entrada y salida arriba', minNightsWarning:'La estancia mínima es de {n} noches', maxNightsWarning:'Para estancias de más de {n} noches, contáctanos directamente para reservar.', nightsLabel:'noches', lineNights:'Noches', lineExtraGuests:'Huéspedes adicionales', lineLengthDiscount:'Descuento por estancia larga', lineSubtotal:'Subtotal', lineVat:'IVA', lineVatIncluded:'incluido en el precio', lineTotal:'Total (IVA incl.)',
     legendAvail:'Disponible', legendHoliday:'Tarifa festiva', legendBooked:'Reservado', legendSelected:'Seleccionado', calNote:'* Estancia mínima: 3 noches, todo el año. Los precios incluyen IVA y la tarifa de limpieza final.',
-    fName:'Nombre completo', fEmail:'Correo electrónico', fPhone:'Teléfono', fIn:'Entrada', fOut:'Salida', fGuests:'Número de huéspedes mayores de 2 años', fMsg:'Mensaje / solicitudes especiales (opcional)', fSubmit:'Enviar solicitud de reserva', fContinue:'Continuar con la reserva', lockedPrompt:'Selecciona tus fechas y número de huéspedes, y confirma el precio - el formulario de datos aparecerá aquí.', editDates:'&larr; Editar fechas',
+    fName:'Nombre completo', fEmail:'Correo electrónico', fPhone:'Teléfono', fIn:'Entrada', fOut:'Salida', fGuests:'Número de huéspedes mayores de 2 años', fGuestsPlaceholder:'Selecciona el número de huéspedes', guestsRequiredWarning:'Selecciona el número de huéspedes para ver el precio.', fMsg:'Mensaje / solicitudes especiales (opcional)', fSubmit:'Enviar solicitud de reserva', fContinue:'Continuar con la reserva', lockedPrompt:'Selecciona tus fechas y número de huéspedes, y confirma el precio - el formulario de datos aparecerá aquí.', editDates:'&larr; Editar fechas',
     locEyebrow:'Ubicación', locTitle:'Sloten, Ámsterdam, tranquilo, verde, sobre el agua', clocksEyebrow:'Estés donde estés', clocksTitle:'Relojes mundiales', locBody:'La casa está en Sloten, en el extremo occidental de Ámsterdam, a 10 minutos del aeropuerto y 10-20 minutos de cualquier punto central de la ciudad, rodeada de lagos, canales y bosque. La dirección exacta se facilita en el momento de la reserva, o con antelación a través de nuestra línea de reservas.',
     a11yEyebrow:'Accesibilidad', a11yTitle:'Declaración de accesibilidad', a11yBody:'Este sitio fue diseñado para ser accesible para todos los usuarios, conforme a las pautas internacionales de accesibilidad WCAG 2.1 (nivel AA). Incluye navegación completa por teclado, texto alternativo en imágenes, contraste de color adecuado y compatibilidad con tecnologías de asistencia.',
     a11y1:'Navegación completa por teclado, incluyendo un enlace de salto al contenido', a11y2:'Compatibilidad con lectores de pantalla mediante etiquetas ARIA', a11y3:'Respeta la preferencia de movimiento reducido del usuario', a11yContact:'¿Encontraste un problema de accesibilidad? Escríbenos, info@casapuravidanl.com',
@@ -1096,9 +1116,9 @@ const translations = {
     cat5t:'חדרי רחצה', cat5i1:'מגבות מפנקות וחלוקי רחצה בכל חדר רחצה', cat5i2:'ערכות טיפוח, לרבות שמפו, מרכך וסבון גוף', cat5i3:'מייבש שיער',
     cat6t:'חדרי שינה', cat6i1:'חדר שינה מאסטר, מיטת קינג סייז פלוס (200×210), שמיכת פוך וכריות פוך אווזים, ניתן לבקש חלופות', cat6i2:'חדר מספר 2, מיטה זוגית ברוחב 1.60', cat6i3:'חדר מספר 3, מיטה זוגית ברוחב 1.40', cat6i4:'חדר מספר 4, מיטה זוגית ברוחב 1.40', cat6i5:'מזרנים אורתופדיים זמינים לפי בקשה', cat6i6:'עריסת תינוק זמינה לפי בקשה',
     cat7t:'תחבורה והתניידות', cat7i1:'10 דקות נסיעה משדה התעופה', cat7i2:'10-20 דקות נסיעה מכל הנקודות המרכזיות בעיר; מחיר ממוצע לכיוון למונית: 15-20 יורו', cat7i3:'האזור הוא כפרי, אפשר לצאת להליכה בין האגמים והתעלות עם הבתים הייחודיים לאזור, או לרכוב על אופניים אל תוך היער ולכפר ההולנדי הסמוך Badhoevedorp', cat7i4:'2 סופרמרקטים זמינים וצמודים זה לזה: Albert Heijn ו-Lidl', cat7i5:'4 דקות רכיבה על אופניים או הליכה של 15 דקות מתחנת הטראם של קווים 1+2, המגיעים לכל הנקודות המרכזיות באמסטרדם',
-    bookEyebrow:'זמינות והזמנה', bookTitle:'בדקו תאריכים, שלחו בקשה', bookLede:'לחצו על תאריכי ההגעה והעזיבה למטה - המחיר מתעדכן מיידית.', priceSelectPrompt:'בחרו תאריכי הגעה ועזיבה למעלה', minNightsWarning:'מינימום הזמנה הוא {n} לילות', maxNightsWarning:'לשהות מעל {n} לילות, נא ליצור קשר ישירות עם מרכז ההזמנות.', nightsLabel:'לילות', lineNights:'לילות', lineExtraGuests:'אורחים נוספים', lineLengthDiscount:'הנחת אורך שהייה', lineSubtotal:'סכום ביניים', lineVat:'מע"מ', lineVatIncluded:'כלול במחיר', lineTotal:'סה"כ (כולל מע"מ)',
+    bookEyebrow:'זמינות והזמנה', bookTitle:'בדקו תאריכים, שלחו בקשה', bookLede:'לחצו על תאריכי ההגעה והעזיבה למטה - המחיר מתעדכן מיידית. הנחות מיוחדות חלות על הזמנות של 5 לילות ומעלה.', priceSelectPrompt:'בחרו תאריכי הגעה ועזיבה למעלה', minNightsWarning:'מינימום הזמנה הוא {n} לילות', maxNightsWarning:'לשהות מעל {n} לילות, נא ליצור קשר ישירות עם מרכז ההזמנות.', nightsLabel:'לילות', lineNights:'לילות', lineExtraGuests:'אורחים נוספים', lineLengthDiscount:'הנחת אורך שהייה', lineSubtotal:'סכום ביניים', lineVat:'מע"מ', lineVatIncluded:'כלול במחיר', lineTotal:'סה"כ (כולל מע"מ)',
     legendAvail:'פנוי', legendHoliday:'תעריף חג', legendBooked:'תפוס', legendSelected:'נבחר', calNote:'* מינימום הזמנה: 3 לילות, כל השנה. המחירים כוללים מע"מ ודמי ניקיון בסיום השהות.',
-    fName:'שם מלא', fEmail:'אימייל', fPhone:'טלפון', fIn:'הגעה', fOut:'עזיבה', fGuests:'כמות אורחים מעל גיל שנתיים', fMsg:'הודעה / בקשות מיוחדות (לא חובה)', fSubmit:'שלחו בקשת הזמנה', fContinue:'המשך להזמנה', lockedPrompt:'בחרו תאריכים וכמות אורחים, ואשרו את המחיר.<br>טופס הפרטים יופיע כאן.', editDates:'&larr; עריכת תאריכים',
+    fName:'שם מלא', fEmail:'אימייל', fPhone:'טלפון', fIn:'הגעה', fOut:'עזיבה', fGuests:'כמות אורחים מעל גיל שנתיים', fGuestsPlaceholder:'בחרו את כמות האורחים', guestsRequiredWarning:'נא לבחור כמות אורחים כדי לראות את המחיר.', fMsg:'הודעה / בקשות מיוחדות (לא חובה)', fSubmit:'שלחו בקשת הזמנה', fContinue:'המשך להזמנה', lockedPrompt:'בחרו תאריכים וכמות אורחים, ואשרו את המחיר.<br>טופס הפרטים יופיע כאן.', editDates:'&larr; עריכת תאריכים',
     locEyebrow:'מיקום', locTitle:'שכונת Sloten, אמסטרדם, שקטה, ירוקה, על המים', clocksEyebrow:'באשר תהיו', clocksTitle:'שעונים עולמיים', locBody:'הבית ממוקם בשכונת Sloten, בקצה המערבי של אמסטרדם, 10 דקות משדה התעופה ו-10-20 דקות מכל נקודה מרכזית בעיר, כשהוא מוקף באגמים, תעלות ויער. הכתובת המדויקת תימסר במעמד ההזמנה, או מראש דרך מוקד ההזמנות.',
     a11yEyebrow:'נגישות', a11yTitle:'הצהרת נגישות', a11yBody:'אתר זה נבנה מתוך מחויבות להנגשה עבור כלל המשתמשים, בהתאם להנחיות הנגישות הבינלאומיות WCAG 2.1 ברמה AA. האתר כולל ניווט מקלדת מלא, תיאורי טקסט חלופי לתמונות, ניגודיות צבעים נאותה, ותמיכה בטכנולוגיות מסייעות.',
     a11y1:'ניווט מלא באמצעות מקלדת, כולל קישור דילוג לתוכן', a11y2:'תמיכה בקורא מסך ותיוג ARIA לרכיבים אינטראקטיביים', a11y3:'כיבוד הגדרת "הפחתת תנועה" של המשתמש', a11yContact:'נתקלתם בבעיית נגישות? כתבו לנו, info@casapuravidanl.com',
@@ -1372,7 +1392,13 @@ function updatePriceBox(){
     return;
   }
 
-  const guests = parseInt(document.getElementById('fGuests').value, 10) || 2;
+  const guestsRaw = document.getElementById('fGuests').value;
+  if(!guestsRaw){
+    mainText.textContent = t.guestsRequiredWarning;
+    lines.innerHTML = '';
+    return;
+  }
+  const guests = parseInt(guestsRaw, 10);
   let nightsTotal = 0;
   let cursor = new Date(selectedCheckin);
   for(let i=0;i<nights;i++){
@@ -1441,6 +1467,7 @@ document.getElementById('editDatesBtn').addEventListener('click', () => {
 document.getElementById('calPrev').addEventListener('click', ()=>{ calCursor.setMonth(calCursor.getMonth()-1); renderCalendar(); });
 document.getElementById('calNext').addEventListener('click', ()=>{ calCursor.setMonth(calCursor.getMonth()+1); renderCalendar(); });
 document.getElementById('fGuests').addEventListener('input', updatePriceBox);
+document.getElementById('fGuests').addEventListener('change', updatePriceBox);
 window.addEventListener('langchange', ()=>{ renderCalendar(); updatePriceBox(); if(currentQuote) renderStaySummary(); });
 
 const form = document.getElementById('inquiryForm');
