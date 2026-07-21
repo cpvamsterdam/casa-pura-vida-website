@@ -132,7 +132,7 @@
   <div class="section-title">Base pricing (EUR)</div>
   <div class="two-col">
     <div>
-      <label for="basePriceInput">Base price / night (€, up to 6 guests, regular dates)</label>
+      <label for="basePriceInput">Base price / night (€, 3-6 guests, regular dates)</label>
       <input type="number" id="basePriceInput">
     </div>
     <div>
@@ -146,8 +146,44 @@
       <input type="number" id="minNightsInput" min="1">
     </div>
     <div>
+      <label for="maxNightsInput">Maximum nights bookable online</label>
+      <input type="number" id="maxNightsInput" min="1">
+    </div>
+  </div>
+  <div class="two-col">
+    <div>
       <label for="vatRateInput">VAT rate (%, e.g. 21 for 21%)</label>
       <input type="number" id="vatRateInput" min="0" step="0.1">
+    </div>
+  </div>
+
+  <div class="section-title">Couple pricing (1-2 guests only)</div>
+  <div class="two-col">
+    <div>
+      <label for="coupleAutumnWinterInput">Autumn/Winter rate (€, Sep-Feb)</label>
+      <input type="number" id="coupleAutumnWinterInput">
+    </div>
+    <div>
+      <label for="coupleSpringSummerInput">Spring/Summer rate (€, Mar-Aug)</label>
+      <input type="number" id="coupleSpringSummerInput">
+    </div>
+  </div>
+  <div class="two-col">
+    <div>
+      <label for="coupleHolidayInput">Holiday rate (€, any season)</label>
+      <input type="number" id="coupleHolidayInput">
+    </div>
+  </div>
+
+  <div class="section-title">Length-of-stay discounts (per night, applied to the whole stay)</div>
+  <div class="two-col">
+    <div>
+      <label for="discount5to10Input">5-10 nights: discount / night (€)</label>
+      <input type="number" id="discount5to10Input" min="0">
+    </div>
+    <div>
+      <label for="discount11to30Input">11-30 nights: discount / night (€)</label>
+      <input type="number" id="discount11to30Input" min="0">
     </div>
   </div>
 
@@ -263,7 +299,13 @@ async function loadDashboard() {
   document.getElementById('basePriceInput').value = bookingData.basePriceEUR;
   document.getElementById('extraGuestInput').value = bookingData.extraGuestPriceEUR;
   document.getElementById('minNightsInput').value = bookingData.minNights;
+  document.getElementById('maxNightsInput').value = bookingData.maxNights;
   document.getElementById('vatRateInput').value = Math.round(bookingData.vatRate * 1000) / 10;
+  document.getElementById('coupleAutumnWinterInput').value = bookingData.coupleAutumnWinterEUR;
+  document.getElementById('coupleSpringSummerInput').value = bookingData.coupleSpringSummerEUR;
+  document.getElementById('coupleHolidayInput').value = bookingData.coupleHolidayEUR;
+  document.getElementById('discount5to10Input').value = bookingData.nightDiscount5to10EUR;
+  document.getElementById('discount11to30Input').value = bookingData.nightDiscount11to30EUR;
   renderSeasons();
   renderCalendar();
 }
@@ -451,7 +493,15 @@ document.getElementById('saveBtn').addEventListener('click', async () => {
   bookingData.basePriceEUR = parseFloat(document.getElementById('basePriceInput').value) || bookingData.basePriceEUR;
   bookingData.extraGuestPriceEUR = parseFloat(document.getElementById('extraGuestInput').value) || bookingData.extraGuestPriceEUR;
   bookingData.minNights = parseInt(document.getElementById('minNightsInput').value, 10) || bookingData.minNights;
+  bookingData.maxNights = parseInt(document.getElementById('maxNightsInput').value, 10) || bookingData.maxNights;
   bookingData.vatRate = (parseFloat(document.getElementById('vatRateInput').value) || (bookingData.vatRate * 100)) / 100;
+  bookingData.coupleAutumnWinterEUR = parseFloat(document.getElementById('coupleAutumnWinterInput').value) || bookingData.coupleAutumnWinterEUR;
+  bookingData.coupleSpringSummerEUR = parseFloat(document.getElementById('coupleSpringSummerInput').value) || bookingData.coupleSpringSummerEUR;
+  bookingData.coupleHolidayEUR = parseFloat(document.getElementById('coupleHolidayInput').value) || bookingData.coupleHolidayEUR;
+  bookingData.nightDiscount5to10EUR = parseFloat(document.getElementById('discount5to10Input').value);
+  if(isNaN(bookingData.nightDiscount5to10EUR)) bookingData.nightDiscount5to10EUR = 0;
+  bookingData.nightDiscount11to30EUR = parseFloat(document.getElementById('discount11to30Input').value);
+  if(isNaN(bookingData.nightDiscount11to30EUR)) bookingData.nightDiscount11to30EUR = 0;
   const res = await fetch(`${API}/calendar`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(bookingData),
