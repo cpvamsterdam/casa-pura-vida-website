@@ -2,13 +2,19 @@ const { getJSON, setJSON } = require('./utils/storage');
 const { requireSession } = require('./utils/auth-guard');
 
 const DEFAULT_DATA = {
-  blockedRanges: [],       // array of { start:'YYYY-MM-DD', end:'YYYY-MM-DD', name:string } - ADMIN ONLY, never exposed publicly
-  holidayDates: [],        // array of { start:'YYYY-MM-DD', end:'YYYY-MM-DD', priceEUR: number, label: string }
-  basePriceEUR: 800,       // per night, up to 6 guests, regular (non-holiday) dates
-  holidayPriceEUR: 900,    // per night, up to 6 guests, on holiday dates (default suggestion for new ranges)
-  extraGuestPriceEUR: 50,  // per extra guest per night, beyond 6, up to 12 total
-  minNights: 3,            // minimum stay, year-round
-  vatRate: 0.21,           // Netherlands VAT rate on short-stay accommodation (21% as of Jan 2026)
+  blockedRanges: [],           // array of { start:'YYYY-MM-DD', end:'YYYY-MM-DD', name:string } - ADMIN ONLY, never exposed publicly
+  holidayDates: [],            // array of { start:'YYYY-MM-DD', end:'YYYY-MM-DD', priceEUR: number, label: string } - priceEUR here is the 3-6 guest holiday rate for that range (defaults to holidayPriceEUR when adding)
+  basePriceEUR: 800,           // per night, 3-6 guests, regular (non-holiday) dates
+  holidayPriceEUR: 900,        // per night, 3-6 guests, holiday dates
+  extraGuestPriceEUR: 50,      // per extra guest per night, beyond 6, up to 12 total (both regular and holiday)
+  coupleAutumnWinterEUR: 550,  // per night, 1-2 guests, regular dates, Sep-Feb
+  coupleSpringSummerEUR: 600,  // per night, 1-2 guests, regular dates, Mar-Aug
+  coupleHolidayEUR: 750,       // per night, 1-2 guests, holiday dates (any season)
+  nightDiscount5to10EUR: 100,  // per-night discount, applied to every night, for stays of 5-10 nights
+  nightDiscount11to30EUR: 150, // per-night discount, applied to every night, for stays of 11-30 nights
+  minNights: 3,                // minimum stay, year-round
+  maxNights: 30,               // maximum stay bookable online; beyond this, guest must contact the booking desk directly
+  vatRate: 0.21,               // Netherlands VAT rate on short-stay accommodation (21% as of Jan 2026)
 };
 
 function formatDateISO(d){
@@ -23,7 +29,6 @@ function expandRangesToDates(ranges){
     if (!r || !/^\d{4}-\d{2}-\d{2}$/.test(r.start) || !/^\d{4}-\d{2}-\d{2}$/.test(r.end)) continue;
     let cursor = new Date(r.start);
     const end = new Date(r.end);
-    // Safety cap so a malformed range can't loop forever
     let guard = 0;
     while (cursor <= end && guard < 3660) {
       dates.add(formatDateISO(cursor));
@@ -38,8 +43,6 @@ exports.handler = async (event) => {
   const session = requireSession(event);
 
   // One-time migration: older data used a flat `blockedDates` array with no names.
-  // If we find that old shape and no `blockedRanges` yet, convert each date into its
-  // own single-night range so nothing you already blocked gets lost.
   function migrateOldShape(stored) {
     if (!stored.blockedRanges && Array.isArray(stored.blockedDates)) {
       return stored.blockedDates
@@ -50,8 +53,6 @@ exports.handler = async (event) => {
   }
 
   if (event.httpMethod === 'GET') {
-    // Merge with defaults (not just fall back to them) so that data stored under an
-    // older schema still has every field the frontend expects, instead of missing new ones.
     const stored = await getJSON('booking-data', {});
     const data = { ...DEFAULT_DATA, ...stored, blockedRanges: migrateOldShape(stored) };
     const blockedDates = expandRangesToDates(data.blockedRanges);
@@ -62,16 +63,19 @@ exports.handler = async (event) => {
       basePriceEUR: data.basePriceEUR,
       holidayPriceEUR: data.holidayPriceEUR,
       extraGuestPriceEUR: data.extraGuestPriceEUR,
+      coupleAutumnWinterEUR: data.coupleAutumnWinterEUR,
+      coupleSpringSummerEUR: data.coupleSpringSummerEUR,
+      coupleHolidayEUR: data.coupleHolidayEUR,
+      nightDiscount5to10EUR: data.nightDiscount5to10EUR,
+      nightDiscount11to30EUR: data.nightDiscount11to30EUR,
       minNights: data.minNights,
+      maxNights: data.maxNights,
       vatRate: data.vatRate,
     };
 
     if (!session) {
-      // Guests / the public booking page never see guest names tied to blocked dates.
       return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(publicData) };
     }
-
-    // Admin (authenticated): also include the named ranges for the admin calendar to display.
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -104,14 +108,22 @@ exports.handler = async (event) => {
           .map(r => ({ start: r.start, end: r.end, name: typeof r.name === 'string' ? r.name.slice(0, 200) : '' }))
       : current.blockedRanges;
 
+    const numOr = (val, fallback, min) => (typeof val === 'number' && val >= (min ?? 0)) ? val : fallback;
+
     const next = {
       blockedRanges: validBlockedRanges,
       holidayDates: validHolidayDates,
-      basePriceEUR: typeof body.basePriceEUR === 'number' && body.basePriceEUR > 0 ? body.basePriceEUR : current.basePriceEUR,
-      holidayPriceEUR: typeof body.holidayPriceEUR === 'number' && body.holidayPriceEUR > 0 ? body.holidayPriceEUR : current.holidayPriceEUR,
-      extraGuestPriceEUR: typeof body.extraGuestPriceEUR === 'number' && body.extraGuestPriceEUR >= 0 ? body.extraGuestPriceEUR : current.extraGuestPriceEUR,
-      minNights: typeof body.minNights === 'number' && body.minNights >= 1 ? body.minNights : current.minNights,
-      vatRate: typeof body.vatRate === 'number' && body.vatRate >= 0 ? body.vatRate : current.vatRate,
+      basePriceEUR: numOr(body.basePriceEUR, current.basePriceEUR, 1),
+      holidayPriceEUR: numOr(body.holidayPriceEUR, current.holidayPriceEUR, 1),
+      extraGuestPriceEUR: numOr(body.extraGuestPriceEUR, current.extraGuestPriceEUR, 0),
+      coupleAutumnWinterEUR: numOr(body.coupleAutumnWinterEUR, current.coupleAutumnWinterEUR, 1),
+      coupleSpringSummerEUR: numOr(body.coupleSpringSummerEUR, current.coupleSpringSummerEUR, 1),
+      coupleHolidayEUR: numOr(body.coupleHolidayEUR, current.coupleHolidayEUR, 1),
+      nightDiscount5to10EUR: numOr(body.nightDiscount5to10EUR, current.nightDiscount5to10EUR, 0),
+      nightDiscount11to30EUR: numOr(body.nightDiscount11to30EUR, current.nightDiscount11to30EUR, 0),
+      minNights: numOr(body.minNights, current.minNights, 1),
+      maxNights: numOr(body.maxNights, current.maxNights, 1),
+      vatRate: numOr(body.vatRate, current.vatRate, 0),
     };
 
     await setJSON('booking-data', next);
