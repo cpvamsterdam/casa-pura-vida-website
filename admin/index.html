@@ -43,6 +43,7 @@
   .day-cell{aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:12.5px; border-radius:8px; cursor:pointer; border:1px solid var(--line); background:#fff; user-select:none; position:relative;}
   .day-cell.blocked{background:var(--danger); color:#fff; border-color:var(--danger);}
   .day-cell.blocked .name-tag{font-size:8px; line-height:1.1; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; padding:0 2px;}
+  .day-cell.holiday-priced{background:#F7EDDC; border-color:var(--brass); color:#8A5A2B; font-weight:700;}
   .day-cell.range-pending{background:var(--canal); color:#fff; border-color:var(--canal);}
   .day-cell.empty{border:none; cursor:default;}
   .day-cell:hover:not(.empty){outline:2px solid var(--canal);}
@@ -97,7 +98,8 @@
   <div class="section-title">Block / unblock dates</div>
   <div class="legend">
     <span><span class="dot" style="background:var(--danger);"></span> Blocked</span>
-    <span><span class="dot" style="background:#fff; border:1px solid var(--line);"></span> Available</span>
+    <span><span class="dot" style="background:#F7EDDC; border:1px solid var(--brass);"></span> Holiday-priced</span>
+    <span><span class="dot" style="background:#fff; border:1px solid var(--line);"></span> Regular</span>
   </div>
   <div class="cal-nav">
     <button id="calPrev">‹</button>
@@ -404,9 +406,11 @@ function renderCalendar() {
   for (let d = 1; d <= daysInMonth; d++) {
     const key = dateKey(y, m, d);
     const range = findRangeForDate(key);
+    const isHoliday = (bookingData.holidayDates || []).some(h => key >= h.start && key < h.end);
     const cell = document.createElement('div');
     let cls = 'day-cell';
     if (range) cls += ' blocked';
+    else if (isHoliday) cls += ' holiday-priced';
     if (pendingRangeStart && key === pendingRangeStart) cls += ' range-pending';
     cell.className = cls;
 
