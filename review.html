@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="htmlRoot">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share your experience - Casa Pura Vida Amsterdam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#ffffff; --off-white:#FAFAF9; --ink:#1A1D1F; --ink-soft:#54595E;
+    --canal:#2F6B73; --canal-deep:#1E4A50; --canal-tint:#EAF3F2; --brass:#B8935A;
+    --line:#E7E5E1; --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:'Inter',sans-serif; color:var(--ink); background:var(--off-white); min-height:100vh;}
+  .wrap{max-width:560px; margin:0 auto; padding:32px 20px 60px;}
+  .brand-header{text-align:center; margin-bottom:24px;}
+  .brand-header .mark{width:44px; height:44px; margin-bottom:8px;}
+  .brand-header .name{font-family:'Montserrat',sans-serif; font-weight:600; font-size:20px; color:var(--canal-deep); letter-spacing:1px;}
+  .lang-row{display:flex; justify-content:center; gap:8px; margin-bottom:24px;}
+  .lang-row button{background:#fff; border:1px solid var(--line); padding:6px 14px; border-radius:100px; font-size:12.5px; cursor:pointer; font-family:inherit;}
+  .lang-row button.active{background:var(--canal); color:#fff; border-color:var(--canal);}
+  .card{background:#fff; border-radius:20px; padding:28px 24px; border:1px solid var(--line);}
+  h1{font-size:20px; margin:0 0 8px; font-family:'Montserrat',sans-serif; font-weight:600;}
+  p.lede{color:var(--ink-soft); font-size:14px; margin:0 0 24px; line-height:1.6;}
+  label{display:block; font-weight:600; font-size:13.5px; margin-bottom:6px; color:var(--ink);}
+  input[type=text]{width:100%; padding:11px 14px; border-radius:10px; border:1px solid var(--line); font-size:14.5px; font-family:inherit; margin-bottom:16px;}
+  textarea{width:100%; padding:11px 14px; border-radius:10px; border:1px solid var(--line); font-size:14.5px; font-family:inherit; margin-bottom:16px; min-height:90px; resize:vertical;}
+  .rating-row{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; gap:10px;}
+  .rating-row .cat-label{font-size:13.5px; font-weight:600; margin:0;}
+  .stars{display:flex; gap:4px; direction:ltr;}
+  .stars button{background:none; border:none; font-size:24px; line-height:1; cursor:pointer; padding:2px; color:#D8D4CC; transition:color .1s;}
+  .stars button.filled{color:var(--brass);}
+  .photo-upload{border:2px dashed var(--line); border-radius:14px; padding:20px; text-align:center; margin-bottom:16px; cursor:pointer;}
+  .photo-upload input{display:none;}
+  .photo-preview-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:16px;}
+  .photo-preview{position:relative; aspect-ratio:1; border-radius:10px; overflow:hidden; background:var(--off-white);}
+  .photo-preview img{width:100%; height:100%; object-fit:cover;}
+  .photo-preview .remove{position:absolute; top:2px; right:2px; background:rgba(0,0,0,.6); color:#fff; border:none; width:20px; height:20px; border-radius:50%; font-size:12px; cursor:pointer;}
+  .btn-submit{width:100%; background:var(--canal); color:#fff; border:none; padding:14px; border-radius:100px; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit;}
+  .btn-submit:disabled{opacity:.6; cursor:not-allowed;}
+  .status-msg{margin-top:14px; font-size:13.5px; text-align:center;}
+  .status-msg.err{color:#B3261E;}
+  .status-msg.ok{color:var(--canal-deep);}
+  .center-msg{text-align:center; padding:40px 20px;}
+  .center-msg .icon{font-size:44px; margin-bottom:12px;}
+  [data-view]{display:none;}
+  [data-view].active{display:block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand-header">
+    <svg class="mark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 17c1.5 1.3 3 1.3 4.5 0s3-1.3 4.5 0 3 1.3 4.5 0 3-1.3 4.5 0" stroke="#2F6B73" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M5 13l1-6h12l1 6" stroke="#B8935A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 7V4h4v3" stroke="#B8935A" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div class="name">Casa Pura Vida</div>
+  </div>
+  <div class="lang-row">
+    <button data-lang="en" class="active">EN</button>
+    <button data-lang="es">ES</button>
+    <button data-lang="he">HE</button>
+  </div>
+
+  <div class="card" data-view="loading" id="viewLoading">
+    <p style="text-align:center; color:var(--ink-soft);" data-i18n="checkingLink">Checking your link...</p>
+  </div>
+
+  <div class="card center-msg" data-view="invalid" id="viewInvalid">
+    <div class="icon">⚠️</div>
+    <h1 data-i18n="invalidTitle">This link isn't valid</h1>
+    <p class="lede" id="invalidReason" data-i18n="invalidBody">This review link is invalid or has already been used. Please contact us if you believe this is a mistake.</p>
+  </div>
+
+  <div class="card" data-view="form" id="viewForm">
+    <h1 data-i18n="formTitle">Share your experience</h1>
+    <p class="lede" data-i18n="formLede">We'd love to hear how your stay was! Your review helps future guests, and may be featured on our site.</p>
+
+    <label for="rName" data-i18n="labelName">Full name</label>
+    <input type="text" id="rName" required>
+
+    <label for="rCountry" data-i18n="labelCountry">Country</label>
+    <input type="text" id="rCountry" required>
+
+    <div id="ratingsContainer"></div>
+
+    <label for="rComment" data-i18n="labelComment">Your experience (optional)</label>
+    <textarea id="rComment" maxlength="1000"></textarea>
+
+    <label data-i18n="labelPhotos">Photos from your stay (optional, up to 5)</label>
+    <div class="photo-upload" id="photoUploadZone">
+      <input type="file" id="photoInput" accept="image/*" multiple>
+      <span data-i18n="photoUploadText">Tap to add photos</span>
+    </div>
+    <div class="photo-preview-grid" id="photoPreviewGrid"></div>
+
+    <button class="btn-submit" id="submitBtn" data-i18n="submitBtn">Submit review</button>
+    <div class="status-msg" id="statusMsg"></div>
+  </div>
+
+  <div class="card center-msg" data-view="success" id="viewSuccess">
+    <div class="icon">🎉</div>
+    <h1 data-i18n="successTitle">Thank you!</h1>
+    <p class="lede" data-i18n="successBody">Your review has been submitted and will appear on our site once reviewed. Thank you for sharing your experience!</p>
+  </div>
+</div>
+
+<script>
+const translations = {
+  en: { checkingLink:'Checking your link...', invalidTitle:"This link isn't valid", invalidBody:'This review link is invalid or has already been used. Please contact us if you believe this is a mistake.',
+    formTitle:'Share your experience', formLede:"We'd love to hear how your stay was! Your review helps future guests, and may be featured on our site.",
+    labelName:'Full name', labelCountry:'Country', labelComment:'Your experience (optional)', labelPhotos:'Photos from your stay (optional, up to 5)',
+    photoUploadText:'Tap to add photos', submitBtn:'Submit review', successTitle:'Thank you!',
+    successBody:'Your review has been submitted and will appear on our site once reviewed. Thank you for sharing your experience!',
+    catCleanliness:'Cleanliness', catLocation:'Location', catValue:'Value for money', catCommunication:'Communication', catAccuracy:'Accuracy',
+    errRequired:'Please fill in your name, country, and all ratings.', errPhotos:'Please choose 5 photos or fewer.', errSend:'Something went wrong - please try again.' },
+  es: { checkingLink:'Comprobando tu enlace...', invalidTitle:'Este enlace no es válido', invalidBody:'Este enlace de reseña no es válido o ya se ha utilizado. Contáctanos si crees que es un error.',
+    formTitle:'Comparte tu experiencia', formLede:'¡Nos encantaría saber cómo fue tu estancia! Tu reseña ayuda a futuros huéspedes, y puede aparecer en nuestro sitio.',
+    labelName:'Nombre completo', labelCountry:'País', labelComment:'Tu experiencia (opcional)', labelPhotos:'Fotos de tu estancia (opcional, hasta 5)',
+    photoUploadText:'Toca para añadir fotos', submitBtn:'Enviar reseña', successTitle:'¡Gracias!',
+    successBody:'Tu reseña ha sido enviada y aparecerá en nuestro sitio una vez revisada. ¡Gracias por compartir tu experiencia!',
+    catCleanliness:'Limpieza', catLocation:'Ubicación', catValue:'Relación calidad-precio', catCommunication:'Comunicación', catAccuracy:'Precisión',
+    errRequired:'Completa tu nombre, país y todas las valoraciones.', errPhotos:'Elige 5 fotos o menos.', errSend:'Algo salió mal - inténtalo de nuevo.' },
+  he: { checkingLink:'בודקים את הקישור שלך...', invalidTitle:'הקישור אינו תקין', invalidBody:'קישור הביקורת אינו תקין או שכבר נעשה בו שימוש. צרו איתנו קשר אם אתם חושבים שזו טעות.',
+    formTitle:'שתפו את החוויה שלכם', formLede:'נשמח לשמוע איך הייתה השהות שלכם! הביקורת שלכם עוזרת לאורחים עתידיים, ועשויה להופיע באתר שלנו.',
+    labelName:'שם מלא', labelCountry:'מדינה', labelComment:'החוויה שלכם (לא חובה)', labelPhotos:'תמונות מהשהות (לא חובה, עד 5)',
+    photoUploadText:'הקישו כדי להוסיף תמונות', submitBtn:'שליחת ביקורת', successTitle:'תודה!',
+    successBody:'הביקורת שלכם נשלחה ותופיע באתר לאחר אישור. תודה ששיתפתם את החוויה שלכם!',
+    catCleanliness:'ניקיון', catLocation:'מיקום', catValue:'ערך מול מחיר', catCommunication:'תקשורת', catAccuracy:'התאמה לתיאור',
+    errRequired:'נא למלא שם, מדינה וכל הדירוגים.', errPhotos:'נא לבחור 5 תמונות או פחות.', errSend:'קרתה תקלה - נסו שוב.' },
+};
+let currentLang = 'en';
+const RATING_CATS = ['cleanliness','location','value','communication','accuracy'];
+let ratings = {};
+let photos = [];
+
+function showView(name){
+  document.querySelectorAll('[data-view]').forEach(el => el.classList.toggle('active', el.dataset.view === name));
+}
+function applyLang(lang){
+  currentLang = lang;
+  const t = translations[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t[el.dataset.i18n]; });
+  document.getElementById('htmlRoot').dir = lang === 'he' ? 'rtl' : 'ltr';
+  document.querySelectorAll('.lang-row button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  renderRatings();
+}
+document.querySelectorAll('.lang-row button').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+
+function renderRatings(){
+  const container = document.getElementById('ratingsContainer');
+  container.innerHTML = '';
+  const t = translations[currentLang];
+  RATING_CATS.forEach(cat => {
+    const row = document.createElement('div');
+    row.className = 'rating-row';
+    const label = document.createElement('p');
+    label.className = 'cat-label';
+    label.textContent = t['cat' + cat.charAt(0).toUpperCase() + cat.slice(1)];
+    const stars = document.createElement('div');
+    stars.className = 'stars';
+    for(let i=1;i<=5;i++){
+      const starBtn = document.createElement('button');
+      starBtn.type = 'button';
+      starBtn.textContent = '★';
+      starBtn.className = (ratings[cat] || 0) >= i ? 'filled' : '';
+      starBtn.addEventListener('click', () => { ratings[cat] = i; renderRatings(); });
+      stars.appendChild(starBtn);
+    }
+    row.appendChild(label);
+    row.appendChild(stars);
+    container.appendChild(row);
+  });
+}
+
+function getTokenFromUrl(){
+  return new URLSearchParams(window.location.search).get('token');
+}
+
+async function init(){
+  const token = getTokenFromUrl();
+  if(!token){
+    showView('invalid');
+    return;
+  }
+  try{
+    const res = await fetch('/.netlify/functions/submit-review?token=' + encodeURIComponent(token));
+    const data = await res.json();
+    if(res.ok && data.valid){
+      showView('form');
+    } else {
+      document.getElementById('invalidReason').textContent = data.error || translations[currentLang].invalidBody;
+      showView('invalid');
+    }
+  } catch(e){
+    showView('invalid');
+  }
+}
+
+function resizeImage(file){
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const maxDim = 1200;
+        let { width, height } = img;
+        if(width > maxDim || height > maxDim){
+          if(width > height){ height = Math.round(height * maxDim / width); width = maxDim; }
+          else { width = Math.round(width * maxDim / height); height = maxDim; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', 0.68));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+document.getElementById('photoUploadZone').addEventListener('click', () => document.getElementById('photoInput').click());
+document.getElementById('photoInput').addEventListener('change', async (e) => {
+  const files = Array.from(e.target.files).slice(0, 5 - photos.length);
+  for(const file of files){
+    if(photos.length >= 5) break;
+    const dataUrl = await resizeImage(file);
+    photos.push(dataUrl);
+  }
+  renderPhotoPreviews();
+  e.target.value = '';
+});
+function renderPhotoPreviews(){
+  const grid = document.getElementById('photoPreviewGrid');
+  grid.innerHTML = '';
+  photos.forEach((p, i) => {
+    const div = document.createElement('div');
+    div.className = 'photo-preview';
+    div.innerHTML = `<img src="${p}"><button class="remove" type="button">✕</button>`;
+    div.querySelector('.remove').addEventListener('click', () => { photos.splice(i,1); renderPhotoPreviews(); });
+    grid.appendChild(div);
+  });
+}
+
+document.getElementById('submitBtn').addEventListener('click', async () => {
+  const t = translations[currentLang];
+  const statusEl = document.getElementById('statusMsg');
+  const name = document.getElementById('rName').value.trim();
+  const country = document.getElementById('rCountry').value.trim();
+  const comment = document.getElementById('rComment').value.trim();
+  const allRated = RATING_CATS.every(cat => ratings[cat]);
+  if(!name || !country || !allRated){
+    statusEl.textContent = t.errRequired; statusEl.className = 'status-msg err'; return;
+  }
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  try{
+    const res = await fetch('/.netlify/functions/submit-review', {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ token: getTokenFromUrl(), name, country, ratings, comment, photos }),
+    });
+    if(res.ok){
+      showView('success');
+    } else {
+      const data = await res.json().catch(() => ({}));
+      statusEl.textContent = data.error || t.errSend; statusEl.className = 'status-msg err';
+    }
+  } catch(e){
+    statusEl.textContent = t.errSend; statusEl.className = 'status-msg err';
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+renderRatings();
+init();
+</script>
+</body>
+</html>

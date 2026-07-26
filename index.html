@@ -54,6 +54,10 @@
   .brand-country .ams-flag{flex:none; animation:none;}
   nav.main{display:flex; gap:7px; flex-wrap:nowrap; align-items:center;}
   nav.main a{text-decoration:none; white-space:nowrap; font-size:13px; color:#fff; font-weight:600; padding:8px 14px; border-radius:100px; border:1px solid var(--canal); background:var(--canal); transition:border-color .15s ease, color .15s ease, background .15s ease; display:inline-flex; align-items:center; gap:6px;}
+  nav.main a.nav-reviews-btn{background:linear-gradient(100deg, var(--brass), #D4A96A); border-color:var(--brass); box-shadow:0 0 0 3px rgba(184,147,90,.18); animation:reviewsBtnGlow 2.8s ease-in-out infinite;}
+  nav.main a.nav-reviews-btn:hover{background:linear-gradient(100deg, #A67D45, var(--brass));}
+  @keyframes reviewsBtnGlow{ 0%,100%{ box-shadow:0 0 0 3px rgba(184,147,90,.18); } 50%{ box-shadow:0 0 0 6px rgba(184,147,90,.06); } }
+  @media (prefers-reduced-motion: reduce){ nav.main a.nav-reviews-btn{animation:none;} }
   nav.main a .nav-ic{width:14px; height:14px; flex:none;}
   nav.main a:hover{color:var(--canal); border-color:var(--canal); background:#fff;}
   html[dir="rtl"] nav.main{gap:11px;}
@@ -265,6 +269,28 @@
   .form-status.ok{color:#2A6B3E;} .form-status.err{color:#9B4646;}
 
   .map-frame{width:100%; aspect-ratio:16/7; border:1px solid var(--line); border-radius:16px; overflow:hidden; margin-top:28px;}
+
+  .reviews-section{background:linear-gradient(180deg, #FBF3E7 0%, #FAFAF9 100%); border-top:1px solid #F0E2C8; border-bottom:1px solid var(--line);}
+  .social-highlights-row{display:flex; gap:20px; margin:24px 0 32px; flex-wrap:wrap; align-items:center;}
+  .ig-highlights-cluster{display:flex; gap:16px; flex-wrap:wrap;}
+  .ig-highlight-circle{display:flex; flex-direction:column; align-items:center; gap:6px; text-decoration:none; width:76px;}
+  .ig-highlight-ring{width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:linear-gradient(45deg, #FEDA75, #FA7E1E, #D62976, #962FBF, #4F5BD5); padding:3px; transition:transform .15s ease;}
+  .ig-highlight-ring svg{background:linear-gradient(135deg, #D62976, #962FBF); border-radius:50%; padding:11px; width:100%; height:100%; box-sizing:border-box; border:2px solid #fff;}
+  .ig-highlight-circle:hover .ig-highlight-ring{transform:scale(1.08);}
+  .ig-highlight-label{font-size:11px; font-weight:600; color:var(--ink); text-align:center; line-height:1.3;}
+  .social-highlight-card{display:flex; align-items:center; gap:10px; padding:14px 22px; border-radius:100px; text-decoration:none; font-weight:700; font-size:14px; background:#fff; border:1.5px solid var(--line); transition:transform .15s ease, box-shadow .15s ease;}
+  .social-highlight-card:hover{transform:translateY(-2px); box-shadow:0 10px 24px -12px rgba(20,30,30,.25);}
+  .social-highlight-card.ig{color:#C13584; border-color:#F0C4DC;}
+  .social-highlight-card.fb{color:#1877F2; border-color:#C7DCFB;}
+  .reviews-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .review-card-public{background:#fff; border-radius:16px; padding:20px; border:1px solid var(--line); box-shadow:0 8px 24px -16px rgba(20,30,30,.15);}
+  .review-card-public .rp-stars{color:var(--brass); font-size:14px; margin-bottom:8px; letter-spacing:2px;}
+  .review-card-public .rp-comment{font-size:14px; color:var(--ink); line-height:1.6; margin-bottom:14px; min-height:44px;}
+  .review-card-public .rp-photos{display:flex; gap:6px; margin-bottom:14px; flex-wrap:wrap;}
+  .review-card-public .rp-photos img{width:64px; height:64px; object-fit:cover; border-radius:10px; cursor:pointer;}
+  .review-card-public .rp-name{font-weight:700; font-size:13.5px;}
+  .review-card-public .rp-country{font-size:12px; color:var(--ink-soft);}
+  @media (max-width:880px){ .reviews-grid{grid-template-columns:1fr;} }
   #confettiCanvas{position:fixed; inset:0; z-index:1001; pointer-events:none;}
   .success-panel{max-width:420px; text-align:center; padding:36px 28px;}
   .success-icon{font-size:48px; margin-bottom:8px;}
@@ -373,6 +399,7 @@
       <a href="#amenities"><svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.3"/><rect x="14" y="3" width="7" height="7" rx="1.3"/><rect x="3" y="14" width="7" height="7" rx="1.3"/><rect x="14" y="14" width="7" height="7" rx="1.3"/></svg><span data-i18n="nav3">Amenities</span></a>
       <a href="#booking"><svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4M16 3v4"/></svg><span data-i18n="nav4">Booking</span></a>
       <a href="#location"><svg class="nav-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.3"/></svg><span data-i18n="nav5">Location</span></a>
+      <a href="#reviews" class="nav-reviews-btn"><svg class="nav-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.5 21.7l1.8-7.3-5.7-4.9 7.5-.6L12 2Z"/></svg><span data-i18n="navReviews">Guests recommend</span></a>
     </nav>
     <div class="header-right" style="display:flex; align-items:center; gap:10px;">
       <div class="lang-social-stack">
@@ -461,6 +488,44 @@
     </div>
     </div>
   </section>
+
+  <section id="reviews" class="reviews-section">
+    <div class="section-inner">
+      <div class="eyebrow" data-i18n="reviewsEyebrow" style="color:var(--brass);">★ ★ ★ ★ ★</div>
+      <h2 data-i18n="reviewsTitle">Guests recommend</h2>
+      <p class="lead-text" data-i18n="reviewsLede">Real reviews and photos from guests who stayed with us - plus everything they've tagged us in on Instagram and Facebook.</p>
+
+      <div class="social-highlights-row">
+        <div class="ig-highlights-cluster">
+          <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDU3ODg1MjU3MTE4MjU4?story_media_id=3587862908612192768&igsh=MTY0cWQ2MWw4ZnJyaQ==" target="_blank" rel="noopener" class="ig-highlight-circle">
+            <span class="ig-highlight-ring"><svg viewBox="0 0 24 24" fill="#fff" width="20" height="20"><path d="M12 2c-2.7 0-3 0-4.1.1-1.1.1-1.8.2-2.4.5-.7.3-1.2.6-1.8 1.2-.6.6-.9 1.1-1.2 1.8-.2.6-.4 1.3-.5 2.4C2 9.1 2 9.4 2 12s0 2.9.1 4c.1 1.1.2 1.8.5 2.4.3.7.6 1.2 1.2 1.8.6.6 1.1.9 1.8 1.2.6.2 1.3.4 2.4.5C9.1 22 9.4 22 12 22s2.9 0 4-.1c1.1-.1 1.8-.2 2.4-.5.7-.3 1.2-.6 1.8-1.2.6-.6.9-1.1 1.2-1.8.2-.6.4-1.3.5-2.4.1-1.1.1-1.4.1-4s0-2.9-.1-4c-.1-1.1-.2-1.8-.5-2.4-.3-.7-.6-1.2-1.2-1.8-.6-.6-1.1-.9-1.8-1.2-.6-.2-1.3-.4-2.4-.5C14.9 2 14.6 2 12 2Zm0 1.8c2.6 0 2.9 0 3.9.1 1 .1 1.5.2 1.8.4.5.2.8.4 1.2.7.3.3.5.6.7 1.2.1.3.3.8.4 1.8.1 1 .1 1.3.1 3.9s0 2.9-.1 3.9c-.1 1-.2 1.5-.4 1.8-.2.5-.4.8-.7 1.2-.3.3-.6.5-1.2.7-.3.1-.8.3-1.8.4-1 .1-1.3.1-3.9.1s-2.9 0-3.9-.1c-1-.1-1.5-.2-1.8-.4-.5-.2-.8-.4-1.2-.7-.3-.3-.5-.6-.7-1.2-.1-.3-.3-.8-.4-1.8-.1-1-.1-1.3-.1-3.9s0-2.9.1-3.9c.1-1 .2-1.5.4-1.8.2-.5.4-.8.7-1.2.3-.3.6-.5 1.2-.7.3-.1.8-.3 1.8-.4 1-.1 1.3-.1 3.9-.1Zm0 3.2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg></span>
+            <span class="ig-highlight-label" data-i18n="igHighlight1">Guest moments</span>
+          </a>
+          <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDcyMTAwNDMzMTQ5Mjc4?story_media_id=3811327947110640441&igsh=dDk1aHdpaHJnMXcw" target="_blank" rel="noopener" class="ig-highlight-circle">
+            <span class="ig-highlight-ring"><svg viewBox="0 0 24 24" fill="#fff" width="20" height="20"><path d="M12 2c-2.7 0-3 0-4.1.1-1.1.1-1.8.2-2.4.5-.7.3-1.2.6-1.8 1.2-.6.6-.9 1.1-1.2 1.8-.2.6-.4 1.3-.5 2.4C2 9.1 2 9.4 2 12s0 2.9.1 4c.1 1.1.2 1.8.5 2.4.3.7.6 1.2 1.2 1.8.6.6 1.1.9 1.8 1.2.6.2 1.3.4 2.4.5C9.1 22 9.4 22 12 22s2.9 0 4-.1c1.1-.1 1.8-.2 2.4-.5.7-.3 1.2-.6 1.8-1.2.6-.6.9-1.1 1.2-1.8.2-.6.4-1.3.5-2.4.1-1.1.1-1.4.1-4s0-2.9-.1-4c-.1-1.1-.2-1.8-.5-2.4-.3-.7-.6-1.2-1.2-1.8-.6-.6-1.1-.9-1.8-1.2-.6-.2-1.3-.4-2.4-.5C14.9 2 14.6 2 12 2Zm0 1.8c2.6 0 2.9 0 3.9.1 1 .1 1.5.2 1.8.4.5.2.8.4 1.2.7.3.3.5.6.7 1.2.1.3.3.8.4 1.8.1 1 .1 1.3.1 3.9s0 2.9-.1 3.9c-.1 1-.2 1.5-.4 1.8-.2.5-.4.8-.7 1.2-.3.3-.6.5-1.2.7-.3.1-.8.3-1.8.4-1 .1-1.3.1-3.9.1s-2.9 0-3.9-.1c-1-.1-1.5-.2-1.8-.4-.5-.2-.8-.4-1.2-.7-.3-.3-.5-.6-.7-1.2-.1-.3-.3-.8-.4-1.8-.1-1-.1-1.3-.1-3.9s0-2.9.1-3.9c.1-1 .2-1.5.4-1.8.2-.5.4-.8.7-1.2.3-.3.6-.5 1.2-.7.3-.1.8-.3 1.8-.4 1-.1 1.3-.1 3.9-.1Zm0 3.2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg></span>
+            <span class="ig-highlight-label" data-i18n="igHighlight2">The house</span>
+          </a>
+          <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTczMjQ1MTk1MTEyODEy?story_media_id=2896872630753714467&igsh=MTBvcTRseWk3M3dsZA==" target="_blank" rel="noopener" class="ig-highlight-circle">
+            <span class="ig-highlight-ring"><svg viewBox="0 0 24 24" fill="#fff" width="20" height="20"><path d="M12 2c-2.7 0-3 0-4.1.1-1.1.1-1.8.2-2.4.5-.7.3-1.2.6-1.8 1.2-.6.6-.9 1.1-1.2 1.8-.2.6-.4 1.3-.5 2.4C2 9.1 2 9.4 2 12s0 2.9.1 4c.1 1.1.2 1.8.5 2.4.3.7.6 1.2 1.2 1.8.6.6 1.1.9 1.8 1.2.6.2 1.3.4 2.4.5C9.1 22 9.4 22 12 22s2.9 0 4-.1c1.1-.1 1.8-.2 2.4-.5.7-.3 1.2-.6 1.8-1.2.6-.6.9-1.1 1.2-1.8.2-.6.4-1.3.5-2.4.1-1.1.1-1.4.1-4s0-2.9-.1-4c-.1-1.1-.2-1.8-.5-2.4-.3-.7-.6-1.2-1.2-1.8-.6-.6-1.1-.9-1.8-1.2-.6-.2-1.3-.4-2.4-.5C14.9 2 14.6 2 12 2Zm0 1.8c2.6 0 2.9 0 3.9.1 1 .1 1.5.2 1.8.4.5.2.8.4 1.2.7.3.3.5.6.7 1.2.1.3.3.8.4 1.8.1 1 .1 1.3.1 3.9s0 2.9-.1 3.9c-.1 1-.2 1.5-.4 1.8-.2.5-.4.8-.7 1.2-.3.3-.6.5-1.2.7-.3.1-.8.3-1.8.4-1 .1-1.3.1-3.9.1s-2.9 0-3.9-.1c-1-.1-1.5-.2-1.8-.4-.5-.2-.8-.4-1.2-.7-.3-.3-.5-.6-.7-1.2-.1-.3-.3-.8-.4-1.8-.1-1-.1-1.3-.1-3.9s0-2.9.1-3.9c.1-1 .2-1.5.4-1.8.2-.5.4-.8.7-1.2.3-.3.6-.5 1.2-.7.3-.1.8-.3 1.8-.4 1-.1 1.3-.1 3.9-.1Zm0 3.2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg></span>
+            <span class="ig-highlight-label" data-i18n="igHighlight3">Around Amsterdam</span>
+          </a>
+          <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MjI0ODIzMzc5MTY5MTk0?story_media_id=3090213240171654172&igsh=eWNpeWJ1eGNqcmdk" target="_blank" rel="noopener" class="ig-highlight-circle">
+            <span class="ig-highlight-ring"><svg viewBox="0 0 24 24" fill="#fff" width="20" height="20"><path d="M12 2c-2.7 0-3 0-4.1.1-1.1.1-1.8.2-2.4.5-.7.3-1.2.6-1.8 1.2-.6.6-.9 1.1-1.2 1.8-.2.6-.4 1.3-.5 2.4C2 9.1 2 9.4 2 12s0 2.9.1 4c.1 1.1.2 1.8.5 2.4.3.7.6 1.2 1.2 1.8.6.6 1.1.9 1.8 1.2.6.2 1.3.4 2.4.5C9.1 22 9.4 22 12 22s2.9 0 4-.1c1.1-.1 1.8-.2 2.4-.5.7-.3 1.2-.6 1.8-1.2.6-.6.9-1.1 1.2-1.8.2-.6.4-1.3.5-2.4.1-1.1.1-1.4.1-4s0-2.9-.1-4c-.1-1.1-.2-1.8-.5-2.4-.3-.7-.6-1.2-1.2-1.8-.6-.6-1.1-.9-1.8-1.2-.6-.2-1.3-.4-2.4-.5C14.9 2 14.6 2 12 2Zm0 1.8c2.6 0 2.9 0 3.9.1 1 .1 1.5.2 1.8.4.5.2.8.4 1.2.7.3.3.5.6.7 1.2.1.3.3.8.4 1.8.1 1 .1 1.3.1 3.9s0 2.9-.1 3.9c-.1 1-.2 1.5-.4 1.8-.2.5-.4.8-.7 1.2-.3.3-.6.5-1.2.7-.3.1-.8.3-1.8.4-1 .1-1.3.1-3.9.1s-2.9 0-3.9-.1c-1-.1-1.5-.2-1.8-.4-.5-.2-.8-.4-1.2-.7-.3-.3-.5-.6-.7-1.2-.1-.3-.3-.8-.4-1.8-.1-1-.1-1.3-.1-3.9s0-2.9.1-3.9c.1-1 .2-1.5.4-1.8.2-.5.4-.8.7-1.2.3-.3.6-.5 1.2-.7.3-.1.8-.3 1.8-.4 1-.1 1.3-.1 3.9-.1Zm0 3.2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg></span>
+            <span class="ig-highlight-label" data-i18n="igHighlight4">Happy guests</span>
+          </a>
+        </div>
+        <a href="https://www.facebook.com/casapuravidanl" target="_blank" rel="noopener" class="social-highlight-card fb">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26"><path d="M13.5 21v-7.5h2.5l.4-3H13.5V8.5c0-.9.2-1.5 1.5-1.5h1.6V4.3C16.3 4.2 15.3 4 14.2 4c-2.3 0-3.9 1.4-3.9 4v2.5H7.8v3h2.5V21h3.2Z"/></svg>
+          <span data-i18n="reviewsFbBtn">See guest tags on Facebook</span>
+        </a>
+      </div>
+
+      <div class="reviews-grid" id="reviewsGrid"></div>
+      <p id="reviewsEmptyMsg" style="display:none; text-align:center; color:var(--ink-soft); font-size:14px;" data-i18n="reviewsEmpty">Be the first to share your experience - reviews will appear here soon.</p>
+    </div>
+  </section>
+
+
 
   <div class="lightbox" id="fullGalleryModal" aria-hidden="true">
         <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
@@ -1092,7 +1157,7 @@
 
 <script>
 const translations = {
-  en:{dir:'ltr', skip:'Skip to main content', nav1:'The house', nav2:'Gallery', nav3:'Amenities', nav4:'Booking', nav5:'Location',
+  en:{dir:'ltr', skip:'Skip to main content', nav1:'The house', nav2:'Gallery', nav3:'Amenities', nav4:'Booking', nav5:'Location', navReviews:'Guests recommend', reviewsTitle:'Guests recommend', reviewsLede:"Real reviews and photos from guests who stayed with us - plus everything they've tagged us in on Instagram and Facebook.", reviewsIgBtn:'See guest tags on Instagram', reviewsFbBtn:'See guest tags on Facebook', igHighlight1:'Guests 2023', igHighlight2:'2024', igHighlight3:'2025', igHighlight4:'2026', reviewsEmpty:'Be the first to share your experience - reviews will appear here soon.',
     heroEyebrow:'CanalFront Vacation House<br><span class="he-line2">Amsterdam, The Netherlands<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'Designed for<br>Groups, Families &amp; Couples',
     ctaCheck:'Check availability', ctaMore:'Explore the house', photoPlaceholder:"Hero photo placeholder, send your photos and video tour and they'll go right here",
     spec1:'Up to 12 guests', spec2:'Free parking', spec3:'A built house,<br>Not a houseboat', spec4:'250 m² house<br>+ 300 m² garden', spec5:"10 bicycles &amp; 2 kayaks, free to use, including kids' bikes", spec6:'Air conditioning, a wood-burning fireplace,<br>and heated floors', spec7:'10 minutes from the airport,<br>10-20 minutes<br>from the city centre', spec8:'A fully equipped kitchen<br>with Nespresso, dishwasher and more',
@@ -1116,7 +1181,7 @@ const translations = {
     a11y1:'Full keyboard navigation, including a skip-to-content link', a11y2:'Screen reader support with ARIA labelling on interactive elements', a11y3:"Respects the user's reduced-motion preference", a11yContact:'Found an accessibility issue? Email us, info@casapuravidanl.com',
     footTag:'A private house on the water in Sloten, Amsterdam, with space for groups, families and couples.', footNavT:'Navigate', footContactT:'Contact', footLegal:'© 2026 Casa Pura Vida, Amsterdam. All rights reserved.', footPolicies:'Privacy Policy, Terms &amp; Cancellation Policy',
     formSent:"Thank you! Your request has been sent, we'll reply soon.", formErr:'Please fill in all required fields.', cancelModalTitle:'Cancellation Policy', cancelModalIntro:'A summary of the cancellation terms that apply once a reservation is made. Full terms are confirmed in the signed reservation agreement.', cancelModalDeposit:'A deposit of €900 secures your dates and is fully refunded within 5 business days of checkout, provided no damage or breach of house rules occurred.', cancelTh1:'When you cancel or postpone', cancelTh2:'Charge', cancelRow1:'More than 45 days before arrival', cancelRow1v:'15% of total booking', cancelRow2:'30–45 days before arrival', cancelRow2v:'30% of total booking', cancelRow3:'14–30 days before arrival', cancelRow3v:'70% of total booking', cancelRow4:'Less than 14 days before arrival', cancelRow4v:'100% of total booking', cancelModalOwner:"The owners reserve the right to cancel a confirmed booking with 3 months' notice, for any reason, with a full deposit refund within 5 business days.", cancelModalNote:'Free date changes are offered, at no cost, if Ben Gurion Airport closes to outbound or inbound flights due to a security situation, up until the scheduled flight time.', houseRulesModalTitle:'Key House Rules', houseRulesModalIntro:'A short summary - the full list is provided with the reservation agreement.', houseRule1:'Check-in until 15:00, check-out by 11:00 (flexible with prior arrangement; early/late arrival available for €30/hour).', houseRule2:'Up to 12 overnight guests. Additional daytime guests only with prior arrangement, up to 20 people total, at extra cost.', houseRule3:'No sound amplification equipment. Please keep noise reasonable, especially in the evening - the house is in a residential neighbourhood.', houseRule4:'No pets.', houseRule5:'No smoking indoors; permitted on the terrace, with ashtrays, only.', houseRule6:'Security cameras are present in common areas of the house only, never in private interior spaces.', houseRule7:'Guests are responsible for any damage caused through negligence or intent; charges are deducted from the deposit.', fAgreeHouseRules:'I have read and agree to the', fAgreeHouseRulesLink:'house rules', houseRulesAgreementMissing:'Please confirm you have read the house rules.', fAgreeCancel:'I have read and agree to the', fAgreeCancelLink:'cancellation policy', paymentTermsTitle:'Payment terms', paymentTermsBody:'Payment is by cash on arrival, or bank transfer.', paymentTermsDeposit:'To secure the dates and ensure the house rules are respected during your stay, a one-time deposit of €900 will be charged. It is refunded within 5 business days of checkout.', cancelAgreementMissing:'Please confirm you have read the cancellation policy.', successTitle:'Your request is on its way!', successBody:"Thank you! We've received your booking request - start packing! We'll be in touch within 1 business day to confirm.", successClose:'Great, thanks!', formSendError:'Something went wrong sending your request - please try again or contact us directly.', recaptchaMissing:'Please confirm the "I\'m not a robot" checkbox before sending.', a11yWidgetTitle:'Accessibility', a11yTextInc:'Larger text', a11yContrast:'High contrast', a11yUnderline:'Underline links', a11yMotion:'Reduce motion', a11yReset:'Reset'},
-  es:{dir:'ltr', skip:'Ir al contenido principal', nav1:'La casa', nav2:'Galería', nav3:'Equipamiento', nav4:'Reservas', nav5:'Ubicación',
+  es:{dir:'ltr', skip:'Ir al contenido principal', nav1:'La casa', nav2:'Galería', nav3:'Equipamiento', nav4:'Reservas', nav5:'Ubicación', navReviews:'Los huéspedes recomiendan', reviewsTitle:'Los huéspedes recomiendan', reviewsLede:'Reseñas y fotos reales de huéspedes que se alojaron con nosotros - además de todo lo que nos han etiquetado en Instagram y Facebook.', reviewsIgBtn:'Ver etiquetas en Instagram', reviewsFbBtn:'Ver etiquetas en Facebook', igHighlight1:'Huéspedes 2023', igHighlight2:'2024', igHighlight3:'2025', igHighlight4:'2026', reviewsEmpty:'Sé el primero en compartir tu experiencia - las reseñas aparecerán aquí pronto.',
     heroEyebrow:'Casa de Vacaciones Frente al Canal<br><span class="he-line2">Ámsterdam, Países Bajos<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'Diseñada para Grupos, Familias y Parejas',
     ctaCheck:'Ver disponibilidad', ctaMore:'Descubrir la casa', photoPlaceholder:'Espacio para la foto principal, envía tus fotos y el video tour y se colocarán aquí',
     spec1:'Hasta 12 huéspedes', spec2:'Aparcamiento gratuito', spec3:'La casa está construida,<br>no es un barco', spec4:'250 m² de casa<br>+ 300 m² de jardín', spec5:'10 bicicletas y 2 kayaks,<br>de uso libre,<br>incluidas bicicletas infantiles', spec6:'Aire acondicionado, chimenea de leña y suelo radiante', spec7:'A 10 minutos del aeropuerto,<br>10-20 minutos<br>del centro de la ciudad', spec8:'Cocina totalmente equipada con Nespresso,<br>lavavajillas y más',
@@ -1140,7 +1205,7 @@ const translations = {
     a11y1:'Navegación completa por teclado, incluyendo un enlace de salto al contenido', a11y2:'Compatibilidad con lectores de pantalla mediante etiquetas ARIA', a11y3:'Respeta la preferencia de movimiento reducido del usuario', a11yContact:'¿Encontraste un problema de accesibilidad? Escríbenos, info@casapuravidanl.com',
     footTag:'Una casa privada sobre el agua en Sloten, Ámsterdam, con espacio para grupos, familias y parejas.', footNavT:'Navegación', footContactT:'Contacto', footLegal:'© 2026 Casa Pura Vida, Ámsterdam. Todos los derechos reservados.', footPolicies:'Privacidad, Términos y Política de Cancelación',
     formSent:'¡Gracias! Tu solicitud ha sido enviada, te responderemos pronto.', formErr:'Por favor completa todos los campos obligatorios.', cancelModalTitle:'Política de Cancelación', cancelModalIntro:'Un resumen de las condiciones de cancelación aplicables una vez realizada una reserva. Los términos completos se confirman en el acuerdo de reserva firmado.', cancelModalDeposit:'Un depósito de 900€ asegura tus fechas y se reembolsa en su totalidad dentro de los 5 días hábiles posteriores a la salida, siempre que no haya daños ni incumplimiento de las normas de la casa.', cancelTh1:'Si cancelas o aplazas', cancelTh2:'Cargo', cancelRow1:'Más de 45 días antes de la llegada', cancelRow1v:'15% del total de la reserva', cancelRow2:'Entre 30 y 45 días antes', cancelRow2v:'30% del total de la reserva', cancelRow3:'Entre 14 y 30 días antes', cancelRow3v:'70% del total de la reserva', cancelRow4:'Menos de 14 días antes', cancelRow4v:'100% del total de la reserva', cancelModalOwner:'Los propietarios se reservan el derecho de cancelar una reserva confirmada con 3 meses de aviso previo, por cualquier motivo, con reembolso total del depósito dentro de los 5 días hábiles.', cancelModalNote:'Se ofrecen cambios de fecha gratuitos si el aeropuerto Ben Gurión cierra a vuelos de salida o llegada por una situación de seguridad, hasta la hora programada del vuelo.', houseRulesModalTitle:'Normas Principales de la Casa', houseRulesModalIntro:'Un resumen breve - la lista completa se entrega con el acuerdo de reserva.', houseRule1:'Entrada hasta las 15:00, salida hasta las 11:00 (flexible con acuerdo previo; entrada temprana/salida tardía disponible por 30€/hora).', houseRule2:'Hasta 12 huéspedes para pernoctar. Huéspedes adicionales durante el día solo con acuerdo previo, hasta 20 personas en total, con costo extra.', houseRule3:'No se permiten equipos de amplificación de sonido. Se ruega mantener un nivel de ruido razonable, especialmente por la noche - la casa está en un barrio residencial.', houseRule4:'No se admiten mascotas.', houseRule5:'Prohibido fumar dentro de la casa; permitido en la terraza, solo con cenicero.', houseRule6:'Hay cámaras de seguridad únicamente en las áreas comunes de la casa, nunca en espacios interiores privados.', houseRule7:'Los huéspedes son responsables de cualquier daño causado por negligencia o intención; los cargos se descuentan del depósito.', fAgreeHouseRules:'He leído y acepto las', fAgreeHouseRulesLink:'normas de la casa', houseRulesAgreementMissing:'Por favor confirma que has leído las normas de la casa.', fAgreeCancel:'He leído y acepto la', fAgreeCancelLink:'política de cancelación', paymentTermsTitle:'Condiciones de pago', paymentTermsBody:'El pago se realiza en efectivo a la llegada, o por transferencia bancaria.', paymentTermsDeposit:'Para asegurar las fechas y garantizar el cumplimiento de las normas de la casa durante tu estancia, se cobrará un depósito único de 900€. Se reembolsa dentro de los 5 días hábiles posteriores a la salida.', cancelAgreementMissing:'Por favor confirma que has leído la política de cancelación.', successTitle:'¡Tu solicitud está en camino!', successBody:'¡Gracias! Hemos recibido tu solicitud de reserva - ¡empieza a hacer las maletas! Nos pondremos en contacto dentro de 1 día hábil para confirmar.', successClose:'¡Genial, gracias!', formSendError:'Ocurrió un error al enviar tu solicitud - inténtalo de nuevo o contáctanos directamente.', recaptchaMissing:'Por favor confirma la casilla "No soy un robot" antes de enviar.', a11yWidgetTitle:'Accesibilidad', a11yTextInc:'Texto más grande', a11yContrast:'Alto contraste', a11yUnderline:'Subrayar enlaces', a11yMotion:'Reducir movimiento', a11yReset:'Restablecer'},
-  he:{dir:'rtl', skip:'דלגו לתוכן הראשי', nav1:'הבית', nav2:'גלריה', nav3:'מתקנים', nav4:'הזמנות', nav5:'מיקום',
+  he:{dir:'rtl', skip:'דלגו לתוכן הראשי', nav1:'הבית', nav2:'גלריה', nav3:'מתקנים', nav4:'הזמנות', nav5:'מיקום', navReviews:'לקוחות ממליצים', reviewsTitle:'לקוחות ממליצים', reviewsLede:'ביקורות ותמונות אמיתיות מאורחים ששהו אצלנו - וגם כל מה שתייגו אותנו בו באינסטגרם ובפייסבוק.', reviewsIgBtn:'לצפייה בתיוגים באינסטגרם', reviewsFbBtn:'לצפייה בתיוגים בפייסבוק', igHighlight1:'אורחים 2023', igHighlight2:'2024', igHighlight3:'2025', igHighlight4:'2026', reviewsEmpty:'תהיו הראשונים לשתף את החוויה שלכם - ביקורות יופיעו כאן בקרוב.',
     heroEyebrow:'בית נופש על מי התעלה<br><span class="he-line2">אמסטרדם, הולנד<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'מתאים לקבוצות, משפחות וזוגות',
     ctaCheck:'בדקו זמינות', ctaMore:'גלו את הבית', photoPlaceholder:'מקום לתמונת גג, שלחו תמונות וסרטון סיור והם ייכנסו לכאן',
     spec1:'עד 12 אורחים', spec2:'חניה חופשית', spec3:'הבית בנוי ואינו סירה', spec4:'250 מ"ר בית + 300 מ"ר גינה', spec5:'10 אופניים ו-2 קיאקים, לשימוש חופשי, כולל אופניים לילדים', spec6:'מיזוג אוויר, אח מבוערת<br>ורצפה מחוממת', spec7:'10 דקות משדה התעופה,<br>10-20 דקות ממרכז העיר', spec8:'מטבח מאובזר במלואו, כולל נספרסו, מדיח כלים ועוד',
@@ -1972,6 +2037,44 @@ function updateClocks(){
 buildClockCards();
 updateClocks();
 setInterval(updateClocks, 1000);
+
+/* ---------------- guest reviews (public display) ---------------- */
+async function loadPublicReviews(){
+  const grid = document.getElementById('reviewsGrid');
+  const emptyMsg = document.getElementById('reviewsEmptyMsg');
+  if(!grid) return;
+  try {
+    const res = await fetch('/.netlify/functions/reviews');
+    const data = await res.json();
+    const reviews = data.reviews || [];
+    if(reviews.length === 0){
+      grid.innerHTML = '';
+      emptyMsg.style.display = 'block';
+      return;
+    }
+    emptyMsg.style.display = 'none';
+    grid.innerHTML = reviews.map(r => {
+      const avgRating = Math.round(Object.values(r.ratings).reduce((a,b)=>a+b,0) / Object.values(r.ratings).length);
+      const stars = '★'.repeat(avgRating) + '☆'.repeat(5-avgRating);
+      const photosHtml = (r.photos || []).slice(0,5).map(p => `<img src="${p}" loading="lazy">`).join('');
+      return `<div class="review-card-public">
+        <div class="rp-stars">${stars}</div>
+        ${r.comment ? `<div class="rp-comment">"${escapeHtmlClient(r.comment)}"</div>` : ''}
+        ${photosHtml ? `<div class="rp-photos">${photosHtml}</div>` : ''}
+        <div class="rp-name">${escapeHtmlClient(r.name)}</div>
+        <div class="rp-country">${escapeHtmlClient(r.country)}</div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    // Silently leave the section as-is if the backend isn't reachable yet.
+  }
+}
+function escapeHtmlClient(s){
+  const div = document.createElement('div');
+  div.textContent = s;
+  return div.innerHTML;
+}
+loadPublicReviews();
 
 applyLang(getLangFromURL(), false);
 loadLiveBookingData();
