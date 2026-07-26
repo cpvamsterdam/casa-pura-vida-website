@@ -59,6 +59,19 @@
   .price-row label{margin-bottom:4px;}
   .price-row input{margin-bottom:0;}
   .season-item{display:flex; justify-content:space-between; align-items:center; padding:10px 12px; background:var(--off-white); border-radius:10px; margin-bottom:8px; font-size:13.5px;}
+  .review-card{background:var(--off-white); border-radius:12px; padding:14px 16px; margin-bottom:10px;}
+  .review-card .rc-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;}
+  .review-card .rc-name{font-weight:700; color:var(--ink);}
+  .review-card .rc-country{font-size:12px; color:var(--ink-soft);}
+  .review-card .rc-ratings{font-size:12px; color:var(--brass); margin-bottom:6px;}
+  .review-card .rc-comment{font-size:13px; color:var(--ink-soft); margin-bottom:8px; font-style:italic;}
+  .review-card .rc-photos{display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap;}
+  .review-card .rc-photos img{width:56px; height:56px; object-fit:cover; border-radius:8px;}
+  .review-card .rc-actions{display:flex; gap:8px;}
+  .review-card .rc-actions button{font-size:12.5px; padding:6px 14px; border-radius:100px; border:none; cursor:pointer; font-family:inherit;}
+  .rc-approve{background:#4E9D68; color:#fff;}
+  .rc-reject{background:var(--danger); color:#fff;}
+  .rc-delete{background:none; color:var(--danger); text-decoration:underline;}
   .season-item button{background:none; border:none; color:var(--danger); font-weight:700; cursor:pointer;}
   .save-bar{position:sticky; bottom:0; background:#fff; padding:16px 0; border-top:1px solid var(--line); margin-top:24px; display:flex; gap:10px; justify-content:flex-end;}
   .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--canal-deep); color:#fff; padding:12px 22px; border-radius:100px; font-size:13.5px; display:none;}
@@ -199,6 +212,16 @@
     <button class="btn-secondary" id="addSeasonBtn" style="height:44px;">Add</button>
   </div>
 
+  <div class="section-title">Guest reviews</div>
+  <button class="btn-secondary" id="generateReviewLinkBtn" style="margin-bottom:12px;">Generate review invite link</button>
+  <div id="generatedLinkBox" style="display:none; background:var(--canal-tint); border-radius:10px; padding:12px 14px; margin-bottom:16px; font-size:13px; word-break:break-all;"></div>
+
+  <div style="font-weight:700; font-size:13.5px; margin:16px 0 8px;">Pending approval</div>
+  <div id="pendingReviewsList" style="font-size:13.5px; color:var(--ink-soft);">Loading...</div>
+
+  <div style="font-weight:700; font-size:13.5px; margin:20px 0 8px;">Published reviews</div>
+  <div id="approvedReviewsList" style="font-size:13.5px; color:var(--ink-soft);"></div>
+
   <div class="save-bar">
     <button class="btn-secondary" id="reloadBtn">Discard changes</button>
     <button class="btn-primary" style="width:auto; padding:12px 28px;" id="saveBtn">Save changes</button>
@@ -310,6 +333,7 @@ async function loadDashboard() {
   document.getElementById('discount11to30Input').value = bookingData.nightDiscount11to30EUR;
   renderSeasons();
   renderCalendar();
+  loadReviews();
 }
 
 function renderSeasons() {
@@ -367,6 +391,93 @@ document.getElementById('seedHolidaysBtn').addEventListener('click', () => {
   });
   renderSeasons();
   toast(`Added ${added} holiday date range(s). Review the list below, then click Save changes.`);
+});
+
+/* ---------------- guest reviews ---------------- */
+const RATING_CATS = ['cleanliness','location','value','communication','accuracy'];
+let reviewsData = { tokens: [], reviews: [] };
+
+async function loadReviews(){
+  try {
+    const res = await fetch(`${API}/reviews`);
+    reviewsData = await res.json();
+    renderPendingReviews();
+    renderApprovedReviews();
+  } catch(e) {
+    document.getElementById('pendingReviewsList').textContent = 'Failed to load reviews.';
+  }
+}
+
+function starLine(ratings){
+  return RATING_CATS.map(c => `${c}: ${'★'.repeat(ratings[c])}${'☆'.repeat(5-ratings[c])}`).join('  ·  ');
+}
+
+function reviewCardHtml(r, showActions){
+  const photosHtml = (r.photos || []).map(p => `<img src="${p}">`).join('');
+  let actionsHtml = '';
+  if(showActions === 'pending'){
+    actionsHtml = `<div class="rc-actions">
+      <button class="rc-approve" data-id="${r.id}" data-action="approved">Approve</button>
+      <button class="rc-reject" data-id="${r.id}" data-action="rejected">Reject</button>
+    </div>`;
+  } else if(showActions === 'approved'){
+    actionsHtml = `<div class="rc-actions"><button class="rc-delete" data-id="${r.id}">Remove from site</button></div>`;
+  }
+  return `<div class="review-card">
+    <div class="rc-top"><span class="rc-name">${r.name}</span><span class="rc-country">${r.country}</span></div>
+    <div class="rc-ratings">${starLine(r.ratings)}</div>
+    ${r.comment ? `<div class="rc-comment">"${r.comment}"</div>` : ''}
+    ${photosHtml ? `<div class="rc-photos">${photosHtml}</div>` : ''}
+    ${actionsHtml}
+  </div>`;
+}
+
+function renderPendingReviews(){
+  const pending = reviewsData.reviews.filter(r => r.status === 'pending');
+  const container = document.getElementById('pendingReviewsList');
+  if(pending.length === 0){ container.textContent = 'No reviews waiting for approval.'; return; }
+  container.innerHTML = pending.map(r => reviewCardHtml(r, 'pending')).join('');
+  container.querySelectorAll('button[data-action]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      await fetch(`${API}/reviews`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'moderate', reviewId: btn.dataset.id, status: btn.dataset.action }),
+      });
+      await loadReviews();
+      toast(btn.dataset.action === 'approved' ? 'Review approved and published.' : 'Review rejected.');
+    });
+  });
+}
+
+function renderApprovedReviews(){
+  const approved = reviewsData.reviews.filter(r => r.status === 'approved');
+  const container = document.getElementById('approvedReviewsList');
+  if(approved.length === 0){ container.textContent = 'No published reviews yet.'; return; }
+  container.innerHTML = approved.map(r => reviewCardHtml(r, 'approved')).join('');
+  container.querySelectorAll('.rc-delete').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if(!confirm('Remove this review from the site permanently?')) return;
+      await fetch(`${API}/reviews`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', reviewId: btn.dataset.id }),
+      });
+      await loadReviews();
+      toast('Review removed.');
+    });
+  });
+}
+
+document.getElementById('generateReviewLinkBtn').addEventListener('click', async () => {
+  const res = await fetch(`${API}/reviews`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'generateToken' }),
+  });
+  const data = await res.json();
+  const link = `${window.location.origin}/review.html?token=${data.token}`;
+  const box = document.getElementById('generatedLinkBox');
+  box.style.display = 'block';
+  box.innerHTML = `Send this link to your guest:<br><strong>${link}</strong>`;
 });
 
 function dateKey(y, m, d) {
