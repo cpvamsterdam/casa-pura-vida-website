@@ -3,7 +3,7 @@ const crypto = require('crypto');
 
 const DEFAULT_DATA = { tokens: [], reviews: [] };
 const RATING_CATEGORIES = ['cleanliness', 'location', 'value', 'communication', 'accuracy'];
-const MAX_PHOTOS = 5;
+const MAX_PHOTOS = 4;
 // Roughly 1.5MB per photo as a base64 string cap, keeping well under the 5MB per-key Blobs limit
 // even for a review with all 5 photos in one storage key.
 const MAX_PHOTO_CHARS = 1_500_000;
