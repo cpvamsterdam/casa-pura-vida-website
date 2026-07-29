@@ -34,7 +34,7 @@
   .stars button.filled{color:var(--brass);}
   .photo-upload{border:2px dashed var(--line); border-radius:14px; padding:20px; text-align:center; margin-bottom:16px; cursor:pointer;}
   .photo-upload input{display:none;}
-  .photo-preview-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:16px;}
+  .photo-preview-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:16px;}
   .photo-preview{position:relative; aspect-ratio:1; border-radius:10px; overflow:hidden; background:var(--off-white);}
   .photo-preview img{width:100%; height:100%; object-fit:cover;}
   .photo-preview .remove{position:absolute; top:2px; right:2px; background:rgba(0,0,0,.6); color:#fff; border:none; width:20px; height:20px; border-radius:50%; font-size:12px; cursor:pointer;}
@@ -90,7 +90,7 @@
     <label for="rComment" data-i18n="labelComment">Your experience (optional)</label>
     <textarea id="rComment" maxlength="1000"></textarea>
 
-    <label data-i18n="labelPhotos">Photos from your stay (optional, up to 5)</label>
+    <label data-i18n="labelPhotos">Photos from your stay (optional, up to 4)</label>
     <div class="photo-upload" id="photoUploadZone">
       <input type="file" id="photoInput" accept="image/*" multiple>
       <span data-i18n="photoUploadText">Tap to add photos</span>
@@ -112,21 +112,21 @@
 const translations = {
   en: { checkingLink:'Checking your link...', invalidTitle:"This link isn't valid", invalidBody:'This review link is invalid or has already been used. Please contact us if you believe this is a mistake.',
     formTitle:'Share your experience', formLede:"We'd love to hear how your stay was! Your review helps future guests, and may be featured on our site.",
-    labelName:'Full name', labelCountry:'Country', labelComment:'Your experience (optional)', labelPhotos:'Photos from your stay (optional, up to 5)',
+    labelName:'Full name', labelCountry:'Country', labelComment:'Your experience (optional)', labelPhotos:'Photos from your stay (optional, up to 4)',
     photoUploadText:'Tap to add photos', submitBtn:'Submit review', successTitle:'Thank you!',
     successBody:'Your review has been submitted and will appear on our site once reviewed. Thank you for sharing your experience!',
     catCleanliness:'Cleanliness', catLocation:'Location', catValue:'Value for money', catCommunication:'Communication', catAccuracy:'Accuracy',
     errRequired:'Please fill in your name, country, and all ratings.', errPhotos:'Please choose 5 photos or fewer.', errSend:'Something went wrong - please try again.' },
   es: { checkingLink:'Comprobando tu enlace...', invalidTitle:'Este enlace no es válido', invalidBody:'Este enlace de reseña no es válido o ya se ha utilizado. Contáctanos si crees que es un error.',
     formTitle:'Comparte tu experiencia', formLede:'¡Nos encantaría saber cómo fue tu estancia! Tu reseña ayuda a futuros huéspedes, y puede aparecer en nuestro sitio.',
-    labelName:'Nombre completo', labelCountry:'País', labelComment:'Tu experiencia (opcional)', labelPhotos:'Fotos de tu estancia (opcional, hasta 5)',
+    labelName:'Nombre completo', labelCountry:'País', labelComment:'Tu experiencia (opcional)', labelPhotos:'Fotos de tu estancia (opcional, hasta 4)',
     photoUploadText:'Toca para añadir fotos', submitBtn:'Enviar reseña', successTitle:'¡Gracias!',
     successBody:'Tu reseña ha sido enviada y aparecerá en nuestro sitio una vez revisada. ¡Gracias por compartir tu experiencia!',
     catCleanliness:'Limpieza', catLocation:'Ubicación', catValue:'Relación calidad-precio', catCommunication:'Comunicación', catAccuracy:'Precisión',
     errRequired:'Completa tu nombre, país y todas las valoraciones.', errPhotos:'Elige 5 fotos o menos.', errSend:'Algo salió mal - inténtalo de nuevo.' },
   he: { checkingLink:'בודקים את הקישור שלך...', invalidTitle:'הקישור אינו תקין', invalidBody:'קישור הביקורת אינו תקין או שכבר נעשה בו שימוש. צרו איתנו קשר אם אתם חושבים שזו טעות.',
     formTitle:'שתפו את החוויה שלכם', formLede:'נשמח לשמוע איך הייתה השהות שלכם! הביקורת שלכם עוזרת לאורחים עתידיים, ועשויה להופיע באתר שלנו.',
-    labelName:'שם מלא', labelCountry:'מדינה', labelComment:'החוויה שלכם (לא חובה)', labelPhotos:'תמונות מהשהות (לא חובה, עד 5)',
+    labelName:'שם מלא', labelCountry:'מדינה', labelComment:'החוויה שלכם (לא חובה)', labelPhotos:'תמונות מהשהות (לא חובה, עד 4)',
     photoUploadText:'הקישו כדי להוסיף תמונות', submitBtn:'שליחת ביקורת', successTitle:'תודה!',
     successBody:'הביקורת שלכם נשלחה ותופיע באתר לאחר אישור. תודה ששיתפתם את החוויה שלכם!',
     catCleanliness:'ניקיון', catLocation:'מיקום', catValue:'ערך מול מחיר', catCommunication:'תקשורת', catAccuracy:'התאמה לתיאור',
@@ -225,9 +225,9 @@ function resizeImage(file){
 
 document.getElementById('photoUploadZone').addEventListener('click', () => document.getElementById('photoInput').click());
 document.getElementById('photoInput').addEventListener('change', async (e) => {
-  const files = Array.from(e.target.files).slice(0, 5 - photos.length);
+  const files = Array.from(e.target.files).slice(0, 4 - photos.length);
   for(const file of files){
-    if(photos.length >= 5) break;
+    if(photos.length >= 4) break;
     const dataUrl = await resizeImage(file);
     photos.push(dataUrl);
   }
