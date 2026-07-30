@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat - Casa Pura Vida</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --canal:#193191; --canal-deep:#0F2260; --off-white:#FAFAF9; --line:#E7E5E1; --ink:#1A1D1F; --ink-soft:#54595E; }
+  *{box-sizing:border-box;}
+  body{margin:0; font-family:'Inter',sans-serif; background:var(--off-white); min-height:100vh;}
+  .wrap{max-width:560px; margin:0 auto; padding:20px 16px 100px;}
+  .header{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
+  .header h1{font-size:16px; margin:0;}
+  .header .status{font-size:12px; padding:4px 10px; border-radius:100px; background:var(--canal); color:#fff;}
+  .header .status.closed{background:#999;}
+  .messages{display:flex; flex-direction:column; gap:10px; margin-bottom:16px;}
+  .msg{max-width:80%; padding:10px 14px; border-radius:14px; font-size:14px; line-height:1.4;}
+  .msg .time{font-size:10px; opacity:.7; margin-top:3px;}
+  .msg.customer{align-self:flex-start; background:#fff; border:1px solid var(--line); border-bottom-left-radius:4px;}
+  .msg.admin{align-self:flex-end; background:var(--canal); color:#fff; border-bottom-right-radius:4px;}
+  .replybar{position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid var(--line); padding:12px 16px; display:flex; gap:8px;}
+  .replybar input{flex:1; padding:11px 14px; border-radius:100px; border:1px solid var(--line); font-family:inherit; font-size:14px;}
+  .replybar button{background:var(--canal); color:#fff; border:none; width:42px; height:42px; border-radius:50%; cursor:pointer; flex:none;}
+  .replybar button:disabled{opacity:.5;}
+  .center-msg{text-align:center; padding:60px 20px; color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1 id="chatTitle">Loading...</h1>
+    <span class="status" id="chatStatus"></span>
+  </div>
+  <div class="messages" id="messagesEl"></div>
+</div>
+<div class="replybar">
+  <input type="text" id="replyInput" placeholder="Type a reply...">
+  <button id="sendBtn" aria-label="Send">&#8593;</button>
+</div>
+<script>
+const params = new URLSearchParams(window.location.search);
+const chatId = params.get('chatId');
+const token = params.get('token');
+let pollTimer = null;
+
+function escapeHtml(s){
+  const div = document.createElement('div');
+  div.textContent = s;
+  return div.innerHTML;
+}
+function fmtTime(iso){
+  const d = new Date(iso);
+  return d.toLocaleString([], { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+
+async function load(){
+  if(!chatId || !token){
+    document.querySelector('.wrap').innerHTML = '<div class="center-msg">Missing chat link parameters.</div>';
+    return;
+  }
+  try{
+    const res = await fetch(`/.netlify/functions/chat?chatId=${encodeURIComponent(chatId)}&token=${encodeURIComponent(token)}`);
+    if(!res.ok){
+      document.querySelector('.wrap').innerHTML = '<div class="center-msg">This chat link is invalid.</div>';
+      clearInterval(pollTimer);
+      return;
+    }
+    const data = await res.json();
+    document.getElementById('chatTitle').textContent = data.chat.customerName;
+    const statusEl = document.getElementById('chatStatus');
+    statusEl.textContent = data.chat.status;
+    statusEl.className = 'status' + (data.chat.status === 'closed' ? ' closed' : '');
+    const msgsEl = document.getElementById('messagesEl');
+    let lastAdminIdx = -1;
+    data.messages.forEach((m,i) => { if(m.sender === 'admin') lastAdminIdx = i; });
+    msgsEl.innerHTML = data.messages.map((m,i) => {
+      const seen = (i === lastAdminIdx && data.chat.lastReadByCustomer && data.chat.lastReadByCustomer >= m.timestamp)
+        ? '<div style="font-size:10.5px; color:var(--ink-soft); text-align:right; margin-top:-4px;">Seen</div>' : '';
+      return `<div class="msg ${m.sender}">${escapeHtml(m.text)}<div class="time">${fmtTime(m.timestamp)}</div></div>${seen}`;
+    }).join('');
+    window.scrollTo(0, document.body.scrollHeight);
+  } catch(e) { /* keep last known state on transient errors */ }
+}
+
+document.getElementById('sendBtn').addEventListener('click', sendReply);
+document.getElementById('replyInput').addEventListener('keydown', (e) => { if(e.key === 'Enter') sendReply(); });
+
+async function sendReply(){
+  const input = document.getElementById('replyInput');
+  const text = input.value.trim();
+  if(!text) return;
+  const btn = document.getElementById('sendBtn');
+  btn.disabled = true;
+  input.value = '';
+  try{
+    await fetch('/.netlify/functions/chat', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ action:'send', chatId, token, sender:'admin', text }),
+    });
+    await load();
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+load();
+pollTimer = setInterval(load, 5000);
+</script>
+</body>
+</html>
