@@ -179,17 +179,17 @@
   @media (min-width:900px){
     .hero-split{grid-template-columns:0.9fr 1.1fr; gap:36px;}
   }
-  .hero-eyebrow{font-family:'Montserrat','Inter',sans-serif; font-size:clamp(11px,1.4vw,13px); letter-spacing:1.5px; text-transform:uppercase; color:var(--canal); font-weight:700; line-height:1.35; margin-bottom:0;}
+  .hero-eyebrow{font-family:'Montserrat','Inter',sans-serif; font-size:clamp(11px,1.4vw,13px); letter-spacing:1.5px; text-transform:uppercase; color:var(--canal-deep); font-weight:700; line-height:1.35; margin-bottom:0; background:rgba(255,255,255,.6); padding:4px 10px; border-radius:8px; display:inline-block;}
   html:not([dir="rtl"]) .hero-eyebrow{font-size:clamp(9.5px,1.1vw,11px);}
   .hero-eyebrow .he-line2{display:inline-flex; align-items:center; gap:7px; font-size:1.05em; margin-top:0;}
   .ams-flag{flex:none; transform-origin:0% 50%; animation:flagWave 2.8s ease-in-out infinite;}
   @keyframes flagWave{ 0%,100%{transform:rotate(0deg);} 50%{transform:rotate(-8deg);} }
   @media (prefers-reduced-motion: reduce){ .ams-flag{animation:none;} }
   .hero-text{min-width:0;}
-  .brand-name-row{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;}
+  .brand-name-row{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;}
   .brand-name-row svg{width:clamp(34px,5.5vw,58px); height:clamp(34px,5.5vw,58px); flex:none;}
-  .brand-name{display:inline-block; white-space:nowrap; max-width:100%; font-family:'Montserrat','Inter',sans-serif; font-size:clamp(22px,4.2vw,48px); font-weight:500; letter-spacing:1.5px; line-height:1.3; padding:2px 0 4px; margin:0; direction:ltr; background:linear-gradient(95deg,var(--canal) 0%, var(--canal-deep) 38%, var(--brass) 72%, var(--brass) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:var(--canal-deep); text-shadow:none;}
-  .hero p.lede{font-family:'Montserrat','Inter',sans-serif; font-size:clamp(12px,1.4vw,15px); color:var(--ink-soft); font-weight:500; letter-spacing:1.5px; text-transform:uppercase; max-width:52ch; margin:0 0 14px;}
+  .brand-name{display:inline-block; white-space:nowrap; font-family:'Montserrat','Inter',sans-serif; font-size:clamp(19px,3.6vw,44px); font-weight:500; letter-spacing:1px; line-height:1.3; padding:2px 4px 4px; margin:0; direction:ltr; background:linear-gradient(95deg,var(--canal) 0%, var(--canal-deep) 38%, var(--brass) 72%, var(--brass) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:var(--canal-deep); text-shadow:none;}
+  .hero p.lede{font-family:'Montserrat','Inter',sans-serif; font-size:clamp(12px,1.4vw,15px); color:var(--ink); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; max-width:52ch; margin:0 0 14px; background:rgba(255,255,255,.6); padding:4px 10px; border-radius:8px; display:inline-block;}
   html:not([dir="rtl"]) .hero p.lede{font-size:clamp(10px,1.1vw,12.5px);}
   @keyframes ctaPulse{0%,100%{box-shadow:0 0 0 0 rgba(47,107,115,.35);} 50%{box-shadow:0 0 0 10px rgba(47,107,115,0);}}
   .cta-row .btn-primary, #fullGalleryBtn{animation:ctaPulse 2.6s ease-in-out infinite;}
@@ -300,14 +300,25 @@
   .booking-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px;}
   .booking-padded{padding:56px;}
   .calendar{background:#fff; border-radius:18px; padding:24px; border:1px solid var(--line); min-width:0;}
-  .cal-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
-  .cal-head button{border:1.5px solid var(--canal); background:#fff; color:var(--canal); border-radius:8px; width:34px; height:34px; cursor:pointer; font-size:18px; font-weight:700; display:flex; align-items:center; justify-content:center; transition:background .15s ease, color .15s ease, transform .15s ease;}
-  .cal-head button:hover:not(:disabled){background:var(--canal); color:#fff;}
-  .cal-head button:disabled{opacity:.3; cursor:not-allowed; border-color:var(--line); color:var(--ink-soft);}
-  .cal-head button#calNext:not(:disabled){animation:calNextNudge 2.2s ease-in-out infinite;}
+  .cal-head{display:flex; align-items:center; justify-content:center; margin-bottom:14px;}
+  .cal-nav-btn{border:1.5px solid var(--canal); background:#fff; color:var(--canal); border-radius:8px; width:34px; height:34px; cursor:pointer; font-size:18px; font-weight:700; display:flex; align-items:center; justify-content:center; transition:background .15s ease, color .15s ease, transform .15s ease; flex:none;}
+  .cal-nav-btn:hover:not(:disabled){background:var(--canal); color:#fff;}
+  .cal-nav-btn:disabled{opacity:.3; cursor:not-allowed; border-color:var(--line); color:var(--ink-soft);}
+  .cal-nav-btn#calNext:not(:disabled){animation:calNextNudge 2.2s ease-in-out infinite;}
   @keyframes calNextNudge{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(3px); } }
-  @media (prefers-reduced-motion: reduce){ .cal-head button#calNext{animation:none;} }
+  @media (prefers-reduced-motion: reduce){ .cal-nav-btn#calNext{animation:none;} }
   .cal-title{font-weight:600; font-size:15px;}
+  .cal-months-wrap{display:flex; align-items:flex-start; gap:10px;}
+  .booking-loader{align-items:center; justify-content:center; gap:10px; padding:14px; margin-top:10px; font-size:13px; font-weight:600; color:var(--canal-deep); background:var(--canal-tint); border-radius:12px;}
+  .booking-loader-spinner{width:18px; height:18px; border:2.5px solid var(--canal-tint); border-top-color:var(--canal); border-radius:50%; animation:bookingSpin .7s linear infinite;}
+  @keyframes bookingSpin{ to{ transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){ .booking-loader-spinner{animation-duration:2s;} }
+  .cal-month-block{flex:1; min-width:0;}
+  .cal-month-block-2{display:none;}
+  @media (min-width:900px){
+    .cal-month-block-2{display:block;}
+    .calendar{zoom:80%;}
+  }
   .cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:6px; text-align:center; min-width:0;}
   .cal-grid .dow{font-size:11.5px; color:var(--ink-soft); font-weight:600; padding-bottom:6px; min-width:0;}
   .cal-grid .day{aspect-ratio:1/1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:10px; font-size:13.5px; background:var(--off-white); cursor:pointer; border:1.5px solid transparent; position:relative; min-width:0; overflow:hidden;}
@@ -541,7 +552,6 @@
     <div class="hero-bg-overlay"></div>
     <div class="section-inner hero-split">
       <div class="hero-text">
-        <div class="hero-eyebrow" data-i18n="heroEyebrow">CanalFront Vacation House<br><span class="he-line2">Amsterdam, The Netherlands<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span></div>
         <div class="brand-name-row">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 17c1.5 1.3 3 1.3 4.5 0s3-1.3 4.5 0 3 1.3 4.5 0 3-1.3 4.5 0" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round"/>
@@ -550,6 +560,7 @@
           </svg>
           <h1 class="brand-name">CASA PURA VIDA</h1>
         </div>
+        <div class="hero-eyebrow" data-i18n="heroEyebrow">CanalFront Vacation House<br><span class="he-line2">Amsterdam, The Netherlands<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span></div>
         <p class="lede" data-i18n="heroLede">Designed for Groups, Families &amp; Couples</p>
         <div class="cta-row">
           <a href="#booking" class="btn btn-primary" data-i18n="ctaCheck">Check availability</a>
@@ -855,12 +866,18 @@
       <div class="booking-grid">
         <div>
           <div class="calendar">
-            <div class="cal-head">
-              <button id="calPrev" aria-label="Previous month" type="button">‹</button>
-              <div class="cal-title" id="calTitle"></div>
-              <button id="calNext" aria-label="Next month" type="button">›</button>
+            <div class="cal-months-wrap">
+              <button id="calPrev" aria-label="Previous month" type="button" class="cal-nav-btn">‹</button>
+              <div class="cal-month-block">
+                <div class="cal-head"><div class="cal-title" id="calTitle"></div></div>
+                <div class="cal-grid" id="calGrid" aria-live="polite"></div>
+              </div>
+              <div class="cal-month-block cal-month-block-2">
+                <div class="cal-head"><div class="cal-title" id="calTitle2"></div></div>
+                <div class="cal-grid" id="calGrid2" aria-live="polite"></div>
+              </div>
+              <button id="calNext" aria-label="Next month" type="button" class="cal-nav-btn">›</button>
             </div>
-            <div class="cal-grid" id="calGrid" aria-live="polite"></div>
             <div class="cal-legend">
               <span><i class="dot avail"></i><span data-i18n="legendAvail">Available</span></span>
               <span><i class="dot booked"></i><span data-i18n="legendBooked">Booked</span></span>
@@ -889,6 +906,10 @@
               <div class="price-lines" id="priceLines"></div>
             </div>
             <button type="button" class="btn btn-primary" id="continueBtn" style="width:100%; margin-top:14px; display:none;" data-i18n="fContinue">Continue to booking</button>
+            <div class="booking-loader" id="bookingLoader" style="display:none;">
+              <div class="booking-loader-spinner"></div>
+              <span data-i18n="bookingLoaderText">Preparing your booking...</span>
+            </div>
           </div>
           <p class="form-note" style="margin-top:12px;" data-i18n="calNote">* Minimum stay: 3 nights, year-round. Prices shown include VAT.</p>
         </div>
@@ -1338,7 +1359,7 @@
 
 <script>
 const translations = {
-  en:{dir:'ltr', skip:'Skip to main content', nav1:'The house', nav2:'Gallery', nav3:'Amenities', nav4:'Booking', nav5:'Location', navReviews:'Guests recommend', reviewsTitle:'Guests recommend', reviewsLede:"Real reviews and photos from guests who stayed with us - plus everything they've tagged us in on Instagram and Facebook.", reviewsIgBtn:'See guest tags on Instagram', reviewsFbBtn:'Guests tags from Facebook', liveChatLabel:'LIVE CHAT', liveChatTitle:'Live chat', chatIntro:'⚡ We reply fast - ask us anything, live.', chatNameLabel:'Your name', chatContactMethodLabel:'How should we reach you back?', chatMethodPhone:'Phone', chatMethodEmail:'Email', chatMessageLabel:'Your message', chatStartBtn:'Start chat', chatReplyPlaceholder:'Type a message...', calFloatLabel:'Book now', chatNudgeText:'Still there? Continue on WhatsApp instead:', chatNudgeBtn:'Open WhatsApp', chatSeenLabel:'Seen', mapLoadPrompt:'Tap to load the interactive map', igHighlight1:'Guests 2023', igHighlight2:'Guests 2024', igHighlight3:'Guests 2025', igHighlight4:'Guests 2026', reviewsEmpty:'Be the first to share your experience - reviews will appear here soon.',
+  en:{dir:'ltr', skip:'Skip to main content', nav1:'The house', nav2:'Gallery', nav3:'Amenities', nav4:'Booking', nav5:'Location', navReviews:'Guests recommend', reviewsTitle:'Guests recommend', reviewsLede:"Real reviews and photos from guests who stayed with us - plus everything they've tagged us in on Instagram and Facebook.", reviewsIgBtn:'See guest tags on Instagram', reviewsFbBtn:'Guests tags from Facebook', liveChatLabel:'LIVE CHAT', liveChatTitle:'Live chat', chatIntro:'⚡ We reply fast - ask us anything, live.', chatNameLabel:'Your name', chatContactMethodLabel:'How should we reach you back?', chatMethodPhone:'Phone', chatMethodEmail:'Email', chatMessageLabel:'Your message', chatStartBtn:'Start chat', chatReplyPlaceholder:'Type a message...', calFloatLabel:'Book now', chatNudgeText:'Still there? Continue on WhatsApp instead:', chatNudgeBtn:'Open WhatsApp', chatSeenLabel:'Seen', bookingLoaderText:'Preparing your booking...', mapLoadPrompt:'Tap to load the interactive map', igHighlight1:'Guests 2023', igHighlight2:'Guests 2024', igHighlight3:'Guests 2025', igHighlight4:'Guests 2026', reviewsEmpty:'Be the first to share your experience - reviews will appear here soon.',
     heroEyebrow:'CanalFront Vacation House<br><span class="he-line2">Amsterdam, The Netherlands<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'Designed for<br>Groups, Families &amp; Couples',
     ctaCheck:'Check availability', ctaMore:'Explore the house', liveViewersLabel:'people are viewing this page right now', liveViewersFrom:'from', nlLocalTimeLabel:'local time', photoPlaceholder:"Hero photo placeholder, send your photos and video tour and they'll go right here",
     spec1:'Up to 12 guests', spec2:'Free parking', spec3:'A built house,<br>Not a houseboat', spec4:'250 m² house<br>+ 300 m² garden', spec5:"10 bicycles &amp; 2 kayaks, free to use, including kids' bikes", spec6:'Air conditioning, a wood-burning fireplace,<br>and heated floors', spec7:'10 minutes from the airport,<br>10-20 minutes<br>from the city centre', spec8:'A fully equipped kitchen<br>with Nespresso, dishwasher and more',
@@ -1362,7 +1383,7 @@ const translations = {
     a11y1:'Full keyboard navigation, including a skip-to-content link', a11y2:'Screen reader support with ARIA labelling on interactive elements', a11y3:"Respects the user's reduced-motion preference", a11yContact:'Found an accessibility issue? Email us, info@casapuravidanl.com',
     footTag:'A private house on the water in Sloten, Amsterdam, with space for groups, families and couples.', footNavT:'Navigate', footContactT:'Contact', footLegal:'© 2026 Casa Pura Vida, Amsterdam. All rights reserved.', footPolicies:'Privacy Policy, Terms &amp; Cancellation Policy',
     formSent:"Thank you! Your request has been sent, we'll reply soon.", formErr:'Please fill in all required fields.', cancelModalTitle:'Cancellation Policy', cancelModalIntro:'A summary of the cancellation terms that apply once a reservation is made. Full terms are confirmed in the signed reservation agreement.', cancelModalDeposit:'A deposit of €900 secures your dates and is fully refunded within 5 business days of checkout, provided no damage or breach of house rules occurred.', cancelTh1:'When you cancel or postpone', cancelTh2:'Charge', cancelRow1:'More than 45 days before arrival', cancelRow1v:'15% of total booking', cancelRow2:'30–45 days before arrival', cancelRow2v:'30% of total booking', cancelRow3:'14–30 days before arrival', cancelRow3v:'70% of total booking', cancelRow4:'Less than 14 days before arrival', cancelRow4v:'100% of total booking', cancelModalOwner:"The owners reserve the right to cancel a confirmed booking with 3 months' notice, for any reason, with a full deposit refund within 5 business days.", cancelModalNote:'Free date changes are offered, at no cost, if Ben Gurion Airport closes to outbound or inbound flights due to a security situation, up until the scheduled flight time.', houseRulesModalTitle:'Key House Rules', houseRulesModalIntro:'A short summary - the full list is provided with the reservation agreement.', houseRule1:'Check-in until 15:00, check-out by 11:00 (flexible with prior arrangement; early/late arrival available for €30/hour).', houseRule2:'Up to 12 overnight guests. Additional daytime guests only with prior arrangement, up to 20 people total, at extra cost.', houseRule3:'No sound amplification equipment. Please keep noise reasonable, especially in the evening - the house is in a residential neighbourhood.', houseRule4:'No pets.', houseRule5:'No smoking indoors; permitted on the terrace, with ashtrays, only.', houseRule6:'Security cameras are present in common areas of the house only, never in private interior spaces.', houseRule7:'Guests are responsible for any damage caused through negligence or intent; charges are deducted from the deposit.', fAgreeHouseRules:'I have read and agree to the', fAgreeHouseRulesLink:'house rules', houseRulesAgreementMissing:'Please confirm you have read the house rules.', fAgreeCancel:'I have read and agree to the', fAgreeCancelLink:'cancellation policy', paymentTermsTitle:'Payment terms', paymentTermsBody:'Payment is by cash on arrival, or bank transfer.', paymentTermsDeposit:'To secure the dates and ensure the house rules are respected during your stay, a one-time deposit of €900 will be charged. It is refunded within 5 business days of checkout.', cancelAgreementMissing:'Please confirm you have read the cancellation policy.', successTitle:'Your request is on its way!', successBody:"Thank you! We've received your booking request - start packing! We'll be in touch within 1 business day to confirm.", successClose:'Great, thanks!', formSendError:'Something went wrong sending your request - please try again or contact us directly.', recaptchaMissing:'Please confirm the "I\'m not a robot" checkbox before sending.', a11yWidgetTitle:'Accessibility', a11yTextInc:'Larger text', a11yContrast:'High contrast', a11yUnderline:'Underline links', a11yMotion:'Reduce motion', a11yReset:'Reset'},
-  es:{dir:'ltr', skip:'Ir al contenido principal', nav1:'La casa', nav2:'Galería', nav3:'Equipamiento', nav4:'Reservas', nav5:'Ubicación', navReviews:'Los huéspedes recomiendan', reviewsTitle:'Los huéspedes recomiendan', reviewsLede:'Reseñas y fotos reales de huéspedes que se alojaron con nosotros - además de todo lo que nos han etiquetado en Instagram y Facebook.', reviewsIgBtn:'Ver etiquetas en Instagram', reviewsFbBtn:'Etiquetas de huéspedes en Facebook', liveChatLabel:'CHAT EN VIVO', liveChatTitle:'Chat en vivo', chatIntro:'⚡ Respondemos rápido - pregúntanos lo que quieras, en vivo.', chatNameLabel:'Tu nombre', chatContactMethodLabel:'¿Cómo prefieres que te contactemos?', chatMethodPhone:'Teléfono', chatMethodEmail:'Correo', chatMessageLabel:'Tu mensaje', chatStartBtn:'Iniciar chat', chatReplyPlaceholder:'Escribe un mensaje...', calFloatLabel:'Reservar', chatNudgeText:'¿Sigues ahí? Continúa por WhatsApp:', chatNudgeBtn:'Abrir WhatsApp', chatSeenLabel:'Visto', mapLoadPrompt:'Toca para cargar el mapa interactivo', igHighlight1:'Huéspedes 2023', igHighlight2:'Huéspedes 2024', igHighlight3:'Huéspedes 2025', igHighlight4:'Huéspedes 2026', reviewsEmpty:'Sé el primero en compartir tu experiencia - las reseñas aparecerán aquí pronto.',
+  es:{dir:'ltr', skip:'Ir al contenido principal', nav1:'La casa', nav2:'Galería', nav3:'Equipamiento', nav4:'Reservas', nav5:'Ubicación', navReviews:'Los huéspedes recomiendan', reviewsTitle:'Los huéspedes recomiendan', reviewsLede:'Reseñas y fotos reales de huéspedes que se alojaron con nosotros - además de todo lo que nos han etiquetado en Instagram y Facebook.', reviewsIgBtn:'Ver etiquetas en Instagram', reviewsFbBtn:'Etiquetas de huéspedes en Facebook', liveChatLabel:'CHAT EN VIVO', liveChatTitle:'Chat en vivo', chatIntro:'⚡ Respondemos rápido - pregúntanos lo que quieras, en vivo.', chatNameLabel:'Tu nombre', chatContactMethodLabel:'¿Cómo prefieres que te contactemos?', chatMethodPhone:'Teléfono', chatMethodEmail:'Correo', chatMessageLabel:'Tu mensaje', chatStartBtn:'Iniciar chat', chatReplyPlaceholder:'Escribe un mensaje...', calFloatLabel:'Reservar', chatNudgeText:'¿Sigues ahí? Continúa por WhatsApp:', chatNudgeBtn:'Abrir WhatsApp', chatSeenLabel:'Visto', bookingLoaderText:'Preparando tu reserva...', mapLoadPrompt:'Toca para cargar el mapa interactivo', igHighlight1:'Huéspedes 2023', igHighlight2:'Huéspedes 2024', igHighlight3:'Huéspedes 2025', igHighlight4:'Huéspedes 2026', reviewsEmpty:'Sé el primero en compartir tu experiencia - las reseñas aparecerán aquí pronto.',
     heroEyebrow:'Casa de Vacaciones Frente al Canal<br><span class="he-line2">Ámsterdam, Países Bajos<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'Diseñada para Grupos, Familias y Parejas',
     ctaCheck:'Ver disponibilidad', ctaMore:'Descubrir la casa', liveViewersLabel:'personas están viendo esta página ahora mismo', liveViewersFrom:'desde', nlLocalTimeLabel:'hora local', photoPlaceholder:'Espacio para la foto principal, envía tus fotos y el video tour y se colocarán aquí',
     spec1:'Hasta 12 huéspedes', spec2:'Aparcamiento gratuito', spec3:'La casa está construida,<br>no es un barco', spec4:'250 m² de casa<br>+ 300 m² de jardín', spec5:'10 bicicletas y 2 kayaks,<br>de uso libre,<br>incluidas bicicletas infantiles', spec6:'Aire acondicionado, chimenea de leña y suelo radiante', spec7:'A 10 minutos del aeropuerto,<br>10-20 minutos<br>del centro de la ciudad', spec8:'Cocina totalmente equipada con Nespresso,<br>lavavajillas y más',
@@ -1386,7 +1407,7 @@ const translations = {
     a11y1:'Navegación completa por teclado, incluyendo un enlace de salto al contenido', a11y2:'Compatibilidad con lectores de pantalla mediante etiquetas ARIA', a11y3:'Respeta la preferencia de movimiento reducido del usuario', a11yContact:'¿Encontraste un problema de accesibilidad? Escríbenos, info@casapuravidanl.com',
     footTag:'Una casa privada sobre el agua en Sloten, Ámsterdam, con espacio para grupos, familias y parejas.', footNavT:'Navegación', footContactT:'Contacto', footLegal:'© 2026 Casa Pura Vida, Ámsterdam. Todos los derechos reservados.', footPolicies:'Privacidad, Términos y Política de Cancelación',
     formSent:'¡Gracias! Tu solicitud ha sido enviada, te responderemos pronto.', formErr:'Por favor completa todos los campos obligatorios.', cancelModalTitle:'Política de Cancelación', cancelModalIntro:'Un resumen de las condiciones de cancelación aplicables una vez realizada una reserva. Los términos completos se confirman en el acuerdo de reserva firmado.', cancelModalDeposit:'Un depósito de 900€ asegura tus fechas y se reembolsa en su totalidad dentro de los 5 días hábiles posteriores a la salida, siempre que no haya daños ni incumplimiento de las normas de la casa.', cancelTh1:'Si cancelas o aplazas', cancelTh2:'Cargo', cancelRow1:'Más de 45 días antes de la llegada', cancelRow1v:'15% del total de la reserva', cancelRow2:'Entre 30 y 45 días antes', cancelRow2v:'30% del total de la reserva', cancelRow3:'Entre 14 y 30 días antes', cancelRow3v:'70% del total de la reserva', cancelRow4:'Menos de 14 días antes', cancelRow4v:'100% del total de la reserva', cancelModalOwner:'Los propietarios se reservan el derecho de cancelar una reserva confirmada con 3 meses de aviso previo, por cualquier motivo, con reembolso total del depósito dentro de los 5 días hábiles.', cancelModalNote:'Se ofrecen cambios de fecha gratuitos si el aeropuerto Ben Gurión cierra a vuelos de salida o llegada por una situación de seguridad, hasta la hora programada del vuelo.', houseRulesModalTitle:'Normas Principales de la Casa', houseRulesModalIntro:'Un resumen breve - la lista completa se entrega con el acuerdo de reserva.', houseRule1:'Entrada hasta las 15:00, salida hasta las 11:00 (flexible con acuerdo previo; entrada temprana/salida tardía disponible por 30€/hora).', houseRule2:'Hasta 12 huéspedes para pernoctar. Huéspedes adicionales durante el día solo con acuerdo previo, hasta 20 personas en total, con costo extra.', houseRule3:'No se permiten equipos de amplificación de sonido. Se ruega mantener un nivel de ruido razonable, especialmente por la noche - la casa está en un barrio residencial.', houseRule4:'No se admiten mascotas.', houseRule5:'Prohibido fumar dentro de la casa; permitido en la terraza, solo con cenicero.', houseRule6:'Hay cámaras de seguridad únicamente en las áreas comunes de la casa, nunca en espacios interiores privados.', houseRule7:'Los huéspedes son responsables de cualquier daño causado por negligencia o intención; los cargos se descuentan del depósito.', fAgreeHouseRules:'He leído y acepto las', fAgreeHouseRulesLink:'normas de la casa', houseRulesAgreementMissing:'Por favor confirma que has leído las normas de la casa.', fAgreeCancel:'He leído y acepto la', fAgreeCancelLink:'política de cancelación', paymentTermsTitle:'Condiciones de pago', paymentTermsBody:'El pago se realiza en efectivo a la llegada, o por transferencia bancaria.', paymentTermsDeposit:'Para asegurar las fechas y garantizar el cumplimiento de las normas de la casa durante tu estancia, se cobrará un depósito único de 900€. Se reembolsa dentro de los 5 días hábiles posteriores a la salida.', cancelAgreementMissing:'Por favor confirma que has leído la política de cancelación.', successTitle:'¡Tu solicitud está en camino!', successBody:'¡Gracias! Hemos recibido tu solicitud de reserva - ¡empieza a hacer las maletas! Nos pondremos en contacto dentro de 1 día hábil para confirmar.', successClose:'¡Genial, gracias!', formSendError:'Ocurrió un error al enviar tu solicitud - inténtalo de nuevo o contáctanos directamente.', recaptchaMissing:'Por favor confirma la casilla "No soy un robot" antes de enviar.', a11yWidgetTitle:'Accesibilidad', a11yTextInc:'Texto más grande', a11yContrast:'Alto contraste', a11yUnderline:'Subrayar enlaces', a11yMotion:'Reducir movimiento', a11yReset:'Restablecer'},
-  he:{dir:'rtl', skip:'דלגו לתוכן הראשי', nav1:'הבית', nav2:'גלריה', nav3:'מתקנים', nav4:'הזמנות', nav5:'מיקום', navReviews:'לקוחות ממליצים', reviewsTitle:'לקוחות ממליצים', reviewsLede:'ביקורות ותמונות אמיתיות מאורחים ששהו אצלנו - וגם כל מה שתייגו אותנו בו באינסטגרם ובפייסבוק.', reviewsIgBtn:'לצפייה בתיוגים באינסטגרם', reviewsFbBtn:'תיוגי אורחים מפייסבוק', liveChatLabel:'צ׳אט חי', liveChatTitle:'צ׳אט חי', chatIntro:'⚡ אנחנו עונים מהר - שאלו אותנו כל דבר, בזמן אמת.', chatNameLabel:'שם מלא', chatContactMethodLabel:'איך נחזור אליכם?', chatMethodPhone:'טלפון', chatMethodEmail:'אימייל', chatMessageLabel:'ההודעה שלכם', chatStartBtn:'שלחו', chatReplyPlaceholder:'כתבו הודעה...', calFloatLabel:'הזמנה', chatNudgeText:'עדיין שם? המשיכו בוואטסאפ:', chatNudgeBtn:'פתיחת וואטסאפ', chatSeenLabel:'נצפה', mapLoadPrompt:'הקישו לטעינת המפה האינטראקטיבית', igHighlight1:'אורחים 2023', igHighlight2:'אורחים 2024', igHighlight3:'אורחים 2025', igHighlight4:'אורחים 2026', reviewsEmpty:'תהיו הראשונים לשתף את החוויה שלכם - ביקורות יופיעו כאן בקרוב.',
+  he:{dir:'rtl', skip:'דלגו לתוכן הראשי', nav1:'הבית', nav2:'גלריה', nav3:'מתקנים', nav4:'הזמנות', nav5:'מיקום', navReviews:'לקוחות ממליצים', reviewsTitle:'לקוחות ממליצים', reviewsLede:'ביקורות ותמונות אמיתיות מאורחים ששהו אצלנו - וגם כל מה שתייגו אותנו בו באינסטגרם ובפייסבוק.', reviewsIgBtn:'לצפייה בתיוגים באינסטגרם', reviewsFbBtn:'תיוגי אורחים מפייסבוק', liveChatLabel:'צ׳אט חי', liveChatTitle:'צ׳אט חי', chatIntro:'⚡ אנחנו עונים מהר - שאלו אותנו כל דבר, בזמן אמת.', chatNameLabel:'שם מלא', chatContactMethodLabel:'איך נחזור אליכם?', chatMethodPhone:'טלפון', chatMethodEmail:'אימייל', chatMessageLabel:'ההודעה שלכם', chatStartBtn:'שלחו', chatReplyPlaceholder:'כתבו הודעה...', calFloatLabel:'הזמנה', chatNudgeText:'עדיין שם? המשיכו בוואטסאפ:', chatNudgeBtn:'פתיחת וואטסאפ', chatSeenLabel:'נצפה', bookingLoaderText:'מכינים לכם את ההזמנה...', mapLoadPrompt:'הקישו לטעינת המפה האינטראקטיבית', igHighlight1:'אורחים 2023', igHighlight2:'אורחים 2024', igHighlight3:'אורחים 2025', igHighlight4:'אורחים 2026', reviewsEmpty:'תהיו הראשונים לשתף את החוויה שלכם - ביקורות יופיעו כאן בקרוב.',
     heroEyebrow:'בית נופש על מי התעלה<br><span class="he-line2">אמסטרדם, הולנד<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'מתאים לקבוצות, משפחות וזוגות',
     ctaCheck:'בדקו זמינות', ctaMore:'גלו את הבית', liveViewersLabel:'אנשים צופים בעמוד הזה ממש עכשיו', liveViewersFrom:'מ-', nlLocalTimeLabel:'שעון מקומי', photoPlaceholder:'מקום לתמונת גג, שלחו תמונות וסרטון סיור והם ייכנסו לכאן',
     spec1:'עד 12 אורחים', spec2:'חניה חופשית', spec3:'הבית בנוי ואינו סירה', spec4:'250 מ"ר בית + 300 מ"ר גינה', spec5:'10 אופניים ו-2 קיאקים, לשימוש חופשי, כולל אופניים לילדים', spec6:'מיזוג אוויר, אח מבוערת<br>ורצפה מחוממת', spec7:'10 דקות משדה התעופה,<br>10-20 דקות ממרכז העיר', spec8:'מטבח מאובזר במלואו, כולל נספרסו, מדיח כלים ועוד',
@@ -1598,31 +1619,22 @@ function nightsBetween(start, end){
   return Math.round((new Date(end) - new Date(start)) / 86400000);
 }
 
-function renderCalendar(){
-  const lang = window.__currentLang || 'en';
-  const grid = document.getElementById('calGrid');
-  const title = document.getElementById('calTitle');
-  const y = calCursor.getFullYear(), m = calCursor.getMonth();
-  title.textContent = `${monthNames[lang][m]} ${y}`;
-  const now = new Date();
-  document.getElementById('calPrev').disabled = (y === now.getFullYear() && m === now.getMonth());
-  grid.innerHTML = '';
-  dowNames[lang].forEach(d=>{ const el=document.createElement('div'); el.className='dow'; el.textContent=d; grid.appendChild(el); });
+function renderMonthGrid(gridEl, titleEl, y, m, lang){
+  titleEl.textContent = `${monthNames[lang][m]} ${y}`;
+  gridEl.innerHTML = '';
+  dowNames[lang].forEach(d=>{ const el=document.createElement('div'); el.className='dow'; el.textContent=d; gridEl.appendChild(el); });
   const firstDay = new Date(y,m,1).getDay();
   const daysInMonth = new Date(y,m+1,0).getDate();
-  for(let i=0;i<firstDay;i++){ const el=document.createElement('div'); el.className='day empty'; grid.appendChild(el); }
+  for(let i=0;i<firstDay;i++){ const el=document.createElement('div'); el.className='day empty'; gridEl.appendChild(el); }
   for(let d=1; d<=daysInMonth; d++){
     const dateStr = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const el = document.createElement('div');
     const isBlocked = BLOCKED_DATES.includes(dateStr);
     const isPast = isPastDate(dateStr);
-    const holiday = isHolidayDate(dateStr);
     let cls = 'day';
     if(isBlocked) cls += ' booked';
     else if(isPast) cls += ' past';
-    else {
-      cls += ' avail';
-    }
+    else { cls += ' avail'; }
     if(selectedCheckin && !selectedCheckout && dateStr === selectedCheckin) cls += ' range-edge';
     if(selectedCheckin && selectedCheckout){
       if(dateStr === selectedCheckin || dateStr === selectedCheckout) cls += ' range-edge';
@@ -1634,7 +1646,23 @@ function renderCalendar(){
     const lbl = translations[lang];
     el.setAttribute('aria-label', `${d} ${monthNames[lang][m]}, ${isBlocked ? lbl.legendBooked : lbl.legendAvail}`);
     if(clickable) el.addEventListener('click', ()=> onDateClick(dateStr));
-    grid.appendChild(el);
+    gridEl.appendChild(el);
+  }
+}
+
+function renderCalendar(){
+  const lang = window.__currentLang || 'en';
+  const y = calCursor.getFullYear(), m = calCursor.getMonth();
+  const now = new Date();
+  document.getElementById('calPrev').disabled = (y === now.getFullYear() && m === now.getMonth());
+
+  renderMonthGrid(document.getElementById('calGrid'), document.getElementById('calTitle'), y, m, lang);
+
+  const grid2 = document.getElementById('calGrid2');
+  const title2 = document.getElementById('calTitle2');
+  if(grid2 && title2){
+    const nextMonthDate = new Date(y, m+1, 1);
+    renderMonthGrid(grid2, title2, nextMonthDate.getFullYear(), nextMonthDate.getMonth(), lang);
   }
 }
 
@@ -1746,15 +1774,27 @@ function renderStaySummary(){
 
 document.getElementById('continueBtn').addEventListener('click', () => {
   if(!currentQuote) return;
-  document.getElementById('fIn').value = currentQuote.checkin;
-  document.getElementById('fOut').value = currentQuote.checkout;
-  document.getElementById('fGuestsHidden').value = currentQuote.guests;
-  window.__estimatedTotal = `€${currentQuote.total.toFixed(2)} (incl. VAT, ${currentQuote.nights} nights, ${currentQuote.guests} guests)`;
-  renderStaySummary();
-  document.getElementById('bookingLocked').style.display = 'none';
-  document.getElementById('bookingUnlocked').style.display = 'block';
-  document.getElementById('bookingUnlocked').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  showBookingLoader();
+  setTimeout(() => {
+    document.getElementById('fIn').value = currentQuote.checkin;
+    document.getElementById('fOut').value = currentQuote.checkout;
+    document.getElementById('fGuestsHidden').value = currentQuote.guests;
+    window.__estimatedTotal = `€${currentQuote.total.toFixed(2)} (incl. VAT, ${currentQuote.nights} nights, ${currentQuote.guests} guests)`;
+    renderStaySummary();
+    document.getElementById('bookingLocked').style.display = 'none';
+    document.getElementById('bookingUnlocked').style.display = 'block';
+    hideBookingLoader();
+    document.getElementById('bookingUnlocked').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 700);
 });
+function showBookingLoader(){
+  const el = document.getElementById('bookingLoader');
+  if(el) el.style.display = 'flex';
+}
+function hideBookingLoader(){
+  const el = document.getElementById('bookingLoader');
+  if(el) el.style.display = 'none';
+}
 
 document.getElementById('editDatesBtn').addEventListener('click', () => {
   document.getElementById('bookingUnlocked').style.display = 'none';
