@@ -24,14 +24,23 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <style>
   :root{
-    --white:#ffffff; --off-white:#FAFAF9; --ink:#1A1D1F; --ink-soft:#54595E;
-    --canal:#193191; --canal-deep:#0F2260; --canal-tint:#E7EAF6; --brass:#2F9E6E;
+    --white:#ffffff; --off-white:#F5F2EB; --ink:#1A1D1F; --ink-soft:#54595E;
+    --canal:#203864; --canal-deep:#13233F; --canal-tint:#E4E9F2; --brass:#D4B26F; --accent2:#B85B35;
     --line:#E7E5E1; --radius:14px; --max:944px;
   }
   *{box-sizing:border-box;}
   html{zoom:90%;}
   html{scroll-behavior:auto;}
   section[id]{scroll-margin-top:110px;}
+  .wave-divider{display:block; width:100%; height:36px; margin-top:-1px; overflow:hidden; line-height:0;}
+  .wave-divider svg{width:100%; height:100%; display:block;}
+  .wave-divider path{animation:waveFlow 14s linear infinite;}
+  @keyframes waveFlow{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce){ .wave-divider path{animation:none;} }
+  .btn{position:relative; overflow:hidden;}
+  .btn .ripple{position:absolute; border-radius:50%; background:rgba(255,255,255,.55); transform:scale(0); animation:rippleOut .6s ease-out; pointer-events:none;}
+  @keyframes rippleOut{ to{ transform:scale(2.6); opacity:0; } }
+  @media (prefers-reduced-motion: reduce){ .btn .ripple{display:none;} }
   @media (max-width:880px){ section[id]{scroll-margin-top:150px;} }
   @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation-duration:.001ms !important; transition-duration:.001ms !important;} }
   body{margin:0; font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; color:var(--ink); background:var(--white); line-height:1.55; -webkit-font-smoothing:antialiased;}
@@ -139,6 +148,7 @@
   .a11y-action .ic{width:18px; text-align:center; flex:none; font-weight:700; font-size:13px;}
   .a11y-action.reset{border-top:1px solid var(--line); margin-top:4px; padding-top:11px; border-radius:0 0 10px 10px;}
   html.a11y-contrast{--ink:#000; --ink-soft:#111; --line:#000;}
+  html.theme-night{--canal:#3D5B59; --canal-deep:#233433; --canal-tint:#E3EBEA; --brass:#F4A261; --accent2:#E76F51; --off-white:#FAFAF5;}
   html.a11y-contrast body{background:#fff;}
   html.a11y-text-lg{zoom:1.16;}
   html.a11y-underline-links a{text-decoration:underline !important;}
@@ -169,17 +179,15 @@
   .nav-backdrop{display:none;}
 
   .hero{position:relative; padding:28px 24px; overflow:hidden; background:var(--canal-tint);}
-  .hero-bg-slides{position:absolute; inset:0; z-index:0;}
-  .hero-bg-slide{position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transition:opacity 2.2s ease;}
-  .hero-bg-slide.active{opacity:1;}
+  .hero-bg-video{position:absolute; inset:0; z-index:0; width:100%; height:100%; object-fit:cover;}
   .hero-bg-overlay{position:absolute; inset:0; z-index:1; background:linear-gradient(120deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,.32) 55%, rgba(255,255,255,.45) 100%);}
   .hero > .section-inner, .hero .split{position:relative; z-index:2;}
-  @media (prefers-reduced-motion: reduce){ .hero-bg-slide{transition:none;} }
+  @media (prefers-reduced-motion: reduce){ .hero-bg-video{display:none;} }
   .hero-split{display:grid; grid-template-columns:1fr; gap:22px; align-items:center; text-align:center;}
   @media (min-width:900px){
     .hero-split{grid-template-columns:0.9fr 1.1fr; gap:36px;}
   }
-  .hero-eyebrow{font-family:'Montserrat','Inter',sans-serif; font-size:clamp(11px,1.4vw,13px); letter-spacing:1.5px; text-transform:uppercase; color:var(--canal-deep); font-weight:800; line-height:1.35; margin-bottom:0; text-shadow:0 1px 3px rgba(255,255,255,.9), 0 0 12px rgba(255,255,255,.6);}
+  .hero-eyebrow{font-family:'Montserrat','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:clamp(11px,1.4vw,13px); letter-spacing:1.5px; text-transform:uppercase; color:var(--canal-deep); font-weight:800; line-height:1.35; margin-bottom:0; text-shadow:0 1px 3px rgba(255,255,255,.9), 0 0 12px rgba(255,255,255,.6);}
   html:not([dir="rtl"]) .hero-eyebrow{font-size:clamp(9.5px,1.1vw,11px);}
   .hero-eyebrow .he-line2{display:inline-flex; align-items:center; gap:7px; font-size:1.05em; margin-top:0;}
   .ams-flag{flex:none; transform-origin:0% 50%; animation:flagWave 2.8s ease-in-out infinite;}
@@ -189,8 +197,9 @@
   .brand-name-row{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;}
   .brand-name-row svg{width:clamp(46px,7.5vw,58px); height:clamp(46px,7.5vw,58px); flex:none;}
   .brand-name{display:inline-block; white-space:nowrap; font-family:'Montserrat','Inter',sans-serif; font-size:clamp(19px,3.6vw,44px); font-weight:500; letter-spacing:1px; line-height:1.3; padding:2px 4px 4px; margin:0; direction:ltr; background:linear-gradient(95deg,var(--canal) 0%, var(--canal-deep) 38%, var(--brass) 72%, var(--brass) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:var(--canal-deep); text-shadow:none;}
-  .hero p.lede{font-family:'Montserrat','Inter',sans-serif; font-size:clamp(12px,1.4vw,15px); color:var(--canal-deep); font-weight:800; letter-spacing:1.5px; text-transform:uppercase; max-width:52ch; margin:0 0 14px; text-shadow:0 1px 3px rgba(255,255,255,.9), 0 0 12px rgba(255,255,255,.6);}
+  .hero p.lede{font-family:'Montserrat','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:clamp(12px,1.4vw,15px); color:var(--canal-deep); font-weight:800; letter-spacing:1.5px; text-transform:uppercase; max-width:52ch; margin:0 0 14px; text-shadow:0 1px 3px rgba(255,255,255,.9), 0 0 12px rgba(255,255,255,.6);}
   html:not([dir="rtl"]) .hero p.lede{font-size:clamp(10px,1.1vw,12.5px);}
+  html[dir="rtl"] .hero-eyebrow, html[dir="rtl"] .hero p.lede{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-weight:700;}
   @keyframes ctaPulse{0%,100%{box-shadow:0 0 0 0 rgba(47,107,115,.35);} 50%{box-shadow:0 0 0 10px rgba(47,107,115,0);}}
   .cta-row .btn-primary, #fullGalleryBtn{animation:ctaPulse 2.6s ease-in-out infinite;}
   html.a11y-reduce-motion .cta-row .btn-primary, html.a11y-reduce-motion #fullGalleryBtn{animation:none;}
@@ -371,14 +380,12 @@
   .map-frame{width:100%; aspect-ratio:16/7; border:1px solid var(--line); border-radius:16px; overflow:hidden; margin-top:28px;}
 
   .reviews-section{background:linear-gradient(180deg, #F3F5FB 0%, #FAFAF9 100%); border-top:1px solid #E4E8F5; border-bottom:1px solid var(--line);}
-  .live-viewers-banner{display:inline-flex; flex-direction:column; align-items:center; gap:4px; margin-top:18px; padding:12px 22px; border-radius:22px; background:rgba(255,255,255,.85); border:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); text-align:center;}
-  .live-line1{display:flex; align-items:center; gap:7px; justify-content:center;}
-  .live-line2{display:flex; align-items:center; gap:6px; justify-content:center;}
-  .live-dot{width:8px; height:8px; border-radius:50%; background:#E0453F; flex:none; animation:liveDotPulse 1.6s ease-in-out infinite;}
-  @keyframes liveDotPulse{ 0%,100%{ opacity:1; box-shadow:0 0 0 0 rgba(224,69,63,.5); } 50%{ opacity:.6; box-shadow:0 0 0 4px rgba(224,69,63,0); } }
-  .live-count{font-weight:800; color:var(--ink);}
-  .live-flag{font-size:15px;}
-  .live-country{font-weight:700; color:var(--canal-deep); display:inline-block; min-width:70px; text-align:center; animation:liveCountryFade .5s ease;}
+  .live-viewers-strip{display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap; padding:8px 16px; background:var(--canal); color:#fff; font-size:12px; font-weight:600; text-align:center;}
+  .live-dot{width:8px; height:8px; border-radius:50%; background:#3ECF6D; flex:none; animation:liveDotGlow 1.6s ease-in-out infinite;}
+  @keyframes liveDotGlow{ 0%,100%{ box-shadow:0 0 0 0 rgba(62,207,109,.6); } 50%{ box-shadow:0 0 0 5px rgba(62,207,109,0); } }
+  .live-count{font-weight:800;}
+  .live-flag{font-size:14px;}
+  .live-country{font-weight:800; letter-spacing:.5px; display:inline-block; min-width:60px; text-align:center; animation:liveCountryFade .5s ease;}
   @keyframes liveCountryFade{ from{ opacity:0; transform:translateY(3px); } to{ opacity:1; transform:translateY(0); } }
   @media (prefers-reduced-motion: reduce){ .live-dot{animation:none;} .live-country{animation:none;} }
   .social-highlights-row{display:flex; gap:16px; margin:24px 0 32px; flex-wrap:wrap; align-items:flex-start; justify-content:center;}
@@ -496,10 +503,13 @@
 <header class="site">
   <div class="nav-wrap">
     <a href="#main" class="brand">
-      <svg class="mark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M3 17c1.5 1.3 3 1.3 4.5 0s3-1.3 4.5 0 3 1.3 4.5 0 3-1.3 4.5 0" stroke="#2F6B73" stroke-width="1.6" stroke-linecap="round"/>
-        <path d="M5 13l1-6h12l1 6" stroke="#2F9E6E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M9 7V4h4v3" stroke="#2F9E6E" stroke-width="1.6" stroke-linecap="round"/>
+      <svg class="mark" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M6 12L14 5L22 12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8 12V18H20V12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12.5 18V14H15.5V18" stroke="var(--brass)" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M24 15L27.5 15L26.5 18.5L23.5 18.5Z" stroke="var(--brass)" stroke-width="1.3" stroke-linejoin="round"/>
+        <path d="M25.5 15V9.5L28.5 13.5" stroke="var(--brass)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M2 20.5c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0 4-1.5 6 0 4 1.5 6 0" stroke="var(--canal)" stroke-width="1.4" stroke-linecap="round"/>
       </svg>
       <span class="brand-text-wrap"><span class="brand-text">Casa Pura Vida</span><small class="brand-city">AMSTERDAM</small><small class="brand-country"><svg class="ams-flag" width="14" height="9.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg>The Netherlands</small></span>
     </a>
@@ -533,7 +543,6 @@
           </div>
         </div>
         <div class="header-social">
-          <a href="https://wa.me/message/QZBXKQJ6BSIRN1" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="#25D366"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .9.9-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.4-.1-.1-.5-1.3-.7-1.8-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.4.5.2 1 .4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3Z"/></svg></a>
           <a href="https://www.instagram.com/casapuravida" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><defs><linearGradient id="igGradHeader" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFDC80"/><stop offset="25%" stop-color="#FCAF45"/><stop offset="50%" stop-color="#E1306C"/><stop offset="75%" stop-color="#C13584"/><stop offset="100%" stop-color="#833AB4"/></linearGradient></defs><path fill="url(#igGradHeader)" d="M12 2c-2.7 0-3 0-4.1.1-1.1.1-1.8.2-2.4.5-.7.3-1.2.6-1.8 1.2-.6.6-.9 1.1-1.2 1.8-.2.6-.4 1.3-.5 2.4C2 9.1 2 9.4 2 12s0 2.9.1 4c.1 1.1.2 1.8.5 2.4.3.7.6 1.2 1.2 1.8.6.6 1.1.9 1.8 1.2.6.2 1.3.4 2.4.5C9.1 22 9.4 22 12 22s2.9 0 4-.1c1.1-.1 1.8-.2 2.4-.5.7-.3 1.2-.6 1.8-1.2.6-.6.9-1.1 1.2-1.8.2-.6.4-1.3.5-2.4.1-1.1.1-1.4.1-4s0-2.9-.1-4c-.1-1.1-.2-1.8-.5-2.4-.3-.7-.6-1.2-1.2-1.8-.6-.6-1.1-.9-1.8-1.2-.6-.2-1.3-.4-2.4-.5C14.9 2 14.6 2 12 2Zm0 1.8c2.6 0 2.9 0 3.9.1 1 .1 1.5.2 1.8.4.5.2.8.4 1.2.7.3.3.5.6.7 1.2.1.3.3.8.4 1.8.1 1 .1 1.3.1 3.9s0 2.9-.1 3.9c-.1 1-.2 1.5-.4 1.8-.2.5-.4.8-.7 1.2-.3.3-.6.5-1.2.7-.3.1-.8.3-1.8.4-1 .1-1.3.1-3.9.1s-2.9 0-3.9-.1c-1-.1-1.5-.2-1.8-.4-.5-.2-.8-.4-1.2-.7-.3-.3-.5-.6-.7-1.2-.1-.3-.3-.8-.4-1.8-.1-1-.1-1.3-.1-3.9s0-2.9.1-3.9c.1-1 .2-1.5.4-1.8.2-.5.4-.8.7-1.2.3-.3.6-.5 1.2-.7.3-.1.8-.3 1.8-.4 1-.1 1.3-.1 3.9-.1Zm0 3.2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4Zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg></a>
           <a href="https://www.facebook.com/casapuravidanl" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="#1877F2"><path d="M13.5 21v-7.5h2.5l.4-3H13.5V8.5c0-.9.2-1.5 1.5-1.5h1.6V4.3C16.3 4.2 15.3 4 14.2 4c-2.3 0-3.9 1.4-3.9 4v2.5H7.8v3h2.5V21h3.2Z"/></svg></a>
           <a href="https://www.tiktok.com/@casapuravida" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="#000000"><path d="M14 2h2.1c.1 1 .5 1.9 1.2 2.6.7.7 1.6 1.1 2.7 1.2v2.2c-1.4 0-2.7-.4-3.9-1.2v6.6c0 3-2.4 5.4-5.4 5.4S5.3 16.4 5.3 13.4c0-2.9 2.3-5.3 5.2-5.4v2.3c-1.6.1-2.9 1.4-2.9 3.1a3.1 3.1 0 1 0 6.2 0V2Z"/></svg></a>
@@ -543,20 +552,34 @@
     <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false" aria-controls="main-nav">☰</button>
   </div>
 </header>
+<div class="live-viewers-strip" id="liveViewersBanner">
+  <span class="live-dot"></span>
+  <span class="live-count" id="liveViewersCount">-</span>
+  <span data-i18n="liveViewersLabel">people from</span>
+  <span class="live-flag" id="liveViewersFlag">🌍</span>
+  <span class="live-country" id="liveViewersCountry">-</span>
+  <span data-i18n="liveViewersWatching">are watching right now</span>
+</div>
   
 
 <main id="main">
 
-  <section class="hero" id="gallery">
-    <div class="hero-bg-slides" id="heroBgSlides"></div>
+  <section class="hero">
+    <video class="hero-bg-video" id="heroBgVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-bg-poster.jpg">
+      <source src="assets/video/hero-bg.webm" type="video/webm">
+      <source src="assets/video/hero-bg.mp4" type="video/mp4">
+    </video>
     <div class="hero-bg-overlay"></div>
     <div class="section-inner hero-split">
       <div class="hero-text">
         <div class="brand-name-row">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 17c1.5 1.3 3 1.3 4.5 0s3-1.3 4.5 0 3 1.3 4.5 0 3-1.3 4.5 0" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M5 13l1-6h12l1 6" stroke="var(--brass)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9 7V4h4v3" stroke="var(--brass)" stroke-width="1.6" stroke-linecap="round"/>
+          <svg viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L14 5L22 12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 12V18H20V12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.5 18V14H15.5V18" stroke="var(--brass)" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M24 15L27.5 15L26.5 18.5L23.5 18.5Z" stroke="var(--brass)" stroke-width="1.3" stroke-linejoin="round"/>
+            <path d="M25.5 15V9.5L28.5 13.5" stroke="var(--brass)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 20.5c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 6 0 4-1.5 6 0 4 1.5 6 0" stroke="var(--canal)" stroke-width="1.4" stroke-linecap="round"/>
           </svg>
           <h1 class="brand-name">CASA PURA VIDA</h1>
         </div>
@@ -566,67 +589,14 @@
           <a href="#booking" class="btn btn-primary" data-i18n="ctaCheck">Check availability</a>
           <a href="#story" class="btn btn-ghost" data-i18n="ctaMore">Explore the house</a>
         </div>
-        <div class="live-viewers-banner" id="liveViewersBanner">
-          <div class="live-line1">
-            <span class="live-dot"></span>
-            <span class="live-count" id="liveViewersCount">-</span>
-            <span data-i18n="liveViewersLabel">people are viewing this page right now</span>
-          </div>
-          <div class="live-line2">
-            <span data-i18n="liveViewersFrom">from</span>
-            <span class="live-flag" id="liveViewersFlag">🌍</span>
-            <span class="live-country" id="liveViewersCountry">-</span>
-          </div>
-        </div>
-      </div>
-      <div class="hero-visual">
-      <div class="hero-gallery">
-        <div class="carousel" id="galleryCarousel">
-        <div class="carousel-track-wrap">
-          <div class="carousel-track" id="carouselTrack">
-            <div class="carousel-slide"><img class="g" src="assets/photos/00-terrace.jpg" alt="Terrace, canal view" loading="lazy"><div class="carousel-cap">Terrace, canal view</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/DSC01171.jpg" alt="Casa Pura Vida, from the water" loading="lazy"><div class="carousel-cap">Casa Pura Vida, from the water</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/01.jpg" alt="Front garden" loading="lazy"><div class="carousel-cap">Front garden</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/02.jpg" alt="Garden entrance" loading="lazy"><div class="carousel-cap">Garden entrance</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/03.jpg" alt="Living room" loading="lazy"><div class="carousel-cap">Living room</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/04.jpg" alt="Living room" loading="lazy"><div class="carousel-cap">Living room</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/05.jpg" alt="Living room" loading="lazy"><div class="carousel-cap">Living room</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/06.jpg" alt="Kitchen" loading="lazy"><div class="carousel-cap">Kitchen</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/07.jpg" alt="Kitchen, dining" loading="lazy"><div class="carousel-cap">Kitchen, dining</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/08.jpg" alt="Dining" loading="lazy"><div class="carousel-cap">Dining</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/09.jpg" alt="Fireplace" loading="lazy"><div class="carousel-cap">Fireplace</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/10.jpg" alt="Games corner" loading="lazy"><div class="carousel-cap">Games corner</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/11.jpg" alt="Entrance" loading="lazy"><div class="carousel-cap">Entrance</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/12.jpg" alt="Hallway" loading="lazy"><div class="carousel-cap">Hallway</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/13.jpg" alt="Hallway" loading="lazy"><div class="carousel-cap">Hallway</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/14.jpg" alt="Front door" loading="lazy"><div class="carousel-cap">Front door</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/15.jpg" alt="Fireplace" loading="lazy"><div class="carousel-cap">Fireplace</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/16.jpg" alt="Kitchen" loading="lazy"><div class="carousel-cap">Kitchen</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/17.jpg" alt="Kitchen" loading="lazy"><div class="carousel-cap">Kitchen</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/18.jpg" alt="Staircase" loading="lazy"><div class="carousel-cap">Staircase</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/19.jpg" alt="Hallway" loading="lazy"><div class="carousel-cap">Hallway</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/20.jpg" alt="Master bedroom" loading="lazy"><div class="carousel-cap">Master bedroom</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/21.jpg" alt="Master bedroom" loading="lazy"><div class="carousel-cap">Master bedroom</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/22.jpg" alt="Master bathroom" loading="lazy"><div class="carousel-cap">Master bathroom</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/23.jpg" alt="Master shower" loading="lazy"><div class="carousel-cap">Master shower</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/25.jpg" alt="Bedroom" loading="lazy"><div class="carousel-cap">Bedroom</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/26.jpg" alt="Bedroom" loading="lazy"><div class="carousel-cap">Bedroom</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/30.jpg" alt="Bathroom" loading="lazy"><div class="carousel-cap">Bathroom</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/31.jpg" alt="Shower" loading="lazy"><div class="carousel-cap">Shower</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/32.jpg" alt="Staircase, canal view" loading="lazy"><div class="carousel-cap">Staircase, canal view</div></div>
-            <div class="carousel-slide"><img class="g" src="assets/photos/coffee_corner.jpg" alt="Coffee corner" loading="lazy"><div class="carousel-cap">Coffee corner</div></div>
-          </div>
-        </div>
-        <button class="carousel-btn prev" id="carouselPrev" aria-label="Previous photo">‹</button>
-        <button class="carousel-btn next" id="carouselNext" aria-label="Next photo">›</button>
-        <div class="carousel-dots" id="carouselDots"></div>
-      </div>
-
-      <button id="fullGalleryBtn" class="btn btn-primary" style="margin-top:18px; display:flex; margin-inline:auto;" data-i18n="galFullBtn">Full gallery</button>
-      </div>
-    </div>
-    </div>
+              </div>
   </section>
+
+  <div class="wave-divider" aria-hidden="true">
+    <svg viewBox="0 0 2400 40" preserveAspectRatio="none">
+      <path d="M0,20 C37.5,5 112.5,35 150,20 C187.5,35 262.5,5 300,20 C337.5,5 412.5,35 450,20 C487.5,35 562.5,5 600,20 C637.5,5 712.5,35 750,20 C787.5,35 862.5,5 900,20 C937.5,5 1012.5,35 1050,20 C1087.5,35 1162.5,5 1200,20 C1237.5,5 1312.5,35 1350,20 C1387.5,35 1462.5,5 1500,20 C1537.5,5 1612.5,35 1650,20 C1687.5,35 1762.5,5 1800,20 C1837.5,5 1912.5,35 1950,20 C1987.5,35 2062.5,5 2100,20 C2137.5,5 2212.5,35 2250,20 C2287.5,35 2362.5,5 2400,20" fill="none" stroke="var(--canal)" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
 
   <section id="reviews" class="reviews-section">
     <div class="section-inner">
@@ -773,6 +743,61 @@
   </section>
 
   
+
+  <section id="gallery" class="gallery-section">
+    <div class="section-inner">
+      <div class="eyebrow" data-i18n="galEyebrow">Photo gallery</div>
+      <h2 data-i18n="galTitle">A closer look at the house</h2>
+      <div class="hero-visual">
+      <div class="hero-gallery">
+        <div class="carousel" id="galleryCarousel">
+        <div class="carousel-track-wrap">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="carousel-slide"><img class="g" src="assets/photos/00-terrace.jpg" alt="Terrace, canal view" loading="lazy"><div class="carousel-cap">Terrace, canal view</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/DSC01171.jpg" alt="Casa Pura Vida, from the water" loading="lazy"><div class="carousel-cap">Casa Pura Vida, from the water</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/01.jpg" alt="Front garden" loading="lazy"><div class="carousel-cap">Front garden</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/02.jpg" alt="Garden entrance" loading="lazy"><div class="carousel-cap">Garden entrance</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/03.jpg" alt="Living room" loading="lazy"><div class="carousel-cap">Living room</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/04.jpg" alt="Living room" loading="lazy"><div class="carousel-cap">Living room</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/05.jpg" alt="Living room" loading="lazy"><div class="carousel-cap">Living room</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/06.jpg" alt="Kitchen" loading="lazy"><div class="carousel-cap">Kitchen</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/07.jpg" alt="Kitchen, dining" loading="lazy"><div class="carousel-cap">Kitchen, dining</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/08.jpg" alt="Dining" loading="lazy"><div class="carousel-cap">Dining</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/09.jpg" alt="Fireplace" loading="lazy"><div class="carousel-cap">Fireplace</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/10.jpg" alt="Games corner" loading="lazy"><div class="carousel-cap">Games corner</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/11.jpg" alt="Entrance" loading="lazy"><div class="carousel-cap">Entrance</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/12.jpg" alt="Hallway" loading="lazy"><div class="carousel-cap">Hallway</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/13.jpg" alt="Hallway" loading="lazy"><div class="carousel-cap">Hallway</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/14.jpg" alt="Front door" loading="lazy"><div class="carousel-cap">Front door</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/15.jpg" alt="Fireplace" loading="lazy"><div class="carousel-cap">Fireplace</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/16.jpg" alt="Kitchen" loading="lazy"><div class="carousel-cap">Kitchen</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/17.jpg" alt="Kitchen" loading="lazy"><div class="carousel-cap">Kitchen</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/18.jpg" alt="Staircase" loading="lazy"><div class="carousel-cap">Staircase</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/19.jpg" alt="Hallway" loading="lazy"><div class="carousel-cap">Hallway</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/20.jpg" alt="Master bedroom" loading="lazy"><div class="carousel-cap">Master bedroom</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/21.jpg" alt="Master bedroom" loading="lazy"><div class="carousel-cap">Master bedroom</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/22.jpg" alt="Master bathroom" loading="lazy"><div class="carousel-cap">Master bathroom</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/23.jpg" alt="Master shower" loading="lazy"><div class="carousel-cap">Master shower</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/25.jpg" alt="Bedroom" loading="lazy"><div class="carousel-cap">Bedroom</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/26.jpg" alt="Bedroom" loading="lazy"><div class="carousel-cap">Bedroom</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/30.jpg" alt="Bathroom" loading="lazy"><div class="carousel-cap">Bathroom</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/31.jpg" alt="Shower" loading="lazy"><div class="carousel-cap">Shower</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/32.jpg" alt="Staircase, canal view" loading="lazy"><div class="carousel-cap">Staircase, canal view</div></div>
+            <div class="carousel-slide"><img class="g" src="assets/photos/coffee_corner.jpg" alt="Coffee corner" loading="lazy"><div class="carousel-cap">Coffee corner</div></div>
+          </div>
+        </div>
+        <button class="carousel-btn prev" id="carouselPrev" aria-label="Previous photo">‹</button>
+        <button class="carousel-btn next" id="carouselNext" aria-label="Next photo">›</button>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+
+      <button id="fullGalleryBtn" class="btn btn-primary" style="margin-top:18px; display:flex; margin-inline:auto;" data-i18n="galFullBtn">Full gallery</button>
+      </div>
+    </div>
+    </div>
+
+    </div>
+  </section>
 
   <section id="amenities">
     <div class="section-inner">
@@ -1359,9 +1384,9 @@
 
 <script>
 const translations = {
-  en:{dir:'ltr', skip:'Skip to main content', nav1:'The house', nav2:'Gallery', nav3:'Amenities', nav4:'Booking', nav5:'Location', navReviews:'Guests recommend', reviewsTitle:'Guests recommend', reviewsLede:"Real reviews and photos from guests who stayed with us - plus everything they've tagged us in on Instagram and Facebook.", reviewsIgBtn:'See guest tags on Instagram', reviewsFbBtn:'Guests tags from Facebook', liveChatLabel:'LIVE CHAT', liveChatTitle:'Live chat', chatIntro:'⚡ We reply fast - ask us anything, live.', chatNameLabel:'Your name', chatContactMethodLabel:'How should we reach you back?', chatMethodPhone:'Phone', chatMethodEmail:'Email', chatMessageLabel:'Your message', chatStartBtn:'Start chat', chatReplyPlaceholder:'Type a message...', calFloatLabel:'Book now', chatNudgeText:'Still there? Continue on WhatsApp instead:', chatNudgeBtn:'Open WhatsApp', chatSeenLabel:'Seen', bookingLoaderText:'Preparing your booking...', mapLoadPrompt:'Tap to load the interactive map', igHighlight1:'Guests 2023', igHighlight2:'Guests 2024', igHighlight3:'Guests 2025', igHighlight4:'Guests 2026', reviewsEmpty:'Be the first to share your experience - reviews will appear here soon.',
+  en:{dir:'ltr', skip:'Skip to main content', nav1:'The house', nav2:'Gallery', nav3:'Amenities', nav4:'Booking', nav5:'Location', navReviews:'Guests recommend', reviewsTitle:'Guests recommend', reviewsLede:"Real reviews and photos from guests who stayed with us - plus everything they've tagged us in on Instagram and Facebook.", reviewsIgBtn:'See guest tags on Instagram', reviewsFbBtn:'Guests tags from Facebook', liveChatLabel:'LIVE CHAT', liveChatTitle:'Live chat', chatIntro:'⚡ We reply fast - ask us anything, live.', chatNameLabel:'Your name', chatContactMethodLabel:'How should we reach you back?', chatMethodPhone:'Phone', chatMethodEmail:'Email', chatMessageLabel:'Your message', chatStartBtn:'Start chat', chatReplyPlaceholder:'Type a message...', calFloatLabel:'Book now', chatNudgeText:'Still there? Continue on WhatsApp instead:', chatNudgeBtn:'Open WhatsApp', chatSeenLabel:'Seen', bookingLoaderText:'Preparing your booking...', mapLoadPrompt:'Tap to load the interactive map', igHighlight1:'Guests 2023', igHighlight2:'Guests 2024', igHighlight3:'Guests 2025', igHighlight4:'Guests 2026', reviewsEmpty:'Be the first to share your experience - reviews will appear here soon.', galEyebrow:'Photo gallery', galTitle:'A closer look at the house',
     heroEyebrow:'CanalFront Vacation House<br><span class="he-line2">Amsterdam, The Netherlands<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'Designed for<br>Groups, Families &amp; Couples',
-    ctaCheck:'Check availability', ctaMore:'Explore the house', liveViewersLabel:'people are viewing this page right now', liveViewersFrom:'from', nlLocalTimeLabel:'local time', photoPlaceholder:"Hero photo placeholder, send your photos and video tour and they'll go right here",
+    ctaCheck:'Check availability', ctaMore:'Explore the house', liveViewersLabel:'people from', liveViewersFrom:'from', liveViewersWatching:'are watching right now', nlLocalTimeLabel:'local time', photoPlaceholder:"Hero photo placeholder, send your photos and video tour and they'll go right here",
     spec1:'Up to 12 guests', spec2:'Free parking', spec3:'A built house,<br>Not a houseboat', spec4:'250 m² house<br>+ 300 m² garden', spec5:"10 bicycles &amp; 2 kayaks, free to use, including kids' bikes", spec6:'Air conditioning, a wood-burning fireplace,<br>and heated floors', spec7:'10 minutes from the airport,<br>10-20 minutes<br>from the city centre', spec8:'A fully equipped kitchen<br>with Nespresso, dishwasher and more',
     storyEyebrow:'Our story', storyTitle:'Space for everyone, right on the canal', videoEyebrow:'Video tour', videoTitle:'See the house for yourself',
     storyBody:"Casa Pura Vida sits directly on the canals of Amsterdam, a real house that is built, not a boat. With 250 m² of living space and a 300 m² garden, it's built for groups, families and couples who want room to spread out without leaving the water behind.",
@@ -1383,9 +1408,9 @@ const translations = {
     a11y1:'Full keyboard navigation, including a skip-to-content link', a11y2:'Screen reader support with ARIA labelling on interactive elements', a11y3:"Respects the user's reduced-motion preference", a11yContact:'Found an accessibility issue? Email us, info@casapuravidanl.com',
     footTag:'A private house on the water in Sloten, Amsterdam, with space for groups, families and couples.', footNavT:'Navigate', footContactT:'Contact', footLegal:'© 2026 Casa Pura Vida, Amsterdam. All rights reserved.', footPolicies:'Privacy Policy, Terms &amp; Cancellation Policy',
     formSent:"Thank you! Your request has been sent, we'll reply soon.", formErr:'Please fill in all required fields.', cancelModalTitle:'Cancellation Policy', cancelModalIntro:'A summary of the cancellation terms that apply once a reservation is made. Full terms are confirmed in the signed reservation agreement.', cancelModalDeposit:'A deposit of €900 secures your dates and is fully refunded within 5 business days of checkout, provided no damage or breach of house rules occurred.', cancelTh1:'When you cancel or postpone', cancelTh2:'Charge', cancelRow1:'More than 45 days before arrival', cancelRow1v:'15% of total booking', cancelRow2:'30–45 days before arrival', cancelRow2v:'30% of total booking', cancelRow3:'14–30 days before arrival', cancelRow3v:'70% of total booking', cancelRow4:'Less than 14 days before arrival', cancelRow4v:'100% of total booking', cancelModalOwner:"The owners reserve the right to cancel a confirmed booking with 3 months' notice, for any reason, with a full deposit refund within 5 business days.", cancelModalNote:'Free date changes are offered, at no cost, if Ben Gurion Airport closes to outbound or inbound flights due to a security situation, up until the scheduled flight time.', houseRulesModalTitle:'Key House Rules', houseRulesModalIntro:'A short summary - the full list is provided with the reservation agreement.', houseRule1:'Check-in until 15:00, check-out by 11:00 (flexible with prior arrangement; early/late arrival available for €30/hour).', houseRule2:'Up to 12 overnight guests. Additional daytime guests only with prior arrangement, up to 20 people total, at extra cost.', houseRule3:'No sound amplification equipment. Please keep noise reasonable, especially in the evening - the house is in a residential neighbourhood.', houseRule4:'No pets.', houseRule5:'No smoking indoors; permitted on the terrace, with ashtrays, only.', houseRule6:'Security cameras are present in common areas of the house only, never in private interior spaces.', houseRule7:'Guests are responsible for any damage caused through negligence or intent; charges are deducted from the deposit.', fAgreeHouseRules:'I have read and agree to the', fAgreeHouseRulesLink:'house rules', houseRulesAgreementMissing:'Please confirm you have read the house rules.', fAgreeCancel:'I have read and agree to the', fAgreeCancelLink:'cancellation policy', paymentTermsTitle:'Payment terms', paymentTermsBody:'Payment is by cash on arrival, or bank transfer.', paymentTermsDeposit:'To secure the dates and ensure the house rules are respected during your stay, a one-time deposit of €900 will be charged. It is refunded within 5 business days of checkout.', cancelAgreementMissing:'Please confirm you have read the cancellation policy.', successTitle:'Your request is on its way!', successBody:"Thank you! We've received your booking request - start packing! We'll be in touch within 1 business day to confirm.", successClose:'Great, thanks!', formSendError:'Something went wrong sending your request - please try again or contact us directly.', recaptchaMissing:'Please confirm the "I\'m not a robot" checkbox before sending.', a11yWidgetTitle:'Accessibility', a11yTextInc:'Larger text', a11yContrast:'High contrast', a11yUnderline:'Underline links', a11yMotion:'Reduce motion', a11yReset:'Reset'},
-  es:{dir:'ltr', skip:'Ir al contenido principal', nav1:'La casa', nav2:'Galería', nav3:'Equipamiento', nav4:'Reservas', nav5:'Ubicación', navReviews:'Los huéspedes recomiendan', reviewsTitle:'Los huéspedes recomiendan', reviewsLede:'Reseñas y fotos reales de huéspedes que se alojaron con nosotros - además de todo lo que nos han etiquetado en Instagram y Facebook.', reviewsIgBtn:'Ver etiquetas en Instagram', reviewsFbBtn:'Etiquetas de huéspedes en Facebook', liveChatLabel:'CHAT EN VIVO', liveChatTitle:'Chat en vivo', chatIntro:'⚡ Respondemos rápido - pregúntanos lo que quieras, en vivo.', chatNameLabel:'Tu nombre', chatContactMethodLabel:'¿Cómo prefieres que te contactemos?', chatMethodPhone:'Teléfono', chatMethodEmail:'Correo', chatMessageLabel:'Tu mensaje', chatStartBtn:'Iniciar chat', chatReplyPlaceholder:'Escribe un mensaje...', calFloatLabel:'Reservar', chatNudgeText:'¿Sigues ahí? Continúa por WhatsApp:', chatNudgeBtn:'Abrir WhatsApp', chatSeenLabel:'Visto', bookingLoaderText:'Preparando tu reserva...', mapLoadPrompt:'Toca para cargar el mapa interactivo', igHighlight1:'Huéspedes 2023', igHighlight2:'Huéspedes 2024', igHighlight3:'Huéspedes 2025', igHighlight4:'Huéspedes 2026', reviewsEmpty:'Sé el primero en compartir tu experiencia - las reseñas aparecerán aquí pronto.',
+  es:{dir:'ltr', skip:'Ir al contenido principal', nav1:'La casa', nav2:'Galería', nav3:'Equipamiento', nav4:'Reservas', nav5:'Ubicación', navReviews:'Los huéspedes recomiendan', reviewsTitle:'Los huéspedes recomiendan', reviewsLede:'Reseñas y fotos reales de huéspedes que se alojaron con nosotros - además de todo lo que nos han etiquetado en Instagram y Facebook.', reviewsIgBtn:'Ver etiquetas en Instagram', reviewsFbBtn:'Etiquetas de huéspedes en Facebook', liveChatLabel:'CHAT EN VIVO', liveChatTitle:'Chat en vivo', chatIntro:'⚡ Respondemos rápido - pregúntanos lo que quieras, en vivo.', chatNameLabel:'Tu nombre', chatContactMethodLabel:'¿Cómo prefieres que te contactemos?', chatMethodPhone:'Teléfono', chatMethodEmail:'Correo', chatMessageLabel:'Tu mensaje', chatStartBtn:'Iniciar chat', chatReplyPlaceholder:'Escribe un mensaje...', calFloatLabel:'Reservar', chatNudgeText:'¿Sigues ahí? Continúa por WhatsApp:', chatNudgeBtn:'Abrir WhatsApp', chatSeenLabel:'Visto', bookingLoaderText:'Preparando tu reserva...', mapLoadPrompt:'Toca para cargar el mapa interactivo', igHighlight1:'Huéspedes 2023', igHighlight2:'Huéspedes 2024', igHighlight3:'Huéspedes 2025', igHighlight4:'Huéspedes 2026', reviewsEmpty:'Sé el primero en compartir tu experiencia - las reseñas aparecerán aquí pronto.', galEyebrow:'Galería de fotos', galTitle:'Un vistazo más de cerca a la casa',
     heroEyebrow:'Casa de Vacaciones Frente al Canal<br><span class="he-line2">Ámsterdam, Países Bajos<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'Diseñada para Grupos, Familias y Parejas',
-    ctaCheck:'Ver disponibilidad', ctaMore:'Descubrir la casa', liveViewersLabel:'personas están viendo esta página ahora mismo', liveViewersFrom:'desde', nlLocalTimeLabel:'hora local', photoPlaceholder:'Espacio para la foto principal, envía tus fotos y el video tour y se colocarán aquí',
+    ctaCheck:'Ver disponibilidad', ctaMore:'Descubrir la casa', liveViewersLabel:'personas de', liveViewersFrom:'desde', liveViewersWatching:'están viendo ahora mismo', nlLocalTimeLabel:'hora local', photoPlaceholder:'Espacio para la foto principal, envía tus fotos y el video tour y se colocarán aquí',
     spec1:'Hasta 12 huéspedes', spec2:'Aparcamiento gratuito', spec3:'La casa está construida,<br>no es un barco', spec4:'250 m² de casa<br>+ 300 m² de jardín', spec5:'10 bicicletas y 2 kayaks,<br>de uso libre,<br>incluidas bicicletas infantiles', spec6:'Aire acondicionado, chimenea de leña y suelo radiante', spec7:'A 10 minutos del aeropuerto,<br>10-20 minutos<br>del centro de la ciudad', spec8:'Cocina totalmente equipada con Nespresso,<br>lavavajillas y más',
     storyEyebrow:'Nuestra historia', storyTitle:'Espacio para todos, justo en el canal', videoEyebrow:'Video tour', videoTitle:'Mira la casa tú mismo',
     storyBody:'Casa Pura Vida está ubicada directamente sobre los canales de Ámsterdam, una casa real que está construida, no un barco. Con 250 m² de superficie habitable y 300 m² de jardín, está pensada para grupos, familias y parejas que buscan espacio sin dejar el agua atrás. La casa se distribuye en dos niveles: la planta de entrada alberga el salón y la cocina, mientras que la planta inferior está dedicada por completo al descanso, con todos los dormitorios y baños.',
@@ -1407,9 +1432,9 @@ const translations = {
     a11y1:'Navegación completa por teclado, incluyendo un enlace de salto al contenido', a11y2:'Compatibilidad con lectores de pantalla mediante etiquetas ARIA', a11y3:'Respeta la preferencia de movimiento reducido del usuario', a11yContact:'¿Encontraste un problema de accesibilidad? Escríbenos, info@casapuravidanl.com',
     footTag:'Una casa privada sobre el agua en Sloten, Ámsterdam, con espacio para grupos, familias y parejas.', footNavT:'Navegación', footContactT:'Contacto', footLegal:'© 2026 Casa Pura Vida, Ámsterdam. Todos los derechos reservados.', footPolicies:'Privacidad, Términos y Política de Cancelación',
     formSent:'¡Gracias! Tu solicitud ha sido enviada, te responderemos pronto.', formErr:'Por favor completa todos los campos obligatorios.', cancelModalTitle:'Política de Cancelación', cancelModalIntro:'Un resumen de las condiciones de cancelación aplicables una vez realizada una reserva. Los términos completos se confirman en el acuerdo de reserva firmado.', cancelModalDeposit:'Un depósito de 900€ asegura tus fechas y se reembolsa en su totalidad dentro de los 5 días hábiles posteriores a la salida, siempre que no haya daños ni incumplimiento de las normas de la casa.', cancelTh1:'Si cancelas o aplazas', cancelTh2:'Cargo', cancelRow1:'Más de 45 días antes de la llegada', cancelRow1v:'15% del total de la reserva', cancelRow2:'Entre 30 y 45 días antes', cancelRow2v:'30% del total de la reserva', cancelRow3:'Entre 14 y 30 días antes', cancelRow3v:'70% del total de la reserva', cancelRow4:'Menos de 14 días antes', cancelRow4v:'100% del total de la reserva', cancelModalOwner:'Los propietarios se reservan el derecho de cancelar una reserva confirmada con 3 meses de aviso previo, por cualquier motivo, con reembolso total del depósito dentro de los 5 días hábiles.', cancelModalNote:'Se ofrecen cambios de fecha gratuitos si el aeropuerto Ben Gurión cierra a vuelos de salida o llegada por una situación de seguridad, hasta la hora programada del vuelo.', houseRulesModalTitle:'Normas Principales de la Casa', houseRulesModalIntro:'Un resumen breve - la lista completa se entrega con el acuerdo de reserva.', houseRule1:'Entrada hasta las 15:00, salida hasta las 11:00 (flexible con acuerdo previo; entrada temprana/salida tardía disponible por 30€/hora).', houseRule2:'Hasta 12 huéspedes para pernoctar. Huéspedes adicionales durante el día solo con acuerdo previo, hasta 20 personas en total, con costo extra.', houseRule3:'No se permiten equipos de amplificación de sonido. Se ruega mantener un nivel de ruido razonable, especialmente por la noche - la casa está en un barrio residencial.', houseRule4:'No se admiten mascotas.', houseRule5:'Prohibido fumar dentro de la casa; permitido en la terraza, solo con cenicero.', houseRule6:'Hay cámaras de seguridad únicamente en las áreas comunes de la casa, nunca en espacios interiores privados.', houseRule7:'Los huéspedes son responsables de cualquier daño causado por negligencia o intención; los cargos se descuentan del depósito.', fAgreeHouseRules:'He leído y acepto las', fAgreeHouseRulesLink:'normas de la casa', houseRulesAgreementMissing:'Por favor confirma que has leído las normas de la casa.', fAgreeCancel:'He leído y acepto la', fAgreeCancelLink:'política de cancelación', paymentTermsTitle:'Condiciones de pago', paymentTermsBody:'El pago se realiza en efectivo a la llegada, o por transferencia bancaria.', paymentTermsDeposit:'Para asegurar las fechas y garantizar el cumplimiento de las normas de la casa durante tu estancia, se cobrará un depósito único de 900€. Se reembolsa dentro de los 5 días hábiles posteriores a la salida.', cancelAgreementMissing:'Por favor confirma que has leído la política de cancelación.', successTitle:'¡Tu solicitud está en camino!', successBody:'¡Gracias! Hemos recibido tu solicitud de reserva - ¡empieza a hacer las maletas! Nos pondremos en contacto dentro de 1 día hábil para confirmar.', successClose:'¡Genial, gracias!', formSendError:'Ocurrió un error al enviar tu solicitud - inténtalo de nuevo o contáctanos directamente.', recaptchaMissing:'Por favor confirma la casilla "No soy un robot" antes de enviar.', a11yWidgetTitle:'Accesibilidad', a11yTextInc:'Texto más grande', a11yContrast:'Alto contraste', a11yUnderline:'Subrayar enlaces', a11yMotion:'Reducir movimiento', a11yReset:'Restablecer'},
-  he:{dir:'rtl', skip:'דלגו לתוכן הראשי', nav1:'הבית', nav2:'גלריה', nav3:'מתקנים', nav4:'הזמנות', nav5:'מיקום', navReviews:'לקוחות ממליצים', reviewsTitle:'לקוחות ממליצים', reviewsLede:'ביקורות ותמונות אמיתיות מאורחים ששהו אצלנו - וגם כל מה שתייגו אותנו בו באינסטגרם ובפייסבוק.', reviewsIgBtn:'לצפייה בתיוגים באינסטגרם', reviewsFbBtn:'תיוגי אורחים מפייסבוק', liveChatLabel:'צ׳אט חי', liveChatTitle:'צ׳אט חי', chatIntro:'⚡ אנחנו עונים מהר - שאלו אותנו כל דבר, בזמן אמת.', chatNameLabel:'שם מלא', chatContactMethodLabel:'איך נחזור אליכם?', chatMethodPhone:'טלפון', chatMethodEmail:'אימייל', chatMessageLabel:'ההודעה שלכם', chatStartBtn:'שלחו', chatReplyPlaceholder:'כתבו הודעה...', calFloatLabel:'הזמנה', chatNudgeText:'עדיין שם? המשיכו בוואטסאפ:', chatNudgeBtn:'פתיחת וואטסאפ', chatSeenLabel:'נצפה', bookingLoaderText:'מכינים לכם את ההזמנה...', mapLoadPrompt:'הקישו לטעינת המפה האינטראקטיבית', igHighlight1:'אורחים 2023', igHighlight2:'אורחים 2024', igHighlight3:'אורחים 2025', igHighlight4:'אורחים 2026', reviewsEmpty:'תהיו הראשונים לשתף את החוויה שלכם - ביקורות יופיעו כאן בקרוב.',
+  he:{dir:'rtl', skip:'דלגו לתוכן הראשי', nav1:'הבית', nav2:'גלריה', nav3:'מתקנים', nav4:'הזמנות', nav5:'מיקום', navReviews:'לקוחות ממליצים', reviewsTitle:'לקוחות ממליצים', reviewsLede:'ביקורות ותמונות אמיתיות מאורחים ששהו אצלנו - וגם כל מה שתייגו אותנו בו באינסטגרם ובפייסבוק.', reviewsIgBtn:'לצפייה בתיוגים באינסטגרם', reviewsFbBtn:'תיוגי אורחים מפייסבוק', liveChatLabel:'צ׳אט חי', liveChatTitle:'צ׳אט חי', chatIntro:'⚡ אנחנו עונים מהר - שאלו אותנו כל דבר, בזמן אמת.', chatNameLabel:'שם מלא', chatContactMethodLabel:'איך נחזור אליכם?', chatMethodPhone:'טלפון', chatMethodEmail:'אימייל', chatMessageLabel:'ההודעה שלכם', chatStartBtn:'שלחו', chatReplyPlaceholder:'כתבו הודעה...', calFloatLabel:'הזמנה', chatNudgeText:'עדיין שם? המשיכו בוואטסאפ:', chatNudgeBtn:'פתיחת וואטסאפ', chatSeenLabel:'נצפה', bookingLoaderText:'מכינים לכם את ההזמנה...', mapLoadPrompt:'הקישו לטעינת המפה האינטראקטיבית', igHighlight1:'אורחים 2023', igHighlight2:'אורחים 2024', igHighlight3:'אורחים 2025', igHighlight4:'אורחים 2026', reviewsEmpty:'תהיו הראשונים לשתף את החוויה שלכם - ביקורות יופיעו כאן בקרוב.', galEyebrow:'גלריית תמונות', galTitle:'הצצה קרובה יותר לבית',
     heroEyebrow:'בית נופש על מי התעלה<br><span class="he-line2">אמסטרדם, הולנד<svg class="ams-flag" width="26" height="17.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg></span>', heroLede:'מתאים לקבוצות, משפחות וזוגות',
-    ctaCheck:'בדקו זמינות', ctaMore:'גלו את הבית', liveViewersLabel:'אנשים צופים בעמוד הזה ממש עכשיו', liveViewersFrom:'מ-', nlLocalTimeLabel:'שעון מקומי', photoPlaceholder:'מקום לתמונת גג, שלחו תמונות וסרטון סיור והם ייכנסו לכאן',
+    ctaCheck:'בדקו זמינות', ctaMore:'גלו את הבית', liveViewersLabel:'אנשים מ-', liveViewersFrom:'מ-', liveViewersWatching:'צופים כרגע', nlLocalTimeLabel:'שעון מקומי', photoPlaceholder:'מקום לתמונת גג, שלחו תמונות וסרטון סיור והם ייכנסו לכאן',
     spec1:'עד 12 אורחים', spec2:'חניה חופשית', spec3:'הבית בנוי ואינו סירה', spec4:'250 מ"ר בית + 300 מ"ר גינה', spec5:'10 אופניים ו-2 קיאקים, לשימוש חופשי, כולל אופניים לילדים', spec6:'מיזוג אוויר, אח מבוערת<br>ורצפה מחוממת', spec7:'10 דקות משדה התעופה,<br>10-20 דקות ממרכז העיר', spec8:'מטבח מאובזר במלואו, כולל נספרסו, מדיח כלים ועוד',
     storyEyebrow:'הסיפור שלנו', storyTitle:'מרחב לכולם,<br>ממש על התעלה', videoEyebrow:'סרטון סיור', videoTitle:'תראו את הבית בעצמכם',
     storyBody:'Casa Pura Vida ממוקם ישירות על תעלות אמסטרדם, בית אמיתי, הבנוי ואינו סירה. עם 250 מ"ר בנוי ו-300 מ"ר גינה, הבית מתאים לקבוצות, משפחות וזוגות שרוצים מרחב אמיתי בלי לוותר על החוויה של המים. הבית פרוס על פני שני מפלסים: קומת הכניסה כוללת את הסלון והמטבח, ואילו הקומה התחתונה היא קומת השינה, ובה ממוקמים כל חדרי השינה וחדרי הרחצה.',
@@ -1904,26 +1929,6 @@ form.addEventListener('submit', async (e)=>{
   }, 3500);
 })();
 
-/* ---------------- hero background photo slideshow ---------------- */
-(function(){
-  const HERO_BG_PHOTOS = ['assets/photos/00-terrace.jpg', 'assets/photos/DSC01171.jpg', 'assets/photos/01.jpg', 'assets/photos/02.jpg', 'assets/photos/32.jpg'];
-  const container = document.getElementById('heroBgSlides');
-  if(!container) return;
-  HERO_BG_PHOTOS.forEach((src, i) => {
-    const slide = document.createElement('div');
-    slide.className = 'hero-bg-slide' + (i === 0 ? ' active' : '');
-    slide.style.backgroundImage = `url(${src})`;
-    container.appendChild(slide);
-  });
-  let idx = 0;
-  const slides = container.children;
-  setInterval(() => {
-    slides[idx].classList.remove('active');
-    idx = (idx + 1) % slides.length;
-    slides[idx].classList.add('active');
-  }, 5000);
-})();
-
 /* ---------------- gallery carousel ---------------- */
 (function(){
   const track = document.getElementById('carouselTrack');
@@ -2378,7 +2383,7 @@ loadPublicReviews();
   }
 
   function setCountryDisplay(name){
-    document.getElementById('liveViewersCountry').textContent = name;
+    document.getElementById('liveViewersCountry').textContent = name.toUpperCase();
     const flagEl = document.getElementById('liveViewersFlag');
     const code = COUNTRY_FLAGS[name];
     flagEl.innerHTML = code
@@ -2636,6 +2641,28 @@ document.getElementById('mapPlaceholderBtn').addEventListener('click', function(
     pollMessages();
   });
 })();
+
+/* ---------------- day/night theme (based on each visitor's own local time) ---------------- */
+(function(){
+  const hour = new Date().getHours();
+  const isNight = hour < 6 || hour >= 19;
+  document.documentElement.classList.toggle('theme-night', isNight);
+})();
+
+/* ---------------- water ripple on button click ---------------- */
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.btn');
+  if(!btn) return;
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple';
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+  ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+  btn.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 650);
+});
 
 applyLang(getLangFromURL(), false);
 loadLiveBookingData();
