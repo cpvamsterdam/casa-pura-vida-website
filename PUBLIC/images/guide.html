@@ -4,66 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casa Pura Vida - המדריך המלא והמפורט לאמסטרדם והולנד</title>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #1e3a8a;
-            --primary-light: #eff6ff;
-            --accent: #f97316;
-            --text: #1f2937;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --border: #cbd5e1;
-            --green: #059669;
-            --purple: #7c3aed;
+        :root{
+            --white:#ffffff; --off-white:#F5F2EB; --ink:#1A1D1F; --ink-soft:#54595E;
+            --canal:#203864; --canal-deep:#13233F; --canal-tint:#E4E9F2; --brass:#D4B26F; --accent2:#B85B35;
+            --line:#E7E5E1; --radius:14px; --max:1180px;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Heebo', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 50px; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background-color: var(--off-white); color: var(--ink); line-height: 1.6; padding-bottom: 50px; -webkit-font-smoothing:antialiased; }
 
-        /* STICKY NAV MENU - 2 ROWS */
+        /* STICKY NAV - בסגנון הכותרת הראשית של האתר */
         .sticky-nav {
             position: sticky; top: 0; z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.96);
+            background-color: rgba(255, 255, 255, 0.97);
             backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--border);
-            padding: 10px 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-bottom: 1px solid var(--line);
+            padding: 12px 15px;
+            box-shadow: 0 2px 10px rgba(20,30,30,.06);
         }
-        .nav-container { 
-            max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; align-items: center;
+        .nav-container {
+            max-width: var(--max); margin: 0 auto; display: flex; flex-direction: column; gap: 10px; align-items: center;
         }
+        .guide-brand { display:flex; align-items:center; gap:9px; font-weight:700; font-size:16.5px; letter-spacing:.3px; text-decoration:none; direction:ltr; margin-bottom:2px; }
+        .guide-brand .mark{ width:26px; height:26px; flex:none; }
+        .guide-brand-text-wrap{ display:flex; flex-direction:column; align-items:flex-start; line-height:1.2; }
+        .guide-brand-text{ font-family:'Montserrat','Inter',sans-serif; font-weight:500; letter-spacing:1.5px; font-size:14px; line-height:1.5; background:linear-gradient(95deg,var(--canal) 0%, var(--canal-deep) 38%, var(--brass) 72%, var(--brass) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:var(--canal-deep); }
+        .guide-brand small{ font-weight:700; font-size:10px; color:var(--canal); letter-spacing:1px; }
+
         .nav-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; width: 100%; }
-        .nav-btn { 
-            background-color: var(--primary-light); color: var(--primary); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; border: 1px solid #bfdbfe; transition: all 0.2s;
+        .nav-btn {
+            background-color: var(--canal); color: #fff; text-decoration: none; padding: 8px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--canal); transition: all 0.15s ease; display:inline-flex; align-items:center; gap:5px;
         }
-        .nav-btn:hover { background-color: var(--primary); color: white; }
-        .nav-btn-map { background-color: var(--accent); color: white; border-color: var(--accent); }
+        .nav-btn:hover { background-color: #fff; color: var(--canal); }
+        .nav-btn-map { background: linear-gradient(100deg, var(--brass), var(--accent2)); color: white; border-color: var(--brass); }
+        .nav-btn-map:hover { background: linear-gradient(100deg, var(--canal-deep), var(--brass)); color: #fff; }
 
-        .container { max-width: 1200px; margin: 20px auto 0 auto; padding: 0 20px; }
-        header { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white; padding: 35px 25px; border-radius: 20px; margin-bottom: 25px; text-align: center; }
-        header h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 8px; }
+        .container { max-width: var(--max); margin: 20px auto 0 auto; padding: 0 20px; }
+        header.guide-header { background: linear-gradient(135deg, var(--canal) 0%, var(--canal-deep) 100%); color: white; padding: 40px 25px; border-radius: var(--radius); margin-bottom: 25px; text-align: center; }
+        header.guide-header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; font-family:'Montserrat','Inter',sans-serif; }
+        header.guide-header p { opacity:.92; font-size:1.02rem; }
 
-        .map-banner { background-color: #ffffff; border: 2px solid var(--accent); border-radius: 16px; padding: 22px; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
-        .btn-map-main { background-color: var(--accent); color: white; text-decoration: none; padding: 10px 22px; border-radius: 10px; font-weight: 700; }
+        .map-banner { background-color: #ffffff; border: 1px solid var(--line); border-right: 5px solid var(--brass); border-radius: var(--radius); padding: 22px; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; box-shadow: 0 2px 12px rgba(20,30,30,.05); }
+        .map-banner h2 { color: var(--canal-deep); font-size:1.2rem; margin-bottom:4px; }
+        .map-banner p { color: var(--ink-soft); font-size:.92rem; }
+        .btn-map-main { background: linear-gradient(100deg, var(--brass), var(--accent2)); color: white; text-decoration: none; padding: 11px 24px; border-radius: 10px; font-weight: 700; white-space:nowrap; transition:opacity .15s; }
+        .btn-map-main:hover { opacity:.88; }
 
-        .house-note { background-color: #f0fdf4; border: 1px solid #bbf7d0; border-right: 6px solid var(--green); padding: 16px 20px; border-radius: 12px; margin-bottom: 30px; color: #166534; }
-        .section-title { font-size: 1.7rem; font-weight: 800; color: var(--primary); border-right: 6px solid var(--accent); padding-right: 15px; margin: 40px 0 20px 0; scroll-margin-top: 110px; }
+        .house-note { background-color: var(--canal-tint); border: 1px solid #cdd8ea; border-right: 5px solid var(--canal); padding: 16px 20px; border-radius: var(--radius); margin-bottom: 30px; color: var(--canal-deep); font-size:.95rem; }
+        .section-title { font-size: 1.55rem; font-weight: 700; color: var(--canal-deep); border-right: 5px solid var(--brass); padding-right: 15px; margin: 44px 0 20px 0; scroll-margin-top: 130px; font-family:'Montserrat','Inter',sans-serif; }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 18px; }
-        .card { background: var(--card-bg); border-radius: 14px; overflow: hidden; border: 1px solid var(--border); display: flex; flex-direction: column; }
+        .card { background: var(--white); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); display: flex; flex-direction: column; transition: box-shadow .2s ease, transform .2s ease; }
+        .card:hover { box-shadow: 0 10px 28px -12px rgba(20,30,30,.18); transform: translateY(-2px); }
         .card-img { height: 160px; width: 100%; object-fit: cover; }
         .card-content { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; }
-        .card-title { font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
-        .badge { display: inline-block; background-color: var(--primary-light); color: var(--primary); font-size: 0.78rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; align-self: flex-start; }
-        .badge-kosher { background-color: #fef3c7; color: #92400e; }
-        .badge-coffee { background-color: #f3e8ff; color: var(--purple); }
-        .card-text { font-size: 0.9rem; color: #475569; margin-bottom: 15px; flex-grow: 1; }
+        .card-title { font-size: 1.12rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+        .badge { display: inline-block; background-color: var(--canal-tint); color: var(--canal); font-size: 0.76rem; font-weight: 700; padding: 3px 11px; border-radius: 20px; margin-bottom: 10px; align-self: flex-start; }
+        .badge-kosher { background-color: #FBEFDD; color: var(--accent2); }
+        .badge-coffee { background-color: #F3E8DC; color: #7A5230; }
+        .card-text { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 15px; flex-grow: 1; }
 
         .card-actions { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
-        .btn { display: inline-flex; align-items: center; justify-content: center; background-color: var(--primary); color: white; text-decoration: none; padding: 8px 12px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; flex: 1; text-align: center; gap: 4px; }
-        .btn-phone { background-color: var(--green); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; background-color: var(--canal); color: white; text-decoration: none; padding: 9px 12px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; flex: 1; text-align: center; gap: 4px; transition: background-color .15s ease; }
+        .btn:hover { background-color: var(--canal-deep); }
+        .btn-phone { background-color: var(--brass); color: var(--canal-deep); }
+        .btn-phone:hover { background-color: #c19f5c; }
 
         @media print {
             body { background: white; padding: 0; }
@@ -78,6 +86,18 @@
 <!-- STICKY NAV MENU (2 ROWS) -->
 <nav class="sticky-nav">
     <div class="nav-container">
+        <a href="/" class="guide-brand">
+            <svg class="mark" viewBox="0 0 34 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M4 12L14 4L24 12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.5 12V18.5H21.5V12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 18.5V13.5H16V18.5" stroke="var(--brass)" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M28 20V12.5" stroke="#3D8B5F" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M28 15.5C26.5 15.5 26 14 26.5 12.5" stroke="#3D8B5F" stroke-width="1.1" stroke-linecap="round"/>
+                <path d="M25.3 8.5C25.3 7 26.2 6 28 6C29.8 6 30.7 7 30.7 8.5C30.7 10 29.6 11.3 28 12.5C26.4 11.3 25.3 10 25.3 8.5Z" fill="#E8A0C4" stroke="#D4779F" stroke-width="0.6"/>
+                <path d="M2 21c2.2 1.5 4.2 1.5 6.2 0s4.2-1.5 6.2 0 4.2 1.5 6.2 0 4.2-1.5 6.2 0 4.2 1.5 6.2 0" stroke="var(--canal)" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+            <span class="guide-brand-text-wrap"><span class="guide-brand-text">Casa Pura Vida</span><small>AMSTERDAM · המדריך המלא</small></span>
+        </a>
         <div class="nav-row">
             <a href="#map-section" class="nav-btn nav-btn-map">📍 מפת הטיול (96+ מקומות)</a>
             <a href="#sloten" class="nav-btn">🏡 סביבת הבית (Sloten)</a>
@@ -95,7 +115,7 @@
 
 <div class="container">
 
-    <header>
+    <header class="guide-header">
         <h1>Casa Pura Vida – המדריך המלא והמופרד לאמסטרדם</h1>
         <p>כרטיסייה נפרדת וכפתור ניווט ישיר לכל מקום ומקום ברשימה</p>
     </header>
