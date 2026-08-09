@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Pura Vida - המדריך המלא והמפורט לאמסטרדם והולנד</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #eff6ff;
+            --accent: #f97316;
+            --text: #1f2937;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #cbd5e1;
+            --green: #059669;
+            --purple: #7c3aed;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Heebo', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 50px; }
+
+        /* STICKY NAV MENU - 2 ROWS */
+        .sticky-nav {
+            position: sticky; top: 0; z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .nav-container { 
+            max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; align-items: center;
+        }
+        .nav-row { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; width: 100%; }
+        .nav-btn { 
+            background-color: var(--primary-light); color: var(--primary); text-decoration: none; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; border: 1px solid #bfdbfe; transition: all 0.2s;
+        }
+        .nav-btn:hover { background-color: var(--primary); color: white; }
+        .nav-btn-map { background-color: var(--accent); color: white; border-color: var(--accent); }
+
+        .container { max-width: 1200px; margin: 20px auto 0 auto; padding: 0 20px; }
+        header { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: white; padding: 35px 25px; border-radius: 20px; margin-bottom: 25px; text-align: center; }
+        header h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 8px; }
+
+        .map-banner { background-color: #ffffff; border: 2px solid var(--accent); border-radius: 16px; padding: 22px; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+        .btn-map-main { background-color: var(--accent); color: white; text-decoration: none; padding: 10px 22px; border-radius: 10px; font-weight: 700; }
+
+        .house-note { background-color: #f0fdf4; border: 1px solid #bbf7d0; border-right: 6px solid var(--green); padding: 16px 20px; border-radius: 12px; margin-bottom: 30px; color: #166534; }
+        .section-title { font-size: 1.7rem; font-weight: 800; color: var(--primary); border-right: 6px solid var(--accent); padding-right: 15px; margin: 40px 0 20px 0; scroll-margin-top: 110px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 18px; }
+        .card { background: var(--card-bg); border-radius: 14px; overflow: hidden; border: 1px solid var(--border); display: flex; flex-direction: column; }
+        .card-img { height: 160px; width: 100%; object-fit: cover; }
+        .card-content { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+        .badge { display: inline-block; background-color: var(--primary-light); color: var(--primary); font-size: 0.78rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; align-self: flex-start; }
+        .badge-kosher { background-color: #fef3c7; color: #92400e; }
+        .badge-coffee { background-color: #f3e8ff; color: var(--purple); }
+        .card-text { font-size: 0.9rem; color: #475569; margin-bottom: 15px; flex-grow: 1; }
+
+        .card-actions { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; background-color: var(--primary); color: white; text-decoration: none; padding: 8px 12px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; flex: 1; text-align: center; gap: 4px; }
+        .btn-phone { background-color: var(--green); }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .sticky-nav, .map-banner, .btn, .btn-map-main { display: none !important; }
+            .grid { display: block; }
+            .card { break-inside: avoid; margin-bottom: 20px; border: 1px solid #94a3b8; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- STICKY NAV MENU (2 ROWS) -->
+<nav class="sticky-nav">
+    <div class="nav-container">
+        <div class="nav-row">
+            <a href="#map-section" class="nav-btn nav-btn-map">📍 מפת הטיול (96+ מקומות)</a>
+            <a href="#sloten" class="nav-btn">🏡 סביבת הבית (Sloten)</a>
+            <a href="#rooftops" class="nav-btn">🍸 רופטופים ובילוי לילי</a>
+            <a href="#sweets" class="nav-btn">🍩 מתוקים ומאפיות</a>
+        </div>
+        <div class="nav-row">
+            <a href="#restaurants" class="nav-btn">🍕 מסעדות וכריכים</a>
+            <a href="#coffeeshops" class="nav-btn">🌿 קופישאפס</a>
+            <a href="#attractions" class="nav-btn">🌷 אטרקציות ומוזיאונים</a>
+            <a href="#kosher" class="nav-btn">✡️ מקומות כשרים</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <header>
+        <h1>Casa Pura Vida – המדריך המלא והמופרד לאמסטרדם</h1>
+        <p>כרטיסייה נפרדת וכפתור ניווט ישיר לכל מקום ומקום ברשימה</p>
+    </header>
+
+    <div class="map-banner" id="map-section">
+        <div>
+            <h2>🗺️ המפה המלאה בגוגל מפות (Amsterdam 2026)</h2>
+            <p>לחצו לפתיחת המפה המלאה בנייד לצפייה בתמונות האותנטיות ובדירוגים בזמן אמת:</p>
+        </div>
+        <a class="btn-map-main" href="https://maps.app.goo.gl/pdHjcHmacGwzMrbm7?g_st=i" target="_blank">פתח את המפה בגוגל מפות 📍</a>
+    </div>
+
+    <div class="house-note">
+        <strong>🍀 טיפ לאורחי Casa Pura Vida:</strong> 2 קיאקים זוגיים ואופניים מחכים לכם בבית! רוב המקומות בסלוטן נמצאים במרחק הליכה או רכיבה קצרה.
+    </div>
+
+    <!-- 1. SLOTEN & HOUSE AREA -->
+    <h2 class="section-title" id="sloten">1. סביבת הבית (שכונת Sloten ודרום-מערב העיר)</h2>
+    <div class="grid">
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Albert_Heijn_Sloten_1.jpg" alt="Albert Heijn">
+            <div class="card-content">
+                <span class="badge">סופרמרקט</span>
+                <h3 class="card-title">Albert Heijn Sloten</h3>
+                <p class="card-text">סופרמרקט מקומי איכותי עם מבחר גדול של מוצרים לקניות לבית.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/D8xU5hUCS4yAF9mZ9?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                    <a class="btn btn-phone" href="tel:+31206595700">📞 חיוג</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Lidl_Sloten_1.jpg" alt="Lidl">
+            <div class="card-content">
+                <span class="badge">סופרמרקט</span>
+                <h3 class="card-title">Lidl Sloten</h3>
+                <p class="card-text">סופרמרקט במחירים נוחים ומאפים טריים מדי יום, צמוד לאלברט היין.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/YWpVt8KU8VJTWF498?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                    <a class="btn btn-phone" href="tel:+31207095039">📞 חיוג</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Cici_Pizza_1.jpg" alt="Cici Pizza">
+            <div class="card-content">
+                <span class="badge">פיצרייה</span>
+                <h3 class="card-title">Cici Pizza</h3>
+                <p class="card-text">פיצרייה מקומית מעולה עם משלוחים ישר לבית דרך Uber Eats או Thuisbezorgd.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/i11wxQRs9h2qfpyo9?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                    <a class="btn btn-phone" href="tel:+31207855776">📞 חיוג</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Brouwerij_De_7_Deugden_1.jpg" alt="De 7 Deugden">
+            <div class="card-content">
+                <span class="badge">מבשלת בירה</span>
+                <h3 class="card-title">Brouwerij De 7 Deugden</h3>
+                <p class="card-text">מבשלת בירת בוטיק מקומית ומיוחדת בשכונה לטעימות בירה באווירה כפרית.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/TY36n4amxMpXyPkq7?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                    <a class="btn btn-phone" href="tel:+31206673221">📞 חיוג</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/De_Patatzaak_Sloten_1.jpg" alt="De Patatzaak">
+            <div class="card-content">
+                <span class="badge">צ'יפס הולנדי</span>
+                <h3 class="card-title">De Patatzaak Sloten</h3>
+                <p class="card-text">דוכן צ'יפס הולנדי מסורתי ואוכל מהיר מעולה ליד מוזיאון טחנת הרוח.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/RQb7xwvwKvasxkCWA?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                    <a class="btn btn-phone" href="tel:+31206691868">📞 חיוג</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/IJshoeve_Sloten_1.jpg" alt="IJshoeve Sloten">
+            <div class="card-content">
+                <span class="badge">גלידנייה</span>
+                <h3 class="card-title">IJshoeve Sloten</h3>
+                <p class="card-text">גלידנייה טעימה ואיכותית צמודה לטחנת הרוח בסלוטן. עצירה מתוקה מומלצת.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/7KPfWkqTXAox29vh6?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Later_aan_t_Water_1.jpg" alt="Later aan t Water">
+            <div class="card-content">
+                <span class="badge">מסעדה על המים</span>
+                <h3 class="card-title">Later aan 't Water</h3>
+                <p class="card-text">מסעדת בשרים ודגים מעולה מעבר לנהר מול הבית, באווירה כיפית ופסטורלית.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/4HzFHCBEjiyT8BdFA?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                    <a class="btn btn-phone" href="tel:+31206595500">📞 חיוג</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Het_Bosch_Waterfront_Kitchen_1.jpg" alt="Het Bosch">
+            <div class="card-content">
+                <span class="badge">מסעדת שף</span>
+                <h3 class="card-title">Het Bosch Waterfront Kitchen</h3>
+                <p class="card-text">מסעדת יוקרה על שפת אגם De Nieuwe Meer צמוד לבית, עם נוף מדהים למים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Het+Bosch+Waterfront+Kitchen" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Bij_8_Eraf_1.jpg" alt="Bij 8 Eraf">
+            <div class="card-content">
+                <span class="badge">בר לילי</span>
+                <h3 class="card-title">Bij 8 Eraf</h3>
+                <p class="card-text">בר שתייה לילי מקומי המשלב שולחנות ביליארד ומשחקי דארטס.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/w8Auc9i4LKwWyd8dA?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                    <a class="btn btn-phone" href="tel:+31206177062">📞 חיוג</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Molen_van_Sloten_Dorp_Sloten_1.jpg" alt="Molen van Sloten">
+            <div class="card-content">
+                <span class="badge">מוזיאון וטבע</span>
+                <h3 class="card-title">Molen van Sloten & Dorp Sloten</h3>
+                <p class="card-text">טחנת רוח פעילה לשאיבת מים ומוזיאון חביות עץ בכפר העתיק של סלוטן.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/TXAVtqdYiMJ3Yqg97?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                    <a class="btn btn-phone" href="tel:+31206690412">📞 חיוג</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Volkstuinpark_Eigen_Hof_1.jpg" alt="Eigen Hof">
+            <div class="card-content">
+                <span class="badge">פארק מיוער</span>
+                <h3 class="card-title">Volkstuinpark Eigen Hof</h3>
+                <p class="card-text">פארק מיוער מקסים וירוק ממש צמוד לבית, מעולה להליכת בוקר רגועה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/QFRNSU3ZF67Ljmio8?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Natuurpark_Vrije_Geer_1.jpg" alt="Vrije Geer">
+            <div class="card-content">
+                <span class="badge">פארק תעלות</span>
+                <h3 class="card-title">Natuurpark Vrije Geer</h3>
+                <p class="card-text">פארק טבע מקומי שלוו עם תעלות מים, גשרונים וצמחייה עשירה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/yQUxTQsMhAT13SMf9?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Tuinpark_Lissabon_1.jpg" alt="Tuinpark Lissabon">
+            <div class="card-content">
+                <span class="badge">פארק וגינה קהילתית</span>
+                <h3 class="card-title">Tuinpark Lissabon</h3>
+                <p class="card-text">פארק טבע ירוק ופסטורלי הממוקם בסמוך לשכונת סלוטן.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Tuinpark+Lissabon" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Vereniging_Amateur-Tuinders_Sloten_1.jpg" alt="VAT Sloten">
+            <div class="card-content">
+                <span class="badge">גינה קהילתית</span>
+                <h3 class="card-title">Vereniging Amateur-Tuinders Sloten</h3>
+                <p class="card-text">מתחם גינות קהילתיות מטופח וירוק בלב הכפר סלוטן.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Vereniging+van+Amateur-Tuinders+Sloten" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Speeltuin_Sloten_Badhoevedorp_1.jpg" alt="Playgrounds">
+            <div class="card-content">
+                <span class="badge">גני משחקים</span>
+                <h3 class="card-title">Speeltuin Sloten & Badhoevedorp</h3>
+                <p class="card-text">2 מגרשי משחקים מעולים עם דשא ומתקני ספורט וטיפוס לילדים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/ZFeduZLz91QyARVu6?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                    <a class="btn btn-phone" href="tel:+31638452045">📞 חיוג</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/House_of_Munay_1.jpg" alt="Yoga">
+            <div class="card-content">
+                <span class="badge">יוגה</span>
+                <h3 class="card-title">House of Munay</h3>
+                <p class="card-text">סטודיו ליוגה מקומי ואיכותי בשכונה. שיעורים בתיאום מראש.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/CoQHBqPrjNqyXxiG6?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                    <a class="btn btn-phone" href="tel:+31614531414">📞 חיוג</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/Golfbaan_Sloten_1.jpg" alt="Golf Sloten">
+            <div class="card-content">
+                <span class="badge">גולף</span>
+                <h3 class="card-title">Golfbaan Sloten ⛳</h3>
+                <p class="card-text">מועדון גולף מקומי ונגיש בלב שכונת סלוטן.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Golfbaan+Sloten" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/The_International_Golf_1.jpg" alt="The International Golf">
+            <div class="card-content">
+                <span class="badge">גולף מקצועי</span>
+                <h3 class="card-title">The International Golf</h3>
+                <p class="card-text">מועדון גולף יוקרתי ומקצועי ברמה בינלאומית, בתיאום מראש.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/FsDMNEPSUZk7EwnG7?g_st=ic" target="_blank">📍 גוגל מפות</a>
+                    <a class="btn btn-phone" href="tel:+31203034444">📞 חיוג</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sloten/חנות_המפעל_אאוטלט_נייקי_1.jpg" alt="Nike Outlet">
+            <div class="card-content">
+                <span class="badge">שופינג</span>
+                <h3 class="card-title">חנות המפעל / אאוטלט נייקי</h3>
+                <p class="card-text">אאוטלט נייקי ומותגי ספורט במרחק 7 דקות נסיעה בלבד מהבית.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Nike+Factory+Store+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. ROOFTOPS, BARS & NIGHTLIFE -->
+    <h2 class="section-title" id="rooftops">2. רופטופים, ברים ובילוי לילי</h2>
+    <div class="grid">
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/W_Lounge_W_Hotel_Rooftop_Bar_1.jpg" alt="W Lounge">
+            <div class="card-content">
+                <span class="badge">רופטופ יוקרתי</span>
+                <h3 class="card-title">W Lounge (W Hotel Rooftop Bar)</h3>
+                <p class="card-text">בר רופטופ מרהיב במלון W עם בריכה על הגג ונוף פנורמי לארמון המלכותי.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=W+Lounge+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/LuminAir_1.jpg" alt="LuminAir">
+            <div class="card-content">
+                <span class="badge">רופטופ בר</span>
+                <h3 class="card-title">LuminAir</h3>
+                <p class="card-text">בר רופטופ חדשני ויוקרתי הממוקם מעל התחנה המרכזית עם נוף עננים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=LuminAir+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/Floor17_1.jpg" alt="Floor17">
+            <div class="card-content">
+                <span class="badge">רופטופ בר</span>
+                <h3 class="card-title">Floor17</h3>
+                <p class="card-text">בר ומסעדה בגובה 85 מטרים במערב העיר עם תצפית היקפית עוצרת נשימה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Floor17+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/REM_Eiland_1.jpg" alt="REM">
+            <div class="card-content">
+                <span class="badge">מסעדת רופטופ</span>
+                <h3 class="card-title">REM Eiland</h3>
+                <p class="card-text">מסעדה ובר ייחודיים השוכנים על גבי מגדל מים היסטורי בלב הים/הנמל.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=REM+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/Foodhallen_1.jpg" alt="Foodhallen">
+            <div class="card-content">
+                <span class="badge">שוק אוכל</span>
+                <h3 class="card-title">Foodhallen</h3>
+                <p class="card-text">מתחם שוק אוכל מקורה ענק בתוך מוסך חשמליות היסטורי, עם עשרות דוכני שף.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Foodhallen+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/Door_74_1.jpg" alt="Door 74">
+            <div class="card-content">
+                <span class="badge">בר קוקטיילים סודי</span>
+                <h3 class="card-title">Door 74</h3>
+                <p class="card-text">בר סודי בסגנון Speakeasy המציע קוקטיילים בעיצוב וינטג' (בהזמנה מראש).</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Door+74+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/Sonora_Bar_1.jpg" alt="Sonora Bar">
+            <div class="card-content">
+                <span class="badge">בר קוקטיילים</span>
+                <h3 class="card-title">Sonora Bar</h3>
+                <p class="card-text">בר קוקטיילים אינטימי, מודרני ומעוצב עם תפריט משקאות ייחודי.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Sonora+Bar+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/Hannekes_Boom_1.jpg" alt="Hannekes Boom">
+            <div class="card-content">
+                <span class="badge">בר על המים</span>
+                <h3 class="card-title">Hannekes Boom</h3>
+                <p class="card-text">מקום מפגש היפי, פתוח ותגוסס על שפת המים עם שולחנות פיקניק ומוזיקה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Hannekes+Boom" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/De_Sluyswacht_1.jpg" alt="De Sluyswacht">
+            <div class="card-content">
+                <span class="badge">פאב היסטורי</span>
+                <h3 class="card-title">De Sluyswacht</h3>
+                <p class="card-text">פאב היסטורי משנת 1695 השוכן בבניין נטוי מול התעלה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=De+Sluyswacht" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/Strandzuid_1.jpg" alt="Strandzuid">
+            <div class="card-content">
+                <span class="badge">מתחם חוף אורבני</span>
+                <h3 class="card-title">Strandzuid</h3>
+                <p class="card-text">מסעדה ומתחם חוף קיצי ומעוצב על שפת האגם בדרום העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Strandzuid" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/t_Pareltje_1.jpg" alt="'t Pareltje">
+            <div class="card-content">
+                <span class="badge">בר חטיפים ומזון מהיר</span>
+                <h3 class="card-title">'t Pareltje</h3>
+                <p class="card-text">בר חטיפים ומזון מהיר מקומי ואהוב במרכז העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query='t+Pareltje+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/Melkweg_1.jpg" alt="Melkweg">
+            <div class="card-content">
+                <span class="badge">מועדון הופעות</span>
+                <h3 class="card-title">מלקווך (Melkweg)</h3>
+                <p class="card-text">מרכז תרבות ומועדון הופעות חיים מהמפורסמים והוותיקים בהולנד.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Melkweg+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/Brouwerij_t_IJ_-_t_Blauwe_Theehuis_1.jpg" alt="'t Blauwe Theehuis">
+            <div class="card-content">
+                <span class="badge">פאב-מבשלה בפארק</span>
+                <h4 class="card-title">Brouwerij ’t IJ - ’t Blauwe Theehuis</h4>
+                <p class="card-text">מבשלה ובר בתוך בית התה הכחול והעגול בלב וונדלפארק.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=t+Blauwe+Theehuis" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/rooftops/The_Bulldog_Palace_1.jpg" alt="The Bulldog Palace">
+            <div class="card-content">
+                <span class="badge">בר ומסעדה</span>
+                <h3 class="card-title">The Bulldog Palace</h3>
+                <p class="card-text">בר ומסעדה מפורסמים בכיכר ליידספלין, בבניין שהיה בעבר תחנת משטרה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=The+Bulldog+Palace" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. SWEETS, BAKERS & CAFES -->
+    <h2 class="section-title" id="sweets">3. מתוקים, עוגיות ומאפיות מפורסמות</h2>
+    <div class="grid">
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sweets/Van_Stapele_Koekmakerij_1.jpg" alt="Van Stapele">
+            <div class="card-content">
+                <span class="badge">חנות עוגיות</span>
+                <h3 class="card-title">Van Stapele Koekmakerij</h3>
+                <p class="card-text">חנות העוגיות המפורסמת ביותר בעיר, המציעה עוגיית שוקולד אחת מושלמת עם מילוי נמס.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Van+Stapele+Koekmakerij" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sweets/Winkel_43_1.jpg" alt="Winkel 43">
+            <div class="card-content">
+                <span class="badge">פאי תפוחים</span>
+                <h3 class="card-title">Winkel 43</h3>
+                <p class="card-text">בית הקפה המפורסם בזכות פאי התפוחים ההולנדי הטוב בעולם.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Winkel+43+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sweets/Polaberry_1.jpg" alt="Polaberry">
+            <div class="card-content">
+                <span class="badge">תותים בשוקולד</span>
+                <h3 class="card-title">Polaberry</h3>
+                <p class="card-text">חנות שוקולד פוטוגנית במיוחד המציעה תותים מצופים שוקולד מעוצב.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Polaberry+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sweets/Tony_s_Chocolonely_Superstore_1.jpg" alt="Tony's Chocolonely">
+            <div class="card-content">
+                <span class="badge">סופרסטור שוקולד</span>
+                <h3 class="card-title">Tony's Chocolonely Superstore</h3>
+                <p class="card-text">חנות הקונספט הענקית של טוני כולל מכונות לעיצוב חפיסות שוקולד אישיות.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Tony's+Chocolonely+Superstore" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sweets/Pat_s_Poffertjes_Oude_Leliestraat_1.jpg" alt="Pat's Poffertjes Oude Leliestraat">
+            <div class="card-content">
+                <span class="badge">פופרטייס</span>
+                <h3 class="card-title">Pat's Poffertjes Oude Leliestraat</h3>
+                <p class="card-text">סניף דוכני הפופרטייס ההולנדיים החמים והמסורתיים בסמטת ללייסטראט.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Pat's+Poffertjes+Oude+Leliestraat" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sweets/Pat_s_Poffertjes_Nieuwendijk_1.jpg" alt="Pat's Poffertjes Nieuwendijk">
+            <div class="card-content">
+                <span class="badge">פופרטייס</span>
+                <h3 class="card-title">Pat's Poffertjes Nieuwendijk</h3>
+                <p class="card-text">סניף דוכני הפופרטייס החמים במדרחוב הקניות חריוננדייק.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Pat's+Poffertjes+Nieuwendijk" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/sweets/Pancakehouse_Upstairs_1.jpg" alt="Pancakehouse Upstairs">
+            <div class="card-content">
+                <span class="badge">פנקייקים</span>
+                <h3 class="card-title">Pancakehouse Upstairs</h3>
+                <p class="card-text">בית פנקייק קטנטן והיסטורי בקומה שנייה של בית עתיק משנת 1539.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Pancakehouse+Upstairs" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. RESTAURANTS & CAFES -->
+    <h2 class="section-title" id="restaurants">4. מסעדות, כריכים ואוכל מומלץ</h2>
+    <div class="grid">
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Chun_Café_Berenstraat_1.jpg" alt="Chun Cafe">
+            <div class="card-content">
+                <span class="badge">טוסטים יפניים</span>
+                <h3 class="card-title">Chun Café Berenstraat</h3>
+                <p class="card-text">כריכי הטוסט היפניים והבובה-טי המפורסמים והמבוקשים ביותר בעיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Chun+Cafe+Berenstraat" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Zero_Zero_Sandwich_1.jpg" alt="Zero Zero">
+            <div class="card-content">
+                <span class="badge">כריכים איטלקיים</span>
+                <h3 class="card-title">Zero Zero Sandwich</h3>
+                <p class="card-text">כריכים איטלקיים מעולים עשויים מלחם שחום וטרי ומילויים איכותיים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Zero+Zero+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/MONTY_S_Toasties_1.jpg" alt="MONTY'S Toasties">
+            <div class="card-content">
+                <span class="badge">כריכים וטוסטים</span>
+                <h3 class="card-title">MONTY'S Toasties ☀️</h3>
+                <p class="card-text">בית קפה קטן ומעולה המתמחה בטוסטים מושקעים וכריכים חמים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=MONTY'S+Toasties" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/BagelBoy_Jordaan_1.jpg" alt="BagelBoy Jordaan">
+            <div class="card-content">
+                <span class="badge">מאפיית כעכים</span>
+                <h3 class="card-title">BagelBoy Jordaan</h3>
+                <p class="card-text">סניף מאפיית הבייגלה המצוינת בלב שכונת הירדאן.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=BagelBoy+Jordaan" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/BagelBoy_Weteringschans_1.jpg" alt="BagelBoy Weteringschans">
+            <div class="card-content">
+                <span class="badge">מאפיית כעכים</span>
+                <h3 class="card-title">BagelBoy Weteringschans</h3>
+                <p class="card-text">סניף בייגלה טרי ליד מדרחוב המוזיאונים במרכז העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=BagelBoy+Weteringschans" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/BagelBoy_Albert_Cuyp_1.jpg" alt="BagelBoy Albert Cuyp">
+            <div class="card-content">
+                <span class="badge">מאפיית כעכים</span>
+                <h3 class="card-title">BagelBoy Albert Cuyp</h3>
+                <p class="card-text">סניף בייגלה איכותי בשוק אלברט קאופ בשכונת הפייפ.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=BagelBoy+Albert+Cuyp" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Omelegg_-_de_Pijp_1.jpg" alt="Omelegg">
+            <div class="card-content">
+                <span class="badge">ארוחות בוקר</span>
+                <h3 class="card-title">Omelegg - de Pijp</h3>
+                <p class="card-text">המקום האולטימטיבי לארוחות בוקר ואומלטים מפנקים בשכונת הפייפ.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Omelegg+de+Pijp" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Florentin_Brunch_1.jpg" alt="Florentin">
+            <div class="card-content">
+                <span class="badge">בראנץ'</span>
+                <h3 class="card-title">Florentin Brunch</h3>
+                <p class="card-text">מסעדת בראנץ' מודרנית ומופלאה בהשראה ים-תיכונית.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Florentin+brunch+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/JOE_THE_JUICE_1.jpg" alt="JOE & THE JUICE">
+            <div class="card-content">
+                <span class="badge">מיצים וכריכים</span>
+                <h3 class="card-title">JOE & THE JUICE</h3>
+                <p class="card-text">רשת המיצים, השייקים והטוסטי טונה המפורסמת.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=JOE+THE+JUICE+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Bagels_Beans_1.jpg" alt="Bagels & Beans">
+            <div class="card-content">
+                <span class="badge">בית קפה</span>
+                <h3 class="card-title">Bagels & Beans</h3>
+                <p class="card-text">רשת בתי קפה הולנדית רגועה לכריכים, בייגלה וקפה משובח.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Bagels+Beans+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/OTEMBA_RAMEN_–_WEST_1.jpg" alt="OTEMBA RAMEN">
+            <div class="card-content">
+                <span class="badge">ראמן יפני</span>
+                <h3 class="card-title">OTEMBA RAMEN – WEST</h3>
+                <p class="card-text">ראמן יפני משובח, מודרני ועשיר בטעמים במערב העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=OTEMBA+RAMEN+WEST" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/IZAKAYA_Asian_Kitchen_Bar_1.jpg" alt="IZAKAYA">
+            <div class="card-content">
+                <span class="badge">אסיאתי יוקרתי</span>
+                <h3 class="card-title">IZAKAYA Asian Kitchen & Bar</h3>
+                <p class="card-text">מסעדה אסיאתית יוקרתית ואיכותית במיוחד בשכונת הפייפ.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=IZAKAYA+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Popsyz_Korean_Corndogs_1.jpg" alt="Popsyz">
+            <div class="card-content">
+                <span class="badge">קוריאני</span>
+                <h3 class="card-title">Popsyz | Korean Corndogs</h3>
+                <p class="card-text">דוכן קורנדוג קוריאני טרנדי וקריספי עם גבינה נמתחת.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Popsyz+Korean+Corndogs" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Maijard_Smashburgers_1.jpg" alt="Maijard Smashburgers">
+            <div class="card-content">
+                <span class="badge">סמאשבורגר</span>
+                <h3 class="card-title">Maijard Smashburgers</h3>
+                <p class="card-text">המבורגרים בסגנון סמאש קריספיים וטעימים ביותר בעיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Maijard+Smashburgers+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Ter_Marsch_Co_1.jpg" alt="Ter Marsch & Co">
+            <div class="card-content">
+                <span class="badge">גריל והמבורגרים</span>
+                <h3 class="card-title">Ter Marsch & Co</h3>
+                <p class="card-text">מסעדת גריל זוכת פרסים הידועה בהמבורגרים האיכותיים שלה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Ter+Marsch+Co+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Cannibale_Royale_Ruysdael_1.jpg" alt="Cannibale Royale Ruysdael">
+            <div class="card-content">
+                <span class="badge">מסעדת בשרים</span>
+                <h3 class="card-title">Cannibale Royale Ruysdael</h3>
+                <p class="card-text">סניף רויסדאל של רשת הבשרים והצלעות המפורסמת באווירה אפלולית.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Cannibale+Royale+Ruysdael" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Cannibale_Royale_Handboogstraat_1.jpg" alt="Cannibale Royale Handboogstraat">
+            <div class="card-content">
+                <span class="badge">מסעדת בשרים</span>
+                <h3 class="card-title">Cannibale Royale Handboogstraat</h3>
+                <p class="card-text">סניף במרכז העיר המציע המבורגרים ובשרים עד השעות הקטנות.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Cannibale+Royale+Handboogstraat" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Cafe_de_Klos_1.jpg" alt="קפה דה קלוס">
+            <div class="card-content">
+                <span class="badge">צלעות ובשרים</span>
+                <h3 class="card-title">קפה דה קלוס (Cafe de Klos)</h3>
+                <p class="card-text">מוסד הצלעות והבשרים המפורסם והוותיק ביותר באמסטרדם.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Cafe+de+Klos+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Fiaschetteria_Pistoia_1.jpg" alt="Pistoia">
+            <div class="card-content">
+                <span class="badge">מסעדה איטלקית</span>
+                <h3 class="card-title">Fiaschetteria “Pistoia”</h3>
+                <p class="card-text">מסעדה איטלקית אותנטית עם פסטות עבודת יד המוכנות במקום.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Fiaschetteria+Pistoia+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Pastificio_Luzzi_-_Jordaan_1.jpg" alt="Pastificio Luzzi Jordaan">
+            <div class="card-content">
+                <span class="badge">פסטה איטלקית</span>
+                <h3 class="card-title">Pastificio Luzzi - Jordaan</h3>
+                <p class="card-text">פסטה טרייה ואיכותית בטיק אקראי בשכונת הירדאן.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Pastificio+Luzzi+Jordaan" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Pastificio_Luzzi_-_Utrechtsestraat_1.jpg" alt="Pastificio Luzzi Utrechtsestraat">
+            <div class="card-content">
+                <span class="badge">פסטה איטלקית</span>
+                <h3 class="card-title">Pastificio Luzzi - Utrechtsestraat</h3>
+                <p class="card-text">סניף נוסף לפסטה איטלקית מעולה במרכז העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Pastificio+Luzzi+Utrechtsestraat" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Casa_di_David_1.jpg" alt="Casa di David">
+            <div class="card-content">
+                <span class="badge">איטלקי קלאסי</span>
+                <h3 class="card-title">Casa di David</h3>
+                <p class="card-text">מסעדה איטלקית קלאסית ורומנטית עם פיצות בתנור עצים מול התעלה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Casa+di+David+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Scarpetta_-_Pasta_Takeaway_1.jpg" alt="Scarpetta">
+            <div class="card-content">
+                <span class="badge">פסטה איטלקית</span>
+                <h3 class="card-title">Scarpetta - Pasta Takeaway</h3>
+                <p class="card-text">מקום מעולה למנות פסטה איטלקיות טריות בטיק אוויי ומשלוחים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Scarpetta+Pasta+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Cecconi_s_Amsterdam_1.jpg" alt="Cecconi's">
+            <div class="card-content">
+                <span class="badge">איטלקי יוקרתי</span>
+                <h3 class="card-title">Cecconi’s Amsterdam</h3>
+                <p class="card-text">מסעדה איטלקית יוקרתית ומעוצבת בתוך בית סוהו הוטל.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Cecconi's+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Il_Vicolo_1.jpg" alt="Il Vicolo">
+            <div class="card-content">
+                <span class="badge">איטלקי</span>
+                <h3 class="card-title">Il Vicolo</h3>
+                <p class="card-text">מסעדה איטלקית שכונתית, חמה וטעימה במרכז העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Il+Vicolo+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Fabel_Friet_Runstraat_1.jpg" alt="Fabel Friet">
+            <div class="card-content">
+                <span class="badge">צ'יפס מפורסם</span>
+                <h3 class="card-title">Fabel Friet Runstraat</h3>
+                <p class="card-text">דוכן הצ'יפס הטרנדי והמבוקש ביותר בעיר עם רוטב פרמז'ן וכמהין.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Fabel+Friet+Runstraat" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Vleminckx_1.jpg" alt="פלמינקס">
+            <div class="card-content">
+                <span class="badge">צ'יפס מסורתי</span>
+                <h3 class="card-title">פלמינקס (Vleminckx)</h3>
+                <p class="card-text">דוכן הצ'יפס ההולנדי ההיסטורי והמפורסם משנת 1887.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Vleminckx+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/De_Luwte_1.jpg" alt="De Luwte">
+            <div class="card-content">
+                <span class="badge">מסעדת אווירה</span>
+                <h3 class="card-title">De Luwte</h3>
+                <p class="card-text">מסעדה רומנטית ונעימה מול התעלה בשכונת הירדאן.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=De+Luwte+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/De_Plantage_1.jpg" alt="De Plantage">
+            <div class="card-content">
+                <span class="badge">מסעדה בגן החיות</span>
+                <h3 class="card-title">De Plantage</h3>
+                <p class="card-text">מסעדה מרהיבה ומוארת בתוך חממה היסטורית בגן החיות ARTIS.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=De+Plantage+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Cafe_Tisfris_1.jpg" alt="Cafe Tisfris">
+            <div class="card-content">
+                <span class="badge">בית קפה ומזנון</span>
+                <h3 class="card-title">Cafe Tisfris</h3>
+                <p class="card-text">בית קפה ציורי במרכז העיר עם מרפסת נעימה על המים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Cafe+Tisfris" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Gastrovino_-_De_Mannen_Van_Kaas_1.jpg" alt="Gastrovino">
+            <div class="card-content">
+                <span class="badge">מעדניית גבינות</span>
+                <h3 class="card-title">Gastrovino - De Mannen Van Kaas</h3>
+                <p class="card-text">מעדנייה משובחת לגבינות הולנדיות, יין ואוכל גורמה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Gastrovino+De+Mannen+Van+Kaas" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Namaste_India_1.jpg" alt="Namaste India">
+            <div class="card-content">
+                <span class="badge">הודי</span>
+                <h3 class="card-title">Namaste India 🇮🇳</h3>
+                <p class="card-text">מסעדה הודית אותנטית ועשירה בטעמים במרכז העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Namaste+India+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Amantra_the_Tasty_Indian_Bites_1.jpg" alt="Amantra India">
+            <div class="card-content">
+                <span class="badge">הודי</span>
+                <h3 class="card-title">Amantra the Tasty Indian Bites</h3>
+                <p class="card-text">מסעדה הודית מודרנית עם מנות רחוב הודיות מעולות.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Amantra+Indian+Bites" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Bar_Petit_Restaurant_de_Pelikaan_1.jpg" alt="Bar Pelikaan">
+            <div class="card-content">
+                <span class="badge">מסעדה ובר</span>
+                <h3 class="card-title">Bar Petit Restaurant de Pelikaan</h3>
+                <p class="card-text">מסעדה ובר שכונתי קלאסי ונעים לצהריים וערב.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Bar+Petit+Restaurant+de+Pelikaan" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/restaurants/Le_Labo_Amsterdam_1.jpg" alt="Le Labo">
+            <div class="card-content">
+                <span class="badge">חנות בשמים</span>
+                <h3 class="card-title">Le Labo Amsterdam</h3>
+                <p class="card-text">חנות הבוטיק הנחשבת לבשמים וניחוחות יוקרתיים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Le+Labo+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. COFFEESHOPS -->
+    <h2 class="section-title" id="coffeeshops">5. קופישאפס מומלצים באמסטרדם</h2>
+    <div class="grid">
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/coffeeshops/Boerejongens_Coffeeshop_West_1.jpg" alt="Boerejongens West">
+            <div class="card-content">
+                <span class="badge badge-coffee">קופישאפ יוקרתי</span>
+                <h3 class="card-title">Boerejongens Coffeeshop West</h3>
+                <p class="card-text">סניף המערב של רשת בית המרקחת היוקרתית והמפורסמת ביותר בעיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Boerejongens+Coffeeshop+West+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/coffeeshops/Boerejongens_Center_1.jpg" alt="Boerejongens Center">
+            <div class="card-content">
+                <span class="badge badge-coffee">קופישאפ יוקרתי</span>
+                <h3 class="card-title">Boerejongens Center</h3>
+                <p class="card-text">סניף מרכז העיר של רשת בוארג'ונגנס האיכותית.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Boerejongens+Coffeeshop+Center" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/coffeeshops/Easy_Times_Prinsengracht_1.jpg" alt="Easy Times Prinsengracht">
+            <div class="card-content">
+                <span class="badge badge-coffee">קופישאפ מומלץ</span>
+                <h3 class="card-title">Easy Times Prinsengracht</h3>
+                <p class="card-text">סניף פרינסנחראכט המרווח והנעים עם נוף לתעלה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Easy+Times+Prinsengracht" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/coffeeshops/Easy_Times_Reguliersdwarsstraat_1.jpg" alt="Easy Times Reguliersdwarsstraat">
+            <div class="card-content">
+                <span class="badge badge-coffee">קופישאפ</span>
+                <h3 class="card-title">Easy Times Reguliersdwarsstraat</h3>
+                <p class="card-text">סניף איזי טיימס הממוקם בלב מדרחוב הבילויים במרכז העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Easy+Times+Reguliersdwarsstraat" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/coffeeshops/Grey_Area_Coffeeshop_1.jpg" alt="Grey Area">
+            <div class="card-content">
+                <span class="badge badge-coffee">קופישאפ קלאסי</span>
+                <h3 class="card-title">Grey Area Coffeeshop</h3>
+                <p class="card-text">מוסד מפורסם הידוע במבחר הזנים האיכותיים ובביקורים של סלבריטאים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Grey+Area+Coffeeshop" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/coffeeshops/Abraxas_Coffeeshop_1.jpg" alt="Abraxas">
+            <div class="card-content">
+                <span class="badge badge-coffee">קופישאפ</span>
+                <h3 class="card-title">Abraxas Coffeeshop</h3>
+                <p class="card-text">קופישאפ ציורי, רגוע ונעים לישיבה ליד כיכר דאם.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Abraxas+Coffeeshop" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/coffeeshops/Original_Dampkring_Coffeeshop_1.jpg" alt="Original Dampkring">
+            <div class="card-content">
+                <span class="badge badge-coffee">קופישאפ אייקוני</span>
+                <h3 class="card-title">Original Dampkring Coffeeshop</h3>
+                <p class="card-text">הקופישאפ המפורסם שבו צולמה הסצנה הידועה מהסרט אושן 12.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Original+Dampkring+Coffeeshop" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/coffeeshops/Superskunk_Coffeeshop_1.jpg" alt="Superskunk">
+            <div class="card-content">
+                <span class="badge badge-coffee">קופישאפ</span>
+                <h3 class="card-title">Superskunk Coffeeshop</h3>
+                <p class="card-text">קופישאפ מקומי רגוע ונעים ליד אזור התיאטראות במרכז.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Superskunk+Coffeeshop" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/coffeeshops/Coffeeshop_Bagheera_1.jpg" alt="Coffeeshop Bagheera">
+            <div class="card-content">
+                <span class="badge badge-coffee">קופישאפ</span>
+                <h3 class="card-title">Coffeeshop Bagheera</h3>
+                <p class="card-text">מקום מרכזי ונעים עם תפריט מגוון ושייקים מעולים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Coffeeshop+Bagheera" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/coffeeshops/Coffeeshop_S.W.E.D_1.jpg" alt="Coffeeshop S.W.E.D">
+            <div class="card-content">
+                <span class="badge badge-coffee">קופישאפ</span>
+                <h3 class="card-title">Coffeeshop S.W.E.D</h3>
+                <p class="card-text">קופישאפ מודרני, נקי ואיכותי בלב העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Coffeeshop+SWED+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. ATTRACTIONS, MUSEUMS & DAY TRIPS -->
+    <h2 class="section-title" id="attractions">6. אטרקציות, מוזיאונים, שווקים וטבע בהולנד</h2>
+    <div class="grid">
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/A_DAM_Lookout_1.jpg" alt="A'DAM Lookout">
+            <div class="card-content">
+                <span class="badge">תצפית ואטרקציה</span>
+                <h3 class="card-title">A'DAM Lookout</h3>
+                <p class="card-text">מצפה תצפית מושלם על העיר כולל הנדנדה הגבוהה באירופה Over The Edge.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=A'DAM+Lookout" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Heineken_Experience_1.jpg" alt="הייניקן">
+            <div class="card-content">
+                <span class="badge">חווית בירה</span>
+                <h3 class="card-title">Heineken Experience</h3>
+                <p class="card-text">מרכז המבקרים והמוזיאון האינטראקטיבי של מבשלת הייניקן ההיסטורית.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Heineken+Experience" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Amsterdam_Canal_Cruises_1.jpg" alt="Canal Cruises">
+            <div class="card-content">
+                <span class="badge">שייט תעלות</span>
+                <h3 class="card-title">Amsterdam Canal Cruises</h3>
+                <p class="card-text">סיורי שייט תיירותיים בתעלות אמסטרדם ההיסטוריות.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Amsterdam+Canal+Cruises" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Fabrique_des_Lumières_1.jpg" alt="Fabrique des Lumières">
+            <div class="card-content">
+                <span class="badge">מוזיאון אורות</span>
+                <h3 class="card-title">Fabrique des Lumières</h3>
+                <p class="card-text">מוזיאון מיצגי אור ואמנות דיגיטלית סוחפת במבנה תעשייתי ענק.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Fabrique+des+Lumières" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Moco_Museum_Amsterdam_1.jpg" alt="Moco Museum">
+            <div class="card-content">
+                <span class="badge">אמנות מודרנית</span>
+                <h3 class="card-title">Moco Museum | Amsterdam</h3>
+                <p class="card-text">מוזיאון לאמנות מודרנית ועכשווית הכולל עבודות של בנקסי וקאווס.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Moco+Museum" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Nxt_Museum_1.jpg" alt="Nxt Museum">
+            <div class="card-content">
+                <span class="badge">מדיה דיגיטלית</span>
+                <h3 class="card-title">Nxt Museum</h3>
+                <p class="card-text">המוזיאון הראשון בהולנד המוקדש כולו לאמנות מדיה חדשה וטכנולוגית.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Nxt+Museum" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Albert_Cuyp_Markt_1.jpg" alt="Albert Cuyp Markt">
+            <div class="card-content">
+                <span class="badge">שוק רחוב</span>
+                <h3 class="card-title">Albert Cuyp Markt</h3>
+                <p class="card-text">שוק הרחוב המפורסם והגדול ביותר באירופה, עם דוכני אוכל וקניות.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Albert+Cuyp+Markt" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Waterloopleinmarkt_1.jpg" alt="Waterloopleinmarkt">
+            <div class="card-content">
+                <span class="badge">שוק פשפשים</span>
+                <h3 class="card-title">Waterloopleinmarkt</h3>
+                <p class="card-text">שוק הפשפשים והוינטג' הוותיק ביותר במרכז העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Waterloopleinmarkt" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/De_Pijp_1.jpg" alt="הפייפ">
+            <div class="card-content">
+                <span class="badge">שכונה מומלצת</span>
+                <h3 class="card-title">שכונת הפייפ (De Pijp)</h3>
+                <p class="card-text">השכונה הטרנדית והתגוססת ביותר בעיר, מלאה במסעדות, בתי קפה ובארים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=De+Pijp+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Amsterdam_Centraal_1.jpg" alt="Amsterdam Centraal">
+            <div class="card-content">
+                <span class="badge">תחנה מרכזית</span>
+                <h3 class="card-title">Amsterdam Centraal</h3>
+                <p class="card-text">תחנת הרכבת המרכזית והמרשימה, שער הכניסה הראשי לעיר ולמעבורות.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Amsterdam+Centraal" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Vondelpark_1.jpg" alt="וונדלפארק">
+            <div class="card-content">
+                <span class="badge">פארק מרכזי</span>
+                <h3 class="card-title">וונדלפארק (Vondelpark)</h3>
+                <p class="card-text">הפארק העירוני הגדול והמפורסם ביותר באמסטרדם, מושלם לרכיבה ופיקניק.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Vondelpark" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Rijksmuseumtuinen_1.jpg" alt="Rijksmuseumtuinen">
+            <div class="card-content">
+                <span class="badge">גנים חינמיים</span>
+                <h3 class="card-title">גני הריקסמוזיאום (Rijksmuseumtuinen)</h3>
+                <p class="card-text">גנים יפהפיים וחינמיים סביב המוזיאון הלאומי עם מזרקות ופסלים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Rijksmuseumtuinen" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&auto=format&fit=crop" alt="ARTIS Zoo">
+            <div class="card-content">
+                <span class="badge">גן חיות</span>
+                <h3 class="card-title">גן החיות ARTIS (נטורה ארטיס מגיסטרה)</h3>
+                <p class="card-text">גן החיות ההיסטורי הוותיק ביותר בהולנד בלב העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=ARTIS+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Giethoorn_1.jpg" alt="חיטהורן">
+            <div class="card-content">
+                <span class="badge">כפר התעלות</span>
+                <h3 class="card-title">חיטהורן (Giethoorn)</h3>
+                <p class="card-text">כפר התעלות הציורי הידוע כ"וונציה של הולנד".</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Giethoorn" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Zaandam_1.jpg" alt="זנדם">
+            <div class="card-content">
+                <span class="badge">עיר היסטורית</span>
+                <h3 class="card-title">זאנדם (Zaandam)</h3>
+                <p class="card-text">העיר המפורסמת בזכות הארכיטקטורה הציורית של הבתים הירוקים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Zaandam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Keukenhof_1.jpg" alt="קוקנהוף">
+            <div class="card-content">
+                <span class="badge">גני פרחים</span>
+                <h3 class="card-title">גני קוקנהוף (Keukenhof)</h3>
+                <p class="card-text">פארק הפרחים והצבעונים המפורסם ביותר בעולם.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Keukenhof" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/National_Park_Weerribben-Wieden_1.jpg" alt="Weerribben-Wieden">
+            <div class="card-content">
+                <span class="badge">שמורה טבעית</span>
+                <h3 class="card-title">National Park Weerribben-Wieden</h3>
+                <p class="card-text">שמורה פסטורלית ושקטה המהווה תחליף אותנטי ופחות עמוס לחיטהורן.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=National+Park+Weerribben-Wieden" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Museummolen_Schermer_1.jpg" alt="Museummolen Schermer">
+            <div class="card-content">
+                <span class="badge">טחנת רוח היסטורית</span>
+                <h3 class="card-title">Museummolen Schermer</h3>
+                <p class="card-text">סיור בתוך טחנת רוח פעילה ושקטה, תחליף נהדר לזאנסה סחאנס העמוסה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Museummolen+Schermer" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Broek_in_Waterland_1.jpg" alt="Broek in Waterland">
+            <div class="card-content">
+                <span class="badge">כפר כפרי</span>
+                <h3 class="card-title">Broek in Waterland & Monnickendam</h3>
+                <p class="card-text">כפרים עתיקים ואותנטיים עם בתי עץ צבעוניים ללא מסחרה ותיירים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Broek+in+Waterland" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Hoge_Veluwe_1.jpg" alt="Hoge Veluwe">
+            <div class="card-content">
+                <span class="badge">פארק לאומי ואופניים</span>
+                <h3 class="card-title">Hoge Veluwe & Museonder</h3>
+                <p class="card-text">רכיבה על "אופניים לבנים" בשבילים סלולים ביערות ודיונות, וביקור במוזיאון תת-קרקעי.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Hoge+Veluwe" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Henschotermeer_1.jpg" alt="Henschotermeer">
+            <div class="card-content">
+                <span class="badge">אגם רחצה טבעי</span>
+                <h3 class="card-title">אגם Henschotermeer</h3>
+                <p class="card-text">אגם רחצה טבעי וצלול מוקף חול לבן ויער אורנים, עם אי ירוק במרכז.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Henschotermeer" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Bosbad_Putten_1.jpg" alt="Bosbad Putten">
+            <div class="card-content">
+                <span class="badge">בריכות וטיפוס ביער</span>
+                <h3 class="card-title">Bosbad Putten & Klimbos Lage Vuursche</h3>
+                <p class="card-text">בריכות יער מוצלות ופארק חבלים וטיפוס בטוח ביער אורנים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Bosbad+Putten" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1569629743817-70d8db6c323b?w=600&auto=format&fit=crop" alt="Military Museum">
+            <div class="card-content">
+                <span class="badge">מוזיאון צבאי</span>
+                <h3 class="card-title">המוזיאון הצבאי הלאומי (NMM) בסואסטרברג</h3>
+                <p class="card-text">מטוסי קרב, טנקים, סימולטורים ומתחם טיפוס מרווח בבסיס חיל אוויר לשעבר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Nationaal+Militair+Museum+Soesterberg" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&auto=format&fit=crop" alt="Aviodrome">
+            <div class="card-content">
+                <span class="badge">מוזיאון תעופה</span>
+                <h3 class="card-title">מוזיאון התעופה Aviodrome בלליסטאד</h3>
+                <p class="card-text">מעל 100 כלי טיס, כניסה לתא טייס של בואינג 747 אמיתי וקולנוע 4D.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Aviodrome+Lelystad" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&auto=format&fit=crop" alt="Louwman Museum">
+            <div class="card-content">
+                <span class="badge">מוזיאון מכוניות</span>
+                <h3 class="card-title">מוזיאון המכוניות Louwman בהאג</h3>
+                <p class="card-text">אוסף מכוניות עתיקות ונדירות מהגדולים והמרשימים בעולם באווירה יוקרתית.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Louwman+Museum" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/GeoFort_1.jpg" alt="GeoFort">
+            <div class="card-content">
+                <span class="badge">מבצר מדע</span>
+                <h3 class="card-title">מבצר המדע והמפות GeoFort</h3>
+                <p class="card-text">מוזיאון מדע אינטראקטיבי במבצר עתיק המוקדש לנווטות, מפות ו-Minecraft.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=GeoFort+Herwijnen" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Efteling_1.jpg" alt="Efteling">
+            <div class="card-content">
+                <span class="badge">פארק שעשועים</span>
+                <h3 class="card-title">פארק השעשועים Efteling</h3>
+                <p class="card-text">פארק נושא קסום ומרשים הפתוח בקיץ עד 22:00 בלילה עם מופעי אש ומים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Efteling" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop" alt="Jeugdland">
+            <div class="card-content">
+                <span class="badge">פארק בנייה ויצירה</span>
+                <h3 class="card-title">Jeugdland Amsterdam</h3>
+                <p class="card-text">פארק אתגרי-יצירתי שבו הילדים בונים בעץ, פטישים ומסמרים ומשייטים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Jeugdland+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&auto=format&fit=crop" alt="NEMO Roof">
+            <div class="card-content">
+                <span class="badge">מוזיאון מדע</span>
+                <h3 class="card-title">גג מוזיאון NEMO</h3>
+                <p class="card-text">מתחם ניסויי מים, מזרקות ותצפית תחת כיפת השמיים בגג מוזיאון המדע.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=NEMO+Science+Museum" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/attractions/Muiderslot_1.jpg" alt="Muiderslot">
+            <div class="card-content">
+                <span class="badge">טירה היסטורית</span>
+                <h3 class="card-title">טירת Muiderslot</h3>
+                <p class="card-text">הטירה השמורה ביותר בהולנד עם סדנאות אבירים וסיורים לילדים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Muiderslot" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. KOSHER PLACES -->
+    <h2 class="section-title" id="kosher">7. מקומות כשרים (חנויות, מסעדות וסופרמרקטים)</h2>
+    <div class="grid">
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/kosher/מחנה_יהודה_1.jpg" alt="מחנה יהודה">
+            <div class="card-content">
+                <span class="badge badge-kosher">כשר - מרכז העיר</span>
+                <h3 class="card-title">מחנה יהודה (בית חב"ד)</h3>
+                <p class="card-text">מסעדה בשרית ודגים כשרה במרכז העיר בקומה התחתונה של בית חב"ד.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Mahane+Yehuda+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/kosher/La_Biss_1.jpg" alt="La Biss">
+            <div class="card-content">
+                <span class="badge badge-kosher">כשר - אוכל רחוב</span>
+                <h3 class="card-title">La' Biss</h3>
+                <p class="card-text">אוכל רחוב כשר, צמחוני וישראלי במרכז העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=La+Biss+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/kosher/Pita_Sabich_1.jpg" alt="Pita Sabich">
+            <div class="card-content">
+                <span class="badge badge-kosher">כשר למהדרין</span>
+                <h3 class="card-title">Pita Sabich</h3>
+                <p class="card-text">דוכן סביח כשר למהדרין בלב שוק אלברט קאופ.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Pita+Sabich+Albert+Cuyp" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/kosher/Meat_Me_1.jpg" alt="Meat me">
+            <div class="card-content">
+                <span class="badge badge-kosher">כשר בשרי - דרום העיר</span>
+                <h3 class="card-title">Meat Me</h3>
+                <p class="card-text">מסעדה בשרית מהמטבח הישראלי בשכונת Buitenveldert בדרום העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Meat+Me+Buitenveldert" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/kosher/Pizza_Co_1.jpg" alt="Pizza & Co">
+            <div class="card-content">
+                <span class="badge badge-kosher">כשר חלבי - דרום העיר</span>
+                <h3 class="card-title">פיצרייה כשרה Pizza & Co</h3>
+                <p class="card-text">פיצרייה כשרה חלבית – פיצות, פסטות וצ'יפס בדרום העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://maps.app.goo.gl/uXpD8E6e42K2" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/kosher/Food_court_Amsterdam_City_South_1.jpg" alt="Food court South">
+            <div class="card-content">
+                <span class="badge badge-kosher">מתחם מזון כשר</span>
+                <h3 class="card-title">Food court Amsterdam City South</h3>
+                <p class="card-text">מתחם מזון כשר בדרום העיר המציע אפשרויות סעודה כשרות.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Food+Court+Amsterdam+City+South" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/kosher/Rimon_Deli_1.jpg" alt="רימון דלי">
+            <div class="card-content">
+                <span class="badge badge-kosher">צרכנייה ומאפייה</span>
+                <h3 class="card-title">רימון דלי (Rimon Deli)</h3>
+                <p class="card-text">מאפייה כשרה, צרכנייה ובית קפה בדרום העיר.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Rimon+Deli+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/kosher/Mouwes_1.jpg" alt="מאווס">
+            <div class="card-content">
+                <span class="badge badge-kosher">צרכנייה כשרה</span>
+                <h3 class="card-title">מאווס (Mouwes)</h3>
+                <p class="card-text">צרכנייה כשרה וותיקה עם מוצרים כשרים מישראל ומאירופה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Mouwes+Kosher+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/kosher/Jumbo_Buitenveldert_Kastelenstraat_1.jpg" alt="Jumbo Kastelenstraat">
+            <div class="card-content">
+                <span class="badge badge-kosher">סופרמרקט - מחלקה כשרה</span>
+                <h3 class="card-title">Jumbo Buitenveldert Kastelenstraat</h3>
+                <p class="card-text">סניף ג'מבו עם מחלקה כשרה גדולה מאוד כולל מוצרים קפואים.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Jumbo+Kastelenstraat+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/kosher/Jumbo_Buitenveldertselaan_1.jpg" alt="Jumbo Buitenveldertselaan">
+            <div class="card-content">
+                <span class="badge badge-kosher">סופרמרקט - מחלקה כשרה</span>
+                <h3 class="card-title">Jumbo Buitenveldertselaan</h3>
+                <p class="card-text">סניף ג'מבו נוסף בדרום העיר הכולל מחלקה כשרה.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Jumbo+Buitenveldertselaan+Amsterdam" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img" src="/PUBLIC/images/kosher/Albert_Heijn_Gelderlandplein_1.jpg" alt="Albert Heijn Gelderlandplein">
+            <div class="card-content">
+                <span class="badge badge-kosher">סופרמרקט - מחלקה כשרה</span>
+                <h3 class="card-title">Albert Heijn Gelderlandplein</h3>
+                <p class="card-text">סניף אלברט היין בקניון חלדרלנדפליין עם מחלקה כשרה מגוונת.</p>
+                <div class="card-actions">
+                    <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Albert+Heijn+Gelderlandplein" target="_blank">📍 גוגל מפות</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
