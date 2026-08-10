@@ -165,10 +165,26 @@
         @media (max-width:600px){
             header.guide-header h1{ font-size:1.85rem; }
             .category-tile{ height:140px; }
+
+            /* תפריט צף מוקטן בחצי במובייל */
+            .sticky-nav{ top:6px; padding:7px 10px; border-radius:16px; }
+            .nav-container{ gap:6px; }
+            .guide-brand{ font-size:12px; gap:5px; margin-bottom:0; }
+            .guide-brand .mark{ width:16px; height:16px; }
+            .guide-brand-text{ font-size:10px; letter-spacing:.8px; }
+            .guide-brand small{ font-size:6.5px; letter-spacing:.5px; }
+            .nav-row{ gap:4px; }
+            .nav-btn{ padding:4px 9px; font-size:0.62rem; border-radius:100px; gap:3px; }
         }
     </style>
 </head>
 <body>
+<script>
+    // תמיד להתחיל מראש הדף בטעינה (ולא באמצע, כתוצאה מזיכרון גלילה של הדפדפן)
+    if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+    window.scrollTo(0, 0);
+    window.addEventListener('load', function () { window.scrollTo(0, 0); });
+</script>
 
 <!-- STICKY NAV MENU (2 ROWS) -->
 <nav class="sticky-nav">
