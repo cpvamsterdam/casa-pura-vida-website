@@ -37,6 +37,11 @@ exports.handler = async (event) => {
   if (!token || !name || !country || !ratings) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Missing required fields.' }) };
   }
+  // Names are displayed as-is in every site language (never translated), so
+  // they must be entered in English/Latin letters to read correctly everywhere.
+  if (!/^[A-Za-z\s.'-]+$/.test(String(name).trim())) {
+    return { statusCode: 400, body: JSON.stringify({ error: 'Please enter your name using English letters only.' }) };
+  }
   for (const cat of RATING_CATEGORIES) {
     const val = ratings[cat];
     if (typeof val !== 'number' || val < 1 || val > 5) {
@@ -67,21 +72,31 @@ exports.handler = async (event) => {
   const cleanRatings = {};
   RATING_CATEGORIES.forEach(cat => { cleanRatings[cat] = ratings[cat]; });
 
+  const cleanName = String(name).trim().slice(0, 100);
+  const cleanCountry = String(country).slice(0, 100);
   const cleanComment = comment ? String(comment).slice(0, 1000) : '';
   // Translated once here, at submission time — never re-translated on page
-  // load, so this costs one small API call per review, not per page view.
-  const translated = await translateToAllLangs(cleanComment);
+  // load, so this costs a couple of small API calls per review, not per page
+  // view. Name isn't translated: it's enforced to be English/Latin letters
+  // at validation above, so there's nothing useful to translate there.
+  const [translatedComment, translatedCountry] = await Promise.all([
+    translateToAllLangs(cleanComment),
+    translateToAllLangs(cleanCountry),
+  ]);
 
   const review = {
     id: reviewId,
     token,
-    name: String(name).slice(0, 100),
-    country: String(country).slice(0, 100),
+    name: cleanName,
+    country: cleanCountry,
+    country_en: translatedCountry.en,
+    country_es: translatedCountry.es,
+    country_he: translatedCountry.he,
     ratings: cleanRatings,
     comment: cleanComment,
-    comment_en: translated.en,
-    comment_es: translated.es,
-    comment_he: translated.he,
+    comment_en: translatedComment.en,
+    comment_es: translatedComment.es,
+    comment_he: translatedComment.he,
     photoCount: photos ? photos.length : 0,
     status: 'pending',
     submittedAt: new Date().toISOString(),
