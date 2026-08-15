@@ -2193,12 +2193,13 @@ async function loadPublicReviews(){
       const photosHtml = (r.photos || []).slice(0,4).map(p => `<img src="${p}" loading="lazy">`).join('');
       const curLang = document.documentElement.lang || 'en';
       const displayComment = r['comment_' + curLang] || r.comment;
+      const displayCountry = r['country_' + curLang] || r.country;
       return `<div class="review-card-public">
         <div class="rp-stars">${stars}</div>
         ${displayComment ? `<div class="rp-comment">"${escapeHtmlClient(displayComment)}"</div>` : ''}
         ${photosHtml ? `<div class="rp-photos">${photosHtml}</div>` : ''}
         <div class="rp-name">${escapeHtmlClient(r.name)}</div>
-        <div class="rp-country">${escapeHtmlClient(r.country)}</div>
+        <div class="rp-country">${escapeHtmlClient(displayCountry)}</div>
       </div>`;
     }).join('');
     grid.querySelectorAll('.rp-photos img').forEach(img => {
