@@ -20,12 +20,12 @@
 <meta name="twitter:description" content="Canalfront vacation house in Sloten, Amsterdam. A real house on the water, not a boat - designed for groups, families and couples.">
 <meta name="twitter:image" content="https://casapuravidanl.com/assets/photos/00-terrace.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;500;600;700&family=Poiret+One&family=Josefin+Sans:wght@300;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;500;600;700&family=Poiret+One&family=Josefin+Sans:wght@300;500;600;700&family=Oswald:wght@300;500;600&display=swap" rel="stylesheet">
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <style>
   :root{
     --white:#ffffff; --off-white:#F5F2EB; --ink:#1A1D1F; --ink-soft:#54595E;
-    --canal:#203864; --canal-deep:#13233F; --canal-tint:#E4E9F2; --brass:#C1272D; --accent2:#B85B35;
+    --canal:#193191; --canal-deep:#122266; --canal-tint:#E8EAF4; --brass:#C1272D; --accent2:#B85B35;
     --line:#E7E5E1; --radius:14px; --max:944px;
   }
   *{box-sizing:border-box;}
@@ -54,7 +54,7 @@
   .brand{display:flex; align-items:center; gap:9px; font-weight:700; font-size:16.5px; letter-spacing:.3px; text-decoration:none; direction:ltr; flex-wrap:nowrap; min-width:0;}
   .brand .mark{width:26px; height:26px; flex:none;}
   .brand-text-wrap{display:flex; flex-direction:column; align-items:center; line-height:1.2; min-width:0; overflow:hidden;}
-  .brand-text{display:inline-block; white-space:nowrap; font-family:'Josefin Sans','Montserrat','Inter',sans-serif; font-weight:500; letter-spacing:1.5px; font-size:14px; line-height:2; padding:2px 0; background:linear-gradient(95deg,var(--canal) 0%, var(--canal-deep) 38%, var(--brass) 72%, var(--brass) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:var(--canal-deep); max-width:100%; overflow:hidden; text-overflow:ellipsis;}
+  .brand-text{display:inline-block; white-space:nowrap; font-family:'Poiret One','Montserrat',serif; font-weight:400; letter-spacing:1.5px; font-size:16.5px; line-height:2; padding:2px 0; background:linear-gradient(95deg,var(--canal) 0%, var(--canal-deep) 38%, var(--brass) 72%, var(--brass) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; -webkit-text-stroke:0.4px var(--canal-deep); color:var(--canal-deep); max-width:100%; overflow:hidden; text-overflow:ellipsis;}
   .brand small{font-weight:600; font-size:10px; color:var(--canal); letter-spacing:1px; white-space:nowrap; text-align:center;}
   .brand small.brand-city{font-weight:800; color:#0A0A0A;}
   .brand-country{display:flex; align-items:center; justify-content:center; gap:4px; margin-top:1px;}
@@ -145,7 +145,7 @@
   .a11y-action .ic{width:18px; text-align:center; flex:none; font-weight:700; font-size:13px;}
   .a11y-action.reset{border-top:1px solid var(--line); margin-top:4px; padding-top:11px; border-radius:0 0 10px 10px;}
   html.a11y-contrast{--ink:#000; --ink-soft:#111; --line:#000;}
-  html.theme-night{--canal:#3D5B59; --canal-deep:#233433; --canal-tint:#E3EBEA; --brass:#D9484C; --accent2:#E76F51; --off-white:#FAFAF5;}
+  html.theme-night{--canal:#193191; --canal-deep:#122266; --canal-tint:#E8EAF4; --brass:#D9484C; --accent2:#E76F51; --off-white:#FAFAF5;}
   html.a11y-contrast body{background:#fff;}
   html.a11y-text-lg{zoom:1.16;}
   html.a11y-underline-links a{text-decoration:underline !important;}
@@ -186,7 +186,7 @@
     .hero-split{grid-template-columns:0.9fr 1.1fr; gap:36px;}
   }
   .hero-city-country{font-family:'Montserrat','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:clamp(12px,1.5vw,15px); letter-spacing:1px; color:#fff; font-weight:700; line-height:1.35; margin:2px 0 20px; text-shadow:0 1px 6px rgba(0,0,0,.45), 0 1px 2px rgba(0,0,0,.5); display:inline-flex; align-items:center; gap:7px; justify-content:center;}
-  .hero-tagline{font-family:'Josefin Sans','Montserrat','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:clamp(11px,1.4vw,13px); letter-spacing:1.5px; text-transform:uppercase; color:#fff; font-weight:600; line-height:1.35; margin-bottom:2px; text-shadow:0 1px 6px rgba(0,0,0,.45), 0 1px 2px rgba(0,0,0,.5);}
+  .hero-tagline{font-family:'Oswald','Montserrat','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-weight:300; font-size:clamp(12px,1.6vw,15px); letter-spacing:1.8px; text-transform:uppercase; color:#fff; line-height:1.35; margin-bottom:2px; text-shadow:0 1px 6px rgba(0,0,0,.45), 0 1px 2px rgba(0,0,0,.5);}
   html:not([dir="rtl"]) .hero-tagline{font-size:clamp(9.5px,1.1vw,11px);}
     .ams-flag{flex:none; transform-origin:0% 50%; animation:flagWave 2.4s ease-in-out infinite;}
   @keyframes flagWave{ 0%,100%{ transform:skewY(0deg) scaleY(1); } 25%{ transform:skewY(4deg) scaleY(.97); } 50%{ transform:skewY(0deg) scaleY(1); } 75%{ transform:skewY(-4deg) scaleY(.97); } }
@@ -196,7 +196,7 @@
   .brand-name-row svg{width:clamp(46px,7.5vw,58px); height:clamp(46px,7.5vw,58px); flex:none;}
   .brand-name{display:inline-block; white-space:nowrap; font-family:'Poiret One','Montserrat',serif; font-size:clamp(30px,7.5vw,52px); font-weight:400; letter-spacing:1.5px; line-height:1.3; padding:2px 4px 4px; margin:0; direction:ltr; color:var(--canal); text-shadow:none;}
   @media (max-width:880px){ .brand-name{font-size:clamp(34px,8.5vw,44px);} .hero-city-country{font-size:clamp(15px,4vw,20px);} }
-  .hero p.lede{font-family:'Josefin Sans','Montserrat','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:clamp(12px,1.4vw,15px); color:#fff; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; max-width:52ch; margin:0 auto 14px; text-shadow:0 1px 6px rgba(0,0,0,.45), 0 1px 2px rgba(0,0,0,.5);}
+  .hero p.lede{font-family:'Oswald','Montserrat','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:clamp(13px,1.7vw,17px); color:#fff; font-weight:300; letter-spacing:1.5px; text-transform:uppercase; max-width:52ch; margin:0 auto 14px; text-shadow:0 1px 6px rgba(0,0,0,.45), 0 1px 2px rgba(0,0,0,.5);}
   html:not([dir="rtl"]) .hero p.lede{font-size:clamp(10px,1.1vw,12.5px);}
   html[dir="rtl"] .hero-city-country, html[dir="rtl"] .hero-tagline, html[dir="rtl"] .hero p.lede{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-weight:700;}
   html[dir="rtl"] h2, html[dir="rtl"] .brand-name{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif !important; letter-spacing:normal;}
@@ -504,9 +504,9 @@
   <div class="nav-wrap">
     <a href="#main" class="brand">
       <svg class="mark" viewBox="0 0 34 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M4 12L14 4L24 12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M6.5 12V18.5H21.5V12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M2 21c2.2 1.5 4.2 1.5 6.2 0s4.2-1.5 6.2 0 4.2 1.5 6.2 0 4.2-1.5 6.2 0 4.2 1.5 6.2 0" stroke="var(--canal)" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M7 12L17 4L27 12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9.5 12V18.5H24.5V12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M4 21c2.3 1.5 4.3 1.5 6.5 0s4.3-1.5 6.5 0 4.3 1.5 6.5 0 4.3-1.5 6.5 0" stroke="var(--canal)" stroke-width="1.4" stroke-linecap="round"/>
       </svg>
       <span class="brand-text-wrap"><span class="brand-text">Casa Pura Vida</span><small class="brand-city">AMSTERDAM</small><small class="brand-country"><svg class="ams-flag" width="14" height="9.5" viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="6" fill="#AE1C28"/><rect y="6" width="27" height="6" fill="#FFFFFF"/><rect y="12" width="27" height="6" fill="#21468B"/><rect width="27" height="18" fill="none" stroke="#E7E5E1" stroke-width="0.6"/></svg>The Netherlands</small></span>
     </a>
@@ -571,9 +571,9 @@
       <div class="hero-text">
         <div class="brand-name-row">
           <svg viewBox="0 0 34 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 12L14 4L24 12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6.5 12V18.5H21.5V12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 21c2.2 1.5 4.2 1.5 6.2 0s4.2-1.5 6.2 0 4.2 1.5 6.2 0 4.2-1.5 6.2 0 4.2 1.5 6.2 0" stroke="var(--canal)" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M7 12L17 4L27 12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9.5 12V18.5H24.5V12" stroke="var(--canal)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 21c2.3 1.5 4.3 1.5 6.5 0s4.3-1.5 6.5 0 4.3 1.5 6.5 0 4.3-1.5 6.5 0" stroke="var(--canal)" stroke-width="1.4" stroke-linecap="round"/>
           </svg>
           <h1 class="brand-name">CASA PURA VIDA</h1>
         </div>
@@ -2052,7 +2052,7 @@ function fireConfetti(){
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  const colors = ['#193191', '#203864', '#C1272D', '#E86A6A', '#B85B35', '#5B7FE0'];
+  const colors = ['#193191', '#122266', '#C1272D', '#E86A6A', '#B85B35', '#5B7FE0'];
   const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const count = prefersReducedMotion ? 0 : 90;
   const particles = [];
@@ -2159,6 +2159,7 @@ function translateImageAlts(lang){
   });
 }
 window.addEventListener('langchange', (e) => translateImageAlts(window.__currentLang || 'en'));
+window.addEventListener('langchange', () => loadPublicReviews());
 
 /* ---------------- Netherlands local time (header) ---------------- */
 function updateNlTime(){
@@ -2190,9 +2191,11 @@ async function loadPublicReviews(){
       const avgRating = Math.round(Object.values(r.ratings).reduce((a,b)=>a+b,0) / Object.values(r.ratings).length);
       const stars = '★'.repeat(avgRating) + '☆'.repeat(5-avgRating);
       const photosHtml = (r.photos || []).slice(0,4).map(p => `<img src="${p}" loading="lazy">`).join('');
+      const curLang = document.documentElement.lang || 'en';
+      const displayComment = r['comment_' + curLang] || r.comment;
       return `<div class="review-card-public">
         <div class="rp-stars">${stars}</div>
-        ${r.comment ? `<div class="rp-comment">"${escapeHtmlClient(r.comment)}"</div>` : ''}
+        ${displayComment ? `<div class="rp-comment">"${escapeHtmlClient(displayComment)}"</div>` : ''}
         ${photosHtml ? `<div class="rp-photos">${photosHtml}</div>` : ''}
         <div class="rp-name">${escapeHtmlClient(r.name)}</div>
         <div class="rp-country">${escapeHtmlClient(r.country)}</div>
