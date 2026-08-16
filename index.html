@@ -56,6 +56,8 @@
   .brand{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; font-weight:700; font-size:16.5px; letter-spacing:.3px; text-decoration:none; direction:ltr; min-width:0;}
   .brand .mark{width:52px; height:52px; flex:none; margin-bottom:-6px;}
   .header-social-mobile{display:none;}
+  .header-social-mobile a{width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--canal); background:var(--canal-tint); flex:none;}
+  .header-social-mobile svg{width:14px; height:14px;}
   .brand-text-wrap{display:flex; flex-direction:column; align-items:center; line-height:1.2; min-width:0; overflow:hidden;}
   .brand-text{display:inline-block; white-space:nowrap; font-family:'Poiret One','Montserrat',serif; font-weight:400; letter-spacing:1.5px; font-size:16.5px; line-height:2; padding:2px 0; background:linear-gradient(95deg,var(--canal) 0%, var(--canal-deep) 38%, var(--brass) 72%, var(--brass) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; -webkit-text-stroke:0.4px var(--canal-deep); color:var(--canal-deep); max-width:100%; overflow:hidden; text-overflow:ellipsis;}
   nav.main{display:flex; gap:6px; flex-wrap:wrap; align-items:center; justify-content:center; row-gap:8px;}
@@ -491,9 +493,10 @@
   @media (max-width:880px){
     .nav-wrap{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; position:relative;}
     .menu-toggle{position:absolute; top:50%; inset-inline-end:18px; translate:0 -50%;}
-    .brand-col{order:1;}
+    .brand-col{order:1; margin-top:8px;}
     .brand{font-size:14.5px; gap:0;}
-    .brand .mark{width:42px; height:42px; margin-bottom:-4px;}
+    .brand .mark{width:59px; height:59px; margin-bottom:-4px;}
+    .brand-text{font-size:23px;}
     .header-right{order:3; flex-basis:100%; justify-content:flex-end; margin-top:10px;}
     .header-social-mobile{display:flex; gap:10px; margin-top:4px;}
     .lang-social-stack{flex-direction:row; align-items:center; gap:12px;}
