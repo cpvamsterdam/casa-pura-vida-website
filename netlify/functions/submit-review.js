@@ -74,7 +74,7 @@ exports.handler = async (event) => {
 
   const cleanName = String(name).trim().slice(0, 100);
   const cleanCountry = String(country).slice(0, 100);
-  const cleanComment = comment ? String(comment).slice(0, 1000) : '';
+  const cleanComment = comment ? String(comment).slice(0, 2000) : '';
   // Translated once here, at submission time — never re-translated on page
   // load, so this costs a couple of small API calls per review, not per page
   // view. Name isn't translated: it's enforced to be English/Latin letters
