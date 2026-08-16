@@ -56,8 +56,8 @@
   .brand{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0; font-weight:700; font-size:16.5px; letter-spacing:.3px; text-decoration:none; direction:ltr; min-width:0;}
   .brand .mark{width:52px; height:52px; flex:none; margin-bottom:-6px;}
   .header-social-mobile{display:none;}
-  .header-social-mobile a{width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--canal); background:var(--canal-tint); flex:none;}
-  .header-social-mobile svg{width:14px; height:14px;}
+  .header-social-mobile a{width:31px; height:31px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--canal); background:var(--canal-tint); flex:none;}
+  .header-social-mobile svg{width:17px; height:17px;}
   .brand-text-wrap{display:flex; flex-direction:column; align-items:center; line-height:1.2; min-width:0; overflow:hidden;}
   .brand-text{display:inline-block; white-space:nowrap; font-family:'Poiret One','Montserrat',serif; font-weight:400; letter-spacing:1.5px; font-size:16.5px; line-height:2; padding:2px 0; background:linear-gradient(95deg,var(--canal) 0%, var(--canal-deep) 38%, var(--brass) 72%, var(--brass) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; -webkit-text-stroke:0.4px var(--canal-deep); color:var(--canal-deep); max-width:100%; overflow:hidden; text-overflow:ellipsis;}
   nav.main{display:flex; gap:6px; flex-wrap:wrap; align-items:center; justify-content:center; row-gap:8px;}
@@ -497,8 +497,12 @@
     .brand{font-size:14.5px; gap:0;}
     .brand .mark{width:59px; height:59px; margin-bottom:-4px;}
     .brand-text{font-size:23px;}
-    .header-right{order:3; flex-basis:100%; justify-content:flex-end; margin-top:10px;}
-    .header-social-mobile{display:flex; gap:10px; margin-top:4px;}
+    .header-right{order:3; flex-basis:100%; justify-content:center; margin-top:10px;}
+    .nl-time-widget, .lang-dropdown-btn{background:var(--canal); color:#fff; width:100px; height:38px; padding:0; box-sizing:border-box; justify-content:center; border:none;}
+    .nl-time-widget .nl-time-value, .nl-time-widget .nl-time-label{color:#fff;}
+    .nl-time-widget .nl-time-label{display:none;}
+    .lang-dropdown-btn{font-weight:700;}
+    .header-social-mobile{display:flex; gap:12px; margin-top:4px;}
     .lang-social-stack{flex-direction:row; align-items:center; gap:12px;}
     .header-social{display:none;}
     nav.main{position:fixed; inset-inline-end:0; top:0; bottom:0; width:min(58vw,230px); background:var(--canal); flex-direction:column; align-items:center; justify-content:center; gap:20px; padding:70px 16px 24px; box-shadow:-8px 0 28px rgba(20,30,30,.22); visibility:hidden; opacity:0; transform:scale(.97); transition:opacity .16s ease, transform .16s ease, visibility 0s linear .16s; z-index:950; border-radius:22px 0 0 22px;}
