@@ -400,8 +400,7 @@
   .form-status{font-size:14px; margin-top:10px; font-weight:600;}
   .form-status.ok{color:var(--canal-deep);} .form-status.err{color:#9B4646;}
 
-  .map-frame{position:relative; width:100%; aspect-ratio:16/7; border:1px solid var(--line); border-radius:16px; overflow:hidden; margin-top:28px; line-height:0;}
-  @media (max-width:640px){ .map-frame{aspect-ratio:4/5;} }
+  .map-frame{width:100%; aspect-ratio:16/7; border:1px solid var(--line); border-radius:16px; overflow:hidden; margin-top:28px;}
 
   .reviews-section{background:linear-gradient(180deg, var(--canal-tint) 0%, var(--off-white) 100%); border-top:1px solid var(--canal-tint); border-bottom:1px solid var(--line);}
   .live-viewers-strip{display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap; padding:8px 16px; background:var(--canal); color:#fff; font-size:12px; font-weight:600; text-align:center;}
@@ -460,7 +459,7 @@
   @keyframes discountPulse{ 0%,100%{ transform:scale(1); opacity:1; } 50%{ transform:scale(1.035); opacity:.88; } }
   @media (prefers-reduced-motion: reduce){ .discount-highlight{animation:none;} }
 
-  .map-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0; display:block;}
+  .map-frame iframe{width:100%; height:100%; border:0;}
   .map-placeholder{width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:var(--canal-tint); border:none; cursor:pointer; color:var(--canal); font-size:14px; font-weight:600; font-family:inherit;}
   .map-placeholder:hover{background:var(--canal-tint);}
   .reveal{opacity:0; transform:translateY(28px); transition:opacity .8s cubic-bezier(.2,.7,.3,1), transform .8s cubic-bezier(.2,.7,.3,1);}
@@ -1035,7 +1034,7 @@
       <h2 data-i18n="locTitle">Sloten, Amsterdam, quiet, green, on the water</h2>
       <p class="lead-text" data-i18n="locBody">The house sits in Sloten, on the western edge of Amsterdam, 10 minutes from the airport and 10-20 minutes from every central point in the city, yet surrounded by lakes, canals and forest.</p>
       <div class="map-frame" id="mapFrame">
-        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB0KwRkbXdtcz7tfOaEBro9JOF220y5hQY&q=Sloten,Amsterdam,Netherlands" referrerpolicy="no-referrer-when-downgrade" title="Map of Sloten, Amsterdam" loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps?q=Sloten,+Amsterdam,+Netherlands&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of Sloten, Amsterdam"></iframe>
       </div>
     </div>
   </section>
