@@ -1033,9 +1033,7 @@
       <div class="eyebrow" data-i18n="locEyebrow">Location</div>
       <h2 data-i18n="locTitle">Sloten, Amsterdam, quiet, green, on the water</h2>
       <p class="lead-text" data-i18n="locBody">The house sits in Sloten, on the western edge of Amsterdam, 10 minutes from the airport and 10-20 minutes from every central point in the city, yet surrounded by lakes, canals and forest.</p>
-      <div class="map-frame" id="mapFrame">
-        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB0KwRkbXdtcz7tfOaEBro9JOF220y5hQY&q=Sloten,Amsterdam,Netherlands" referrerpolicy="no-referrer-when-downgrade" title="Map of Sloten, Amsterdam" loading="lazy"></iframe>
-      </div>
+      <div class="map-frame" id="mapFrame"></div>
     </div>
   </section>
 
@@ -2471,7 +2469,38 @@ loadPublicReviews();
   }, 800);
 })();
 
-/* Map is now embedded directly in the HTML — no click-to-load needed. */
+/* Map is created dynamically, only after fonts are fully loaded and layout has
+   settled — this guarantees the container is at its final size before Google's
+   map starts rendering, so it can never load against a box that's about to
+   shift (e.g. from web-font swap reflow just above it on the page). */
+(function(){
+  const frame = document.getElementById('mapFrame');
+  if (!frame) return;
+
+  function insertMap(){
+    if (frame.querySelector('iframe')) return; // already inserted
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyB0KwRkbXdtcz7tfOaEBro9JOF220y5hQY&q=Sloten,Amsterdam,Netherlands';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.title = 'Map of Sloten, Amsterdam';
+    iframe.style.cssText = 'width:100%; height:100%; border:0; display:block;';
+    frame.appendChild(iframe);
+  }
+
+  function whenSettled(){
+    // A short extra delay after fonts resolve, since some browsers still
+    // reflow for a moment after the fonts.ready promise fires.
+    setTimeout(insertMap, 150);
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(whenSettled);
+    // Safety net in case fonts.ready never resolves for some reason.
+    setTimeout(insertMap, 3000);
+  } else {
+    whenSettled();
+  }
+})();
 
 /* ---------------- live chat widget ---------------- */
 (function(){
