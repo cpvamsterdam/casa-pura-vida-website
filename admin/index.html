@@ -398,18 +398,30 @@ const RATING_CATS = ['cleanliness','location','value','communication','accuracy'
 let reviewsData = { tokens: [], reviews: [] };
 
 async function loadReviews(){
+  let res, json;
   try {
-    const res = await fetch(`${API}/reviews`);
-    reviewsData = await res.json();
-    renderPendingReviews();
-    renderApprovedReviews();
+    res = await fetch(`${API}/reviews`);
+    json = await res.json();
   } catch(e) {
     document.getElementById('pendingReviewsList').textContent = 'Failed to load reviews.';
+    return;
   }
+  reviewsData = json;
+  renderPendingReviews();
+  renderApprovedReviews();
 }
 
 function starLine(ratings){
-  return RATING_CATS.map(c => `${c}: ${'★'.repeat(ratings[c])}${'☆'.repeat(5-ratings[c])}`).join('  ·  ');
+  return RATING_CATS.map(c => {
+    const v = Number(ratings && ratings[c]) || 0;
+    return `${c}: ${'★'.repeat(v)}${'☆'.repeat(Math.max(0, 5 - v))}`;
+  }).join('  ·  ');
+}
+
+function escapeHtmlAdmin(str){
+  const div = document.createElement('div');
+  div.textContent = str == null ? '' : String(str);
+  return div.innerHTML;
 }
 
 function reviewCardHtml(r, showActions){
@@ -424,10 +436,11 @@ function reviewCardHtml(r, showActions){
     actionsHtml = `<div class="rc-actions"><button class="rc-delete" data-id="${r.id}">Remove from site</button></div>`;
   }
   return `<div class="review-card">
-    <div class="rc-top"><span class="rc-name">${r.name}</span><span class="rc-country">${r.country}</span></div>
+    <div class="rc-top"><span class="rc-name">${escapeHtmlAdmin(r.name)}</span><span class="rc-country">${escapeHtmlAdmin(r.country)}</span></div>
     <div class="rc-ratings">${starLine(r.ratings)}</div>
-    ${r.comment ? `<div class="rc-comment">"${r.comment}"</div>` : ''}
+    ${r.comment ? `<div class="rc-comment">"${escapeHtmlAdmin(r.comment)}"</div>` : ''}
     ${photosHtml ? `<div class="rc-photos">${photosHtml}</div>` : ''}
+    <div style="font-size:11px; color:var(--ink-soft); margin-top:4px;">id: ${escapeHtmlAdmin(r.id)} · status: ${escapeHtmlAdmin(r.status)}</div>
     ${actionsHtml}
   </div>`;
 }
@@ -436,7 +449,10 @@ function renderPendingReviews(){
   const pending = reviewsData.reviews.filter(r => r.status === 'pending');
   const container = document.getElementById('pendingReviewsList');
   if(pending.length === 0){ container.textContent = 'No reviews waiting for approval.'; return; }
-  container.innerHTML = pending.map(r => reviewCardHtml(r, 'pending')).join('');
+  container.innerHTML = pending.map(r => {
+    try { return reviewCardHtml(r, 'pending'); }
+    catch(e){ return `<div class="review-card">⚠️ Couldn't display review id ${escapeHtmlAdmin(r.id)}: ${escapeHtmlAdmin(e.message)}</div>`; }
+  }).join('');
   container.querySelectorAll('button[data-action]').forEach(btn => {
     btn.addEventListener('click', async () => {
       btn.disabled = true;
@@ -453,9 +469,50 @@ function renderPendingReviews(){
 function renderApprovedReviews(){
   const approved = reviewsData.reviews.filter(r => r.status === 'approved');
   const container = document.getElementById('approvedReviewsList');
-  if(approved.length === 0){ container.textContent = 'No published reviews yet.'; return; }
-  container.innerHTML = approved.map(r => reviewCardHtml(r, 'approved')).join('');
-  container.querySelectorAll('.rc-delete').forEach(btn => {
+  if(approved.length === 0){ container.textContent = 'No published reviews yet.'; }
+  else {
+    container.innerHTML = approved.map(r => {
+      try { return reviewCardHtml(r, 'approved'); }
+      catch(e){ return `<div class="review-card">⚠️ Couldn't display review id ${escapeHtmlAdmin(r.id)}: ${escapeHtmlAdmin(e.message)}</div>`; }
+    }).join('');
+    container.querySelectorAll('.rc-delete').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        if(!confirm('Remove this review from the site permanently?')) return;
+        await fetch(`${API}/reviews`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'delete', reviewId: btn.dataset.id }),
+        });
+        await loadReviews();
+        toast('Review removed.');
+      });
+    });
+  }
+  renderOtherReviews();
+}
+
+// Safety net: shows any review that doesn't cleanly match 'pending', 'approved',
+// or 'rejected' — for example due to a typo, extra whitespace, or any other data
+// issue that would otherwise make a review invisible everywhere in this panel.
+function renderOtherReviews(){
+  const known = ['pending', 'approved', 'rejected'];
+  const other = reviewsData.reviews.filter(r => !known.includes(r.status));
+  let section = document.getElementById('otherReviewsSection');
+  if(other.length === 0){
+    if(section) section.remove();
+    return;
+  }
+  if(!section){
+    section = document.createElement('div');
+    section.id = 'otherReviewsSection';
+    section.innerHTML = '<div style="font-weight:700; font-size:13.5px; margin:20px 0 8px; color:#9B4646;">⚠️ Reviews needing attention (unrecognized status)</div><div id="otherReviewsList"></div>';
+    document.getElementById('approvedReviewsList').insertAdjacentElement('afterend', section);
+  }
+  const listEl = document.getElementById('otherReviewsList');
+  listEl.innerHTML = other.map(r => {
+    try { return reviewCardHtml(r, 'approved'); } // reuse the delete button so it can be removed directly
+    catch(e){ return `<div class="review-card">⚠️ Couldn't display review id ${escapeHtmlAdmin(r.id)}: ${escapeHtmlAdmin(e.message)}</div>`; }
+  }).join('');
+  listEl.querySelectorAll('.rc-delete').forEach(btn => {
     btn.addEventListener('click', async () => {
       if(!confirm('Remove this review from the site permanently?')) return;
       await fetch(`${API}/reviews`, {
