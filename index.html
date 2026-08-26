@@ -526,8 +526,8 @@
     .cta-row .btn{padding:11px 22px; font-size:12.5px; gap:6px;}
     .cta-row .btn-primary, .cta-row .btn-ghost{animation:ctaPulseMobile 3.2s ease-in-out infinite;}
     html.a11y-reduce-motion .cta-row .btn-primary, html.a11y-reduce-motion .cta-row .btn-ghost{animation:none;}
-    .sticky-cta{display:flex; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) translateY(-14px); z-index:5; opacity:0; pointer-events:none; padding:9px 20px; font-size:12px; text-transform:uppercase; letter-spacing:.9px; transition:opacity .35s ease, transform .35s ease; box-shadow:0 6px 16px -6px rgba(47,107,115,.5);}
-    .sticky-cta.show{opacity:1; transform:translate(-50%,-50%) translateY(0); pointer-events:auto;}
+    .sticky-cta{display:flex; position:absolute; top:100%; left:50%; margin-top:8px; transform:translateX(-50%) translateY(-10px); z-index:5; opacity:0; pointer-events:none; padding:9px 20px; font-size:12px; text-transform:uppercase; letter-spacing:.9px; transition:opacity .35s ease, transform .35s ease; box-shadow:0 6px 16px -6px rgba(47,107,115,.5);}
+    .sticky-cta.show{opacity:1; transform:translateX(-50%) translateY(0); pointer-events:auto;}
     nav.main{position:fixed; inset-inline-start:0; top:0; bottom:0; width:min(58vw,230px); background:var(--canal); flex-direction:column; align-items:center; justify-content:center; gap:20px; padding:70px 16px 24px; box-shadow:8px 0 28px rgba(20,30,30,.22); visibility:hidden; opacity:0; transform:scale(.97); transition:opacity .16s ease, transform .16s ease, visibility 0s linear .16s; z-index:950; border-start-start-radius:0; border-end-start-radius:0; border-start-end-radius:22px; border-end-end-radius:22px;}
     html[dir="rtl"] nav.main{box-shadow:-8px 0 28px rgba(20,30,30,.22);}
     nav.main.open{visibility:visible; opacity:1; transform:scale(1); transition:opacity .16s ease, transform .16s ease, visibility 0s linear 0s;}
