@@ -21,14 +21,21 @@ function formatDateISO(d){
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
-// Expands admin-entered ranges (inclusive of both start and end night) into a flat,
-// deduplicated list of blocked date strings - this is the only thing shown publicly.
+// Expands admin-entered ranges into a flat, deduplicated list of blocked date
+// strings - this is the only thing shown publicly.
+// The check-in day of a range is intentionally left OUT of the blocked list
+// (unless it's a single-day block) so it stays available as a checkout day
+// for a different guest's booking - e.g. if one stay is 23.9-29.9, another
+// guest can still book a stay ending 23.9. Minimum-night rules plus the fact
+// that every other night in the range stays blocked prevent anyone from
+// actually booking into the occupied nights.
 function expandRangesToDates(ranges){
   const dates = new Set();
   for (const r of (ranges || [])) {
     if (!r || !/^\d{4}-\d{2}-\d{2}$/.test(r.start) || !/^\d{4}-\d{2}-\d{2}$/.test(r.end)) continue;
     let cursor = new Date(r.start);
     const end = new Date(r.end);
+    if (cursor < end) cursor.setDate(cursor.getDate() + 1); // skip check-in day, unless it's a single-day block
     let guard = 0;
     while (cursor <= end && guard < 3660) {
       dates.add(formatDateISO(cursor));
