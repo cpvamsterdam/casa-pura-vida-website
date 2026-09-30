@@ -25,7 +25,7 @@
 <style>
   :root{
     --white:#ffffff; --off-white:#F5F2EB; --ink:#1A1D1F; --ink-soft:#54595E;
-    --canal:#193191; --canal-deep:#122266; --canal-tint:#E8EAF4; --brass:#AE1C28; --accent2:#FF7A00;
+    --canal:#193191; --canal-deep:#122266; --canal-tint:#E8EAF4; --brass:#AE1C28; --accent2:#FF6A13;
     --float-accent: var(--accent2);
     --line:#E7E5E1; --radius:14px; --max:944px;
   }
@@ -68,9 +68,9 @@
   .brand-text{display:inline-block; white-space:nowrap; font-family:'Poiret One','Montserrat',serif; font-weight:400; letter-spacing:1.5px; font-size:16.5px; line-height:1.15; padding:0; color:var(--canal); max-width:100%; overflow:hidden; text-overflow:ellipsis;}
   nav.main{display:flex; gap:6px; flex-wrap:wrap; align-items:center; justify-content:center; row-gap:8px;}
   nav.main a{text-decoration:none; white-space:nowrap; font-size:12px; color:#fff; font-weight:500; font-family:'Josefin Sans','Montserrat','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; letter-spacing:.3px; padding:7px 11px; border-radius:100px; border:1px solid var(--canal); background:var(--canal); transition:border-color .15s ease, color .15s ease, background .15s ease; display:inline-flex; align-items:center; gap:5px; text-transform:capitalize;}
-  nav.main a.nav-reviews-btn{background:var(--float-accent); border-color:var(--float-accent); box-shadow:0 0 0 3px rgba(255,122,0,.22); animation:reviewsBtnGlow 2.8s ease-in-out infinite;}
+  nav.main a.nav-reviews-btn{background:var(--float-accent); border-color:var(--float-accent); box-shadow:0 0 0 3px rgba(255,106,19,.22); animation:reviewsBtnGlow 2.8s ease-in-out infinite;}
   nav.main a.nav-reviews-btn:hover{filter:brightness(0.92);}
-  @keyframes reviewsBtnGlow{ 0%,100%{ box-shadow:0 0 0 3px rgba(255,122,0,.22); } 50%{ box-shadow:0 0 0 6px rgba(255,122,0,.06); } }
+  @keyframes reviewsBtnGlow{ 0%,100%{ box-shadow:0 0 0 3px rgba(255,106,19,.22); } 50%{ box-shadow:0 0 0 6px rgba(255,106,19,.06); } }
   @media (prefers-reduced-motion: reduce){ nav.main a.nav-reviews-btn{animation:none;} }
   nav.main a .nav-ic{width:14px; height:14px; flex:none;}
   nav.main a:hover{color:var(--canal); border-color:var(--canal); background:#fff;}
@@ -151,7 +151,7 @@
   .a11y-action .ic{width:18px; text-align:center; flex:none; font-weight:700; font-size:13px;}
   .a11y-action.reset{border-top:1px solid var(--line); margin-top:4px; padding-top:11px; border-radius:0 0 10px 10px;}
   html.a11y-contrast{--ink:#000; --ink-soft:#111; --line:#000;}
-  html.theme-night{--canal:#193191; --canal-deep:#122266; --canal-tint:#E8EAF4; --brass:#BD454F; --accent2:#FF8A1F; --off-white:#FAFAF5; --float-accent: var(--brass);}
+  html.theme-night{--canal:#193191; --canal-deep:#122266; --canal-tint:#E8EAF4; --brass:#BD454F; --accent2:#FF6A13; --off-white:#FAFAF5; --float-accent: var(--brass);}
   html.a11y-contrast body{background:#fff;}
   html.a11y-text-lg{zoom:1.16;}
   html.a11y-underline-links a{text-decoration:underline !important;}
@@ -234,6 +234,9 @@
   .cta-row .btn-primary, #fullGalleryBtn{animation:ctaPulse 2.6s ease-in-out infinite;}
   html.a11y-reduce-motion .cta-row .btn-primary, html.a11y-reduce-motion #fullGalleryBtn{animation:none;}
   .sticky-cta{display:none;}
+  /* floating "Check availability" button: orange to break the blue (only this button) */
+  header.site .sticky-cta, header.site .sticky-cta.btn-primary{background:var(--accent2); border-color:var(--accent2); color:#fff; box-shadow:0 6px 16px -6px rgba(255,106,19,.55);}
+  header.site .sticky-cta:hover, header.site .sticky-cta.btn-primary:hover{background:#E85A08; border-color:#E85A08;}
   @keyframes ctaPulseMobile{0%,100%{ box-shadow:0 0 0 0 rgba(47,107,115,.35); filter:brightness(1);} 50%{ box-shadow:0 0 0 8px rgba(47,107,115,0); filter:brightness(1.15);}}
   .cta-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:22px;}
   .cta-row .btn{text-transform:uppercase; letter-spacing:.9px;}
@@ -436,7 +439,7 @@
   .reviews-section{background:linear-gradient(180deg, var(--canal-tint) 0%, var(--off-white) 100%); border-top:1px solid var(--canal-tint); border-bottom:1px solid var(--line);}
   .live-viewers-strip{display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap; padding:8px 16px; background:var(--canal); color:#fff; font-size:12px; font-weight:600; text-align:center;}
   .live-dot{width:8px; height:8px; border-radius:50%; background:var(--accent2); flex:none; animation:liveDotGlow 1.6s ease-in-out infinite;}
-  @keyframes liveDotGlow{ 0%,100%{ box-shadow:0 0 0 0 rgba(255,122,0,.6); } 50%{ box-shadow:0 0 0 5px rgba(255,122,0,0); } }
+  @keyframes liveDotGlow{ 0%,100%{ box-shadow:0 0 0 0 rgba(255,106,19,.6); } 50%{ box-shadow:0 0 0 5px rgba(255,106,19,0); } }
   .live-count{font-weight:800;}
   .live-flag{font-size:14px;}
   .live-country{font-weight:800; letter-spacing:.5px; display:inline-block; min-width:60px; text-align:center; animation:liveCountryFade .5s ease;}
@@ -564,7 +567,7 @@
     .nav-backdrop.open{display:block;}
     .menu-toggle{display:flex; align-items:center; justify-content:center; width:44px; height:44px; font-size:26px; background:var(--float-accent); border-radius:50%; color:#fff; animation:menuTogglePulse 2.6s ease-in-out infinite;}
     .menu-toggle.tapped{animation:none;}
-    @keyframes menuTogglePulse{ 0%,100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(255,122,0,.4); } 50%{ transform:scale(1.08); box-shadow:0 0 0 6px rgba(255,122,0,0); } }
+    @keyframes menuTogglePulse{ 0%,100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(255,106,19,.4); } 50%{ transform:scale(1.08); box-shadow:0 0 0 6px rgba(255,106,19,0); } }
     @media (prefers-reduced-motion: reduce){ .menu-toggle{animation:none;} }
     .split, .booking-grid{grid-template-columns:1fr;}
     .booking-padded{padding:28px 20px;}
@@ -2217,7 +2220,7 @@ function fireConfetti(){
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  const colors = ['#193191', '#122266', '#AE1C28', '#E86A6A', '#FF7A00', '#5B7FE0'];
+  const colors = ['#193191', '#122266', '#AE1C28', '#E86A6A', '#FF6A13', '#5B7FE0'];
   const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const count = prefersReducedMotion ? 0 : 90;
   const particles = [];
