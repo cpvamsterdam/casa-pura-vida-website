@@ -2,6 +2,10 @@
 // and also sends the guest a styled confirmation-of-receipt email (not a booking
 // confirmation - that still requires host approval).
 // Uses the same Resend account already configured for admin login codes.
+// Every request is also saved to the admin "Booking requests" list (Netlify Blobs).
+
+const crypto = require('crypto');
+const { getJSON, setJSON } = require('./utils/storage');
 
 const LOGO_URL = 'https://casapuravidanl.com/assets/email/email-logo.png';
 const WHATSAPP_URL = 'https://wa.me/message/QZBXKQJ6BSIRN1';
@@ -26,6 +30,41 @@ async function verifyRecaptcha(token, remoteIp) {
 const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 }[c]));
+
+// Saves the request so it shows up in the admin panel. Best-effort: if storage fails,
+// the notification emails still go out, so the request is never lost.
+async function saveBooking(data, lang) {
+  try {
+    const store = await getJSON('bookings-data', { bookings: [] });
+    if (!Array.isArray(store.bookings)) store.bookings = [];
+    const isoDate = /^\d{4}-\d{2}-\d{2}$/;
+    let nights = null;
+    if (isoDate.test(String(data.checkin)) && isoDate.test(String(data.checkout))) {
+      const diff = Math.round((new Date(data.checkout) - new Date(data.checkin)) / 86400000);
+      if (diff > 0) nights = diff;
+    }
+    store.bookings.push({
+      id: crypto.randomBytes(8).toString('hex'),
+      status: 'pending',
+      createdAt: new Date().toISOString(),
+      name: String(data.name).slice(0, 200),
+      email: String(data.email).slice(0, 200),
+      phone: String(data.phone).slice(0, 60),
+      checkin: String(data.checkin).slice(0, 40),
+      checkout: String(data.checkout).slice(0, 40),
+      nights,
+      guests: String(data.guests).slice(0, 10),
+      estimatedTotal: data.estimatedTotal ? String(data.estimatedTotal).slice(0, 40) : '',
+      message: data.message ? String(data.message).slice(0, 2000) : '',
+      lang,
+      history: [],
+    });
+    await setJSON('bookings-data', store);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
 
 const GUEST_EMAIL_TEXT = {
   en: {
@@ -73,7 +112,7 @@ const GUEST_EMAIL_TEXT = {
     notConfirmationBody: 'ההזמנה שלך עדיין לא מאושרת. נבדוק את הבקשה ונאשר זמינות תוך יום עסקים אחד.',
     checkin: 'הגעה', checkout: 'עזיבה', guests: 'אורחים מעל גיל שנתיים', total: 'סה"כ משוער (כולל מע"מ)', message: 'ההודעה שלך',
     depositTitle: 'פיקדון ביטחון',
-    depositBody: 'נדרש פיקדון ביטחון נפרד בסך 3,000 ₪ לאחר אישור ההזמנה. פיקדון זה אינו חלק מהסכום הכולל שמוצג למעלה - הוא נגבה בנפרד, ומוחזר במלואו עד 5 ימי עסקים לאחר תום השהייה, בכפוף לכך שלא נגרם נזק וכללי הבית כובדו.',
+    depositBody: 'נדרש פיקדון ביטחון נפרד בסך 900€ לאחר אישור ההזמנה. פיקדון זה אינו חלק מהסכום הכולל שמוצג למעלה - הוא נגבה בנפרד, ומוחזר במלואו עד 5 ימי עסקים לאחר תום השהייה, בכפוף לכך שלא נגרם נזק וכללי הבית כובדו.',
     cancelTitle: 'מדיניות ביטולים',
     cancelBody: 'בשליחת הבקשה אישרת שקראת והסכמת למדיניות הביטולים שלנו.',
     cancelLink: 'צפייה במדיניות הביטולים המלאה',
@@ -185,6 +224,7 @@ exports.handler = async (event) => {
         <tr><td style="padding:6px 0; font-weight:bold;">Estimated total (incl. VAT)</td><td>${escapeHtml(data.estimatedTotal || 'n/a')}</td></tr>
         <tr><td style="padding:6px 0; font-weight:bold;">Message</td><td>${escapeHtml(data.message || '-')}</td></tr>
       </table>
+      <p style="margin-top:20px;"><a href="${SITE_URL}/admin" style="display:inline-block; background:#2F6B73; color:#ffffff; text-decoration:none; padding:10px 22px; border-radius:100px; font-size:14px; font-weight:bold;">Open admin to confirm or decline</a></p>
     </div>
   `;
 
@@ -208,6 +248,10 @@ exports.handler = async (event) => {
     return { statusCode: 502, body: JSON.stringify({ error: 'Failed to send notification email: ' + err.message }) };
   }
 
+  // Save the request for the admin "Booking requests" list. Done only after the admin
+  // notification succeeded, so a guest who sees an error and retries can't create duplicates.
+  const saved = await saveBooking(data, lang);
+
   // Send the guest-facing confirmation-of-receipt email. This is best-effort - if it
   // fails, we don't fail the whole request, since the admin has already been notified
   // and can follow up manually. We report it in the response so issues are visible.
@@ -230,5 +274,5 @@ exports.handler = async (event) => {
     guestEmailSent = false;
   }
 
-  return { statusCode: 200, body: JSON.stringify({ message: 'Sent.', guestEmailSent }) };
+  return { statusCode: 200, body: JSON.stringify({ message: 'Sent.', guestEmailSent, saved }) };
 };
