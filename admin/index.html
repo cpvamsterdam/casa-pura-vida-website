@@ -74,9 +74,45 @@
   .rc-delete{background:none; color:var(--danger); text-decoration:underline;}
   .season-item button{background:none; border:none; color:var(--danger); font-weight:700; cursor:pointer;}
   .save-bar{position:sticky; bottom:0; background:#fff; padding:16px 0; border-top:1px solid var(--line); margin-top:24px; display:flex; gap:10px; justify-content:flex-end;}
-  .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--canal-deep); color:#fff; padding:12px 22px; border-radius:100px; font-size:13.5px; display:none;}
+  .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--canal-deep); color:#fff; padding:12px 22px; border-radius:100px; font-size:13.5px; display:none; z-index:2000;}
   .toast.show{display:block;}
   .two-col{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+
+  /* Review link copy button */
+  .copy-link-btn{margin-top:10px;}
+  .copy-link-btn.copied{background:#4E9D68; color:#fff; border-color:#4E9D68;}
+
+  /* Booking requests */
+  .bk-head{display:flex; justify-content:space-between; align-items:center; gap:10px; margin:0 0 12px;}
+  .bk-head .section-title{margin:0;}
+  .bk-tabs{display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;}
+  .bk-tab{background:#fff; border:1px solid var(--line); padding:8px 14px; border-radius:100px; font-size:13px; font-weight:600; color:var(--ink-soft);}
+  .bk-tab.active{background:var(--canal); border-color:var(--canal); color:#fff;}
+  .bk-card{background:var(--off-white); border-radius:12px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--line);}
+  .bk-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:6px;}
+  .bk-name{font-weight:700; font-size:14.5px;}
+  .bk-badge{font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:100px; white-space:nowrap;}
+  .bk-badge.pending{background:#F7EDDC; color:#8A5A2B;}
+  .bk-badge.confirmed{background:#DDF0E3; color:#2E6B44;}
+  .bk-badge.declined, .bk-badge.cancelled{background:#F4DEDC; color:var(--danger);}
+  .bk-dates{font-size:14px; font-weight:600; margin-bottom:4px;}
+  .bk-meta{font-size:13px; color:var(--ink-soft); line-height:1.6;}
+  .bk-meta a{color:var(--canal); text-decoration:none;}
+  .bk-msg{font-size:13px; color:var(--ink-soft); background:#fff; border:1px solid var(--line); border-radius:10px; padding:8px 12px; margin:8px 0; white-space:pre-wrap;}
+  .bk-actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; align-items:center;}
+  .bk-actions button{font-size:12.5px; padding:7px 16px; border-radius:100px; border:none; font-weight:600;}
+  .bk-confirm{background:#4E9D68; color:#fff;}
+  .bk-decline, .bk-cancel{background:var(--danger); color:#fff;}
+  .bk-delete{background:none !important; color:var(--danger); text-decoration:underline; padding-left:4px !important;}
+  .bk-history{font-size:11.5px; color:var(--ink-soft); margin-top:8px;}
+  .bk-count{display:inline-block; min-width:20px; padding:0 6px; margin-inline-start:6px; border-radius:100px; background:rgba(0,0,0,.08); font-size:11.5px; text-align:center;}
+  .bk-tab.active .bk-count{background:rgba(255,255,255,.25);}
+  .modal-box.wide{max-width:440px;}
+  .modal-box textarea{width:100%; padding:11px 14px; border-radius:10px; border:1px solid var(--line); font-size:14px; font-family:inherit; margin-bottom:14px; min-height:84px; resize:vertical;}
+  .modal-box select{width:100%; padding:11px 14px; border-radius:10px; border:1px solid var(--line); font-size:14.5px; font-family:inherit; margin-bottom:14px; background:#fff;}
+  .modal-box .modal-note{font-size:13px; color:var(--ink-soft); background:var(--canal-tint); border-radius:10px; padding:10px 12px; margin:0 0 14px; line-height:1.5;}
+  .modal-box .modal-error{color:var(--danger); font-size:13px; margin:0 0 10px; display:none;}
+  .modal-box .modal-error.show{display:block;}
 </style>
 </head>
 <body>
@@ -106,6 +142,37 @@
       <p class="sub" style="margin:0;">Casa Pura Vida Amsterdam</p>
     </div>
     <button class="btn-secondary" id="logoutBtn">Log out</button>
+  </div>
+
+  <div class="bk-head">
+    <div class="section-title">Booking requests</div>
+    <button class="btn-secondary" id="refreshBookingsBtn">Refresh</button>
+  </div>
+  <div class="bk-tabs" id="bookingTabs"></div>
+  <div id="bookingsList" style="font-size:13.5px; color:var(--ink-soft);">Loading...</div>
+
+  <div class="modal-overlay" id="bookingActionModal" style="display:none;">
+    <div class="modal-box wide">
+      <h3 id="bkModalTitle"></h3>
+      <div class="modal-note" id="bkModalSummary"></div>
+      <label for="bkLangSelect">Email language</label>
+      <select id="bkLangSelect">
+        <option value="he">עברית</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+      </select>
+      <div id="bkTotalWrap">
+        <label for="bkTotalInput">Total shown in the email (incl. VAT)</label>
+        <input type="text" id="bkTotalInput">
+      </div>
+      <label for="bkNoteInput" id="bkNoteLabel">Note to the guest (optional)</label>
+      <textarea id="bkNoteInput"></textarea>
+      <div class="modal-error" id="bkModalError"></div>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="bkModalCancel">Back</button>
+        <button class="btn-primary" id="bkModalConfirm">Send</button>
+      </div>
+    </div>
   </div>
 
   <div class="section-title">Block / unblock dates</div>
@@ -334,6 +401,7 @@ async function loadDashboard() {
   renderSeasons();
   renderCalendar();
   loadReviews();
+  loadBookings();
 }
 
 function renderSeasons() {
@@ -391,6 +459,183 @@ document.getElementById('seedHolidaysBtn').addEventListener('click', () => {
   });
   renderSeasons();
   toast(`Added ${added} holiday date range(s). Review the list below, then click Save changes.`);
+});
+
+/* ---------------- booking requests ---------------- */
+let bookingsList = [];
+let bookingsTab = 'pending';
+let activeBookingAction = null; // { booking, action }
+
+const BK_TABS = [
+  { key: 'pending', label: 'Pending', statuses: ['pending'] },
+  { key: 'confirmed', label: 'Confirmed', statuses: ['confirmed'] },
+  { key: 'closed', label: 'Declined / cancelled', statuses: ['declined', 'cancelled'] },
+];
+const BK_STATUS_LABEL = { pending: 'Pending', confirmed: 'Confirmed', declined: 'Declined', cancelled: 'Cancelled' };
+const BK_LANG_LABEL = { he: 'עברית', en: 'English', es: 'Español' };
+
+function escAttr(str){
+  return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
+
+async function loadBookings(){
+  const container = document.getElementById('bookingsList');
+  try {
+    const res = await fetch(`${API}/bookings`);
+    if (!res.ok) throw new Error('bad response');
+    const json = await res.json();
+    bookingsList = Array.isArray(json.bookings) ? json.bookings : [];
+  } catch (e) {
+    container.textContent = 'Failed to load booking requests.';
+    return;
+  }
+  renderBookingTabs();
+  renderBookings();
+}
+
+function renderBookingTabs(){
+  const wrap = document.getElementById('bookingTabs');
+  wrap.innerHTML = '';
+  BK_TABS.forEach(tab => {
+    const count = bookingsList.filter(b => tab.statuses.includes(b.status)).length;
+    const btn = document.createElement('button');
+    btn.className = 'bk-tab' + (tab.key === bookingsTab ? ' active' : '');
+    btn.innerHTML = `${tab.label}<span class="bk-count">${count}</span>`;
+    btn.addEventListener('click', () => { bookingsTab = tab.key; renderBookingTabs(); renderBookings(); });
+    wrap.appendChild(btn);
+  });
+}
+
+function bookingCardHtml(b){
+  const nights = b.nights ? ` (${b.nights} night${b.nights === 1 ? '' : 's'})` : '';
+  const received = b.createdAt ? new Date(b.createdAt).toLocaleString('en-GB', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' }) : '';
+  const last = Array.isArray(b.history) && b.history.length ? b.history[b.history.length - 1] : null;
+  let historyHtml = '';
+  if (last) {
+    const when = last.at ? new Date(last.at).toLocaleString('en-GB', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' }) : '';
+    historyHtml = `<div class="bk-history">${escapeHtmlAdmin(BK_STATUS_LABEL[last.status] || last.status)} on ${escapeHtmlAdmin(when)} · email sent (${escapeHtmlAdmin(BK_LANG_LABEL[last.emailLang] || last.emailLang || '')})${last.note ? ' · note: ' + escapeHtmlAdmin(last.note) : ''}</div>`;
+  }
+  let actions = '';
+  if (b.status === 'pending') {
+    actions = `<button class="bk-confirm" data-act="confirm" data-id="${escAttr(b.id)}">Confirm booking</button>
+      <button class="bk-decline" data-act="decline" data-id="${escAttr(b.id)}">Decline</button>
+      <button class="bk-delete" data-act="delete" data-id="${escAttr(b.id)}">Delete</button>`;
+  } else if (b.status === 'confirmed') {
+    actions = `<button class="bk-cancel" data-act="cancel" data-id="${escAttr(b.id)}">Cancel booking</button>`;
+  } else {
+    actions = `<button class="bk-delete" data-act="delete" data-id="${escAttr(b.id)}">Delete</button>`;
+  }
+  return `<div class="bk-card">
+    <div class="bk-top">
+      <span class="bk-name">${escapeHtmlAdmin(b.name)}</span>
+      <span class="bk-badge ${escAttr(b.status)}">${escapeHtmlAdmin(BK_STATUS_LABEL[b.status] || b.status)}</span>
+    </div>
+    <div class="bk-dates">${escapeHtmlAdmin(b.checkin)} → ${escapeHtmlAdmin(b.checkout)}${escapeHtmlAdmin(nights)}</div>
+    <div class="bk-meta">
+      ${escapeHtmlAdmin(b.guests)} guest${String(b.guests) === '1' ? '' : 's'} · Total ${escapeHtmlAdmin(b.estimatedTotal || 'n/a')}<br>
+      <a href="mailto:${escAttr(b.email)}">${escapeHtmlAdmin(b.email)}</a> · <a href="tel:${escAttr(String(b.phone).replace(/[^\d+]/g, ''))}">${escapeHtmlAdmin(b.phone)}</a><br>
+      Received ${escapeHtmlAdmin(received)} · Guest language: ${escapeHtmlAdmin(BK_LANG_LABEL[b.lang] || b.lang || '')}
+    </div>
+    ${b.message ? `<div class="bk-msg">${escapeHtmlAdmin(b.message)}</div>` : ''}
+    ${historyHtml}
+    <div class="bk-actions">${actions}</div>
+  </div>`;
+}
+
+function renderBookings(){
+  const container = document.getElementById('bookingsList');
+  const tab = BK_TABS.find(t => t.key === bookingsTab) || BK_TABS[0];
+  const items = bookingsList.filter(b => tab.statuses.includes(b.status));
+  if (items.length === 0) {
+    container.textContent = tab.key === 'pending' ? 'No requests waiting for your answer.' : 'Nothing here yet.';
+    return;
+  }
+  container.innerHTML = items.map(b => {
+    try { return bookingCardHtml(b); }
+    catch (e) { return `<div class="bk-card">⚠️ Couldn't display request ${escapeHtmlAdmin(b && b.id)}: ${escapeHtmlAdmin(e.message)}</div>`; }
+  }).join('');
+  container.querySelectorAll('button[data-act]').forEach(btn => {
+    btn.addEventListener('click', () => onBookingActionClick(btn.dataset.act, btn.dataset.id));
+  });
+}
+
+async function onBookingActionClick(action, id){
+  const booking = bookingsList.find(b => b.id === id);
+  if (!booking) return;
+  if (action === 'delete') {
+    if (!confirm('Delete this request from the list? No email will be sent.')) return;
+    const res = await fetch(`${API}/bookings`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', bookingId: id }),
+    });
+    if (res.ok) { toast('Request deleted.'); loadBookings(); } else { toast('Failed to delete — please try again.'); }
+    return;
+  }
+  openBookingActionModal(booking, action);
+}
+
+const BK_ACTION_TEXT = {
+  confirm: { title: 'Confirm this booking', note: 'Personal note to the guest (optional, e.g. payment details)', button: 'Confirm & send email', info: 'An official confirmation email will be sent to' },
+  decline: { title: 'Decline this request', note: 'Reason / message to the guest (optional)', button: 'Decline & send email', info: 'A polite decline email will be sent to' },
+  cancel: { title: 'Cancel this booking', note: 'Reason / message to the guest (optional)', button: 'Cancel & send email', info: 'A cancellation email will be sent to' },
+};
+
+function openBookingActionModal(booking, action){
+  activeBookingAction = { booking, action };
+  const txt = BK_ACTION_TEXT[action];
+  document.getElementById('bkModalTitle').textContent = txt.title;
+  document.getElementById('bkModalSummary').textContent = `${booking.name} · ${booking.checkin} → ${booking.checkout}. ${txt.info} ${booking.email}.`;
+  document.getElementById('bkLangSelect').value = ['he','en','es'].includes(booking.lang) ? booking.lang : 'en';
+  document.getElementById('bkTotalWrap').style.display = action === 'confirm' ? 'block' : 'none';
+  document.getElementById('bkTotalInput').value = booking.estimatedTotal || '';
+  document.getElementById('bkNoteLabel').textContent = txt.note;
+  document.getElementById('bkNoteInput').value = '';
+  const confirmBtn = document.getElementById('bkModalConfirm');
+  confirmBtn.textContent = txt.button;
+  confirmBtn.disabled = false;
+  confirmBtn.style.background = action === 'confirm' ? '' : 'var(--danger)';
+  clearError('bkModalError');
+  document.getElementById('bookingActionModal').style.display = 'flex';
+}
+
+function closeBookingActionModal(){
+  document.getElementById('bookingActionModal').style.display = 'none';
+  activeBookingAction = null;
+}
+
+document.getElementById('bkModalCancel').addEventListener('click', closeBookingActionModal);
+document.getElementById('refreshBookingsBtn').addEventListener('click', loadBookings);
+
+document.getElementById('bkModalConfirm').addEventListener('click', async () => {
+  if (!activeBookingAction) return;
+  const { booking, action } = activeBookingAction;
+  const btn = document.getElementById('bkModalConfirm');
+  btn.disabled = true;
+  clearError('bkModalError');
+  try {
+    const res = await fetch(`${API}/bookings`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action,
+        bookingId: booking.id,
+        lang: document.getElementById('bkLangSelect').value,
+        note: document.getElementById('bkNoteInput').value,
+        total: action === 'confirm' ? document.getElementById('bkTotalInput').value : '',
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      showError('bkModalError', data.error || 'Something went wrong. Nothing was changed.');
+      btn.disabled = false;
+      return;
+    }
+    closeBookingActionModal();
+    toast(action === 'confirm' ? 'Booking confirmed — email sent to the guest.' : action === 'decline' ? 'Request declined — email sent.' : 'Booking cancelled — email sent.');
+    loadBookings();
+  } catch (e) {
+    showError('bkModalError', 'Network error. Nothing was changed — please try again.');
+    btn.disabled = false;
+  }
 });
 
 /* ---------------- guest reviews ---------------- */
@@ -525,6 +770,30 @@ function renderOtherReviews(){
   });
 }
 
+async function copyTextToClipboard(text){
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (e) { /* fall through to the legacy method below */ }
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, text.length);
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
+
 document.getElementById('generateReviewLinkBtn').addEventListener('click', async () => {
   const res = await fetch(`${API}/reviews`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -534,7 +803,20 @@ document.getElementById('generateReviewLinkBtn').addEventListener('click', async
   const link = `${window.location.origin}/review.html?token=${data.token}`;
   const box = document.getElementById('generatedLinkBox');
   box.style.display = 'block';
-  box.innerHTML = `Send this link to your guest:<br><strong>${link}</strong>`;
+  box.innerHTML = `Send this link to your guest:<br><strong id="generatedLinkText"></strong><br><button class="btn-secondary copy-link-btn" id="copyReviewLinkBtn">Copy link</button>`;
+  document.getElementById('generatedLinkText').textContent = link;
+  const copyBtn = document.getElementById('copyReviewLinkBtn');
+  copyBtn.addEventListener('click', async () => {
+    const ok = await copyTextToClipboard(link);
+    if (ok) {
+      copyBtn.textContent = 'Copied ✓';
+      copyBtn.classList.add('copied');
+      toast('Link copied.');
+      setTimeout(() => { copyBtn.textContent = 'Copy link'; copyBtn.classList.remove('copied'); }, 2000);
+    } else {
+      toast('Could not copy automatically — please select the link and copy it.');
+    }
+  });
 });
 
 function dateKey(y, m, d) {
